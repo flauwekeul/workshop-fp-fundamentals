@@ -2,9 +2,17 @@
   "name": "workshop-fp-fundamentals",
   "version": "0.0.1",
   "description": "A workshop to learn Functional Programming fundamentals in TypeScript.",
-  "type": "module",
   "main": "src/main.ts",
   "scripts": {},
   "author": "Abbe Keultjes <flauwekeul@gmail.com> (https://abbekeultjes.nl/)",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "6.11.0",
+    "@typescript-eslint/parser": "6.11.0",
+    "eslint": "8.54.0",
+    "eslint-config-prettier": "9.0.0",
+    "eslint-plugin-functional": "6.0.0",
+    "prettier": "3.1.0",
+    "typescript": "5.2.2"
+  }
 }
