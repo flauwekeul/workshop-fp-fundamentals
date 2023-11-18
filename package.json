@@ -1,0 +1,10 @@
+{
+  "name": "workshop-fp-fundamentals",
+  "version": "0.0.1",
+  "description": "A workshop to learn Functional Programming fundamentals in TypeScript.",
+  "type": "module",
+  "main": "src/main.ts",
+  "scripts": {},
+  "author": "Abbe Keultjes <flauwekeul@gmail.com> (https://abbekeultjes.nl/)",
+  "license": "MIT"
+}
