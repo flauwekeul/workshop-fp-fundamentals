@@ -15,6 +15,6 @@
     "sourceMap": true,
     "lib": ["ES2022"]
   },
-  "include": ["src"],
+  "include": ["src", "exercises"],
   "exclude": ["dist", "node_modules"]
 }

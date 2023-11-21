@@ -3,16 +3,20 @@
   "version": "0.0.1",
   "description": "A workshop to learn Functional Programming fundamentals in TypeScript.",
   "main": "src/main.ts",
-  "scripts": {},
+  "scripts": {
+    "test": "vitest"
+  },
   "author": "Abbe Keultjes <flauwekeul@gmail.com> (https://abbekeultjes.nl/)",
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^18",
     "@typescript-eslint/eslint-plugin": "6.11.0",
     "@typescript-eslint/parser": "6.11.0",
     "eslint": "8.54.0",
     "eslint-config-prettier": "9.0.0",
     "eslint-plugin-functional": "6.0.0",
     "prettier": "3.1.0",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "vitest": "0.34.6"
   }
 }
