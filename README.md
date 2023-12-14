@@ -7,14 +7,19 @@
       `const getServerStuff = callback => ajaxCall(json => callback(json));` copied from Mostly Adequate Guide
    2. Pure functions (referential transparency)
       > A pure function is a function that, given the same input, will always return the same output and does not have any observable side effect.
+      Subtle example of an impure function:
+      ```js
+      let minimum = 21;
+      const checkAge = age => age >= minimum;
+      ```
    3. Side effects (not bad, but should be contained)
       Impure functions can be made pure by wrapping them in a function (*thunk*): `() => Math.random()`
       "Dependency injection"
    4. Partial application and currying (also mention closures?)
       Partial application allows "configuration"
       Currying helps to compose n-ary functions and may force different order of arguments
-   5. Total/partial functions
-   6. Compose and pipe
+   5. Compose and pipe
+   6. Total/partial functions (nice bridge to `Maybe`/`Option` and `Either`/`Result`)
    7. Point-free style (tacit programming)
       Subjective
    8. Hindley-Milner type signatures

@@ -1,5 +1,5 @@
 import { describe, expect, test, vi } from 'vitest';
-import { logInfoSolution, nowSolution, updatePropSolution } from '../purify';
+import { logInfo, now, updateProp } from '../purify';
 
 declare global {
   // can't use let or const to declare a global variable
@@ -11,8 +11,7 @@ describe('Purify', () => {
   test('updateProp()', () => {
     const obj = { a: 1 };
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const result = updatePropSolution(obj, 'a', 2);
+    const result = updateProp(obj, 'a', 2);
 
     expect(result).toEqual({ a: 2 });
     expect(obj).toEqual({ a: 1 });
@@ -68,13 +67,13 @@ describe('Purify', () => {
     const localLog = vi.fn();
     type Log = (log: () => void) => void;
 
-    (logInfoSolution as Log)(localLog);
+    (logInfo as Log)(localLog);
 
     expect(globalLog).not.toBeCalled();
     expect(localLog).toBeCalledWith(expect.any(String));
   });
 
-  const nowIsAPureFunction = typeof nowSolution() === 'function';
+  const nowIsAPureFunction = typeof now() === 'function';
 
   test('now()', () => {
     expect(nowIsAPureFunction).toBe(true);

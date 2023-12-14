@@ -1,30 +1,39 @@
-// Simplify the bodies of these functions as much as possible (in this case: less code is better), without changing their behavior.
+/**
+ * Simplify the body of this function as much as possible (in this case: less code is better), without changing its behavior.
+ */
 
 // 👇👇👇 Only change code BELOW 👇👇👇
 
-const addOneToAll = (numbers = []) => {
-  let result = [];
+export const addOneToAll = (numbers = []) => {
+  const result = [];
+
   for (let i = 0; i < numbers.length; i++) {
     const currentNumber = numbers[i];
     const oneAdded = add1(currentNumber);
+
     result.push(oneAdded);
   }
+
   return result;
 };
 
-const getServerStuff = (callback) => fetchJSON((json) => callback(json));
-
 // 👆👆👆 Only change code ABOVE 👆👆👆
 
-export function add1(x) {
-  return x + 1;
+export function add1(n) {
+  return n + 1;
 }
+
+/**
+ * Simplify the body of this function as much as possible (in this case: less code is better), without changing its behavior.
+ */
+
+// 👇👇👇 Only change code BELOW 👇👇👇
+
+export const getServerStuff = (callback) => fetchJSON((json) => callback(json));
+
+// 👆👆👆 Only change code ABOVE 👆👆👆
 
 export function fetchJSON(callback) {
   const json = {};
   callback(json);
 }
-
-export const addOneToAllSolution = addOneToAll;
-
-export const getServerStuffSolution = getServerStuff;
