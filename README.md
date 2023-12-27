@@ -47,3 +47,15 @@
 5. Algebraic Data Types
    1. Sum types
    2. Product types
+
+## Changes to slides
+
+* Replace "declarative" with "expressive". And mention some advantages of FP aren't exclusive to FP.
+*
+  ```html
+  <blockquote cite="https://www.thebehavioralscientist.com/glossary/familiarity-bias#:~:text=unfamiliar%20options%20may%20be%20perceived%20as%20more%20difficult%20to%20process%2C%20which%20can%20make%20them%20less%20appealing" class="font-serif italic">
+    …unfamiliar options may be perceived as more difficult to process, which can make them less appealing.
+  </blockquote>
+  ```
+* Stratified Design
+* Onion Architecture
