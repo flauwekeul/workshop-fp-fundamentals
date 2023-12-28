@@ -1,0 +1,54 @@
+:root {
+  --blue-700: #1D4ED8;
+  --blue-50: #EFF6FF;
+  --gray-700: #44403C;
+  --gray-800: #292524;
+
+  --color-bg: var(--gray-800);
+  --color-text: var(--blue-50);
+
+  --cell-space: 11vmin;
+  --cell-margin: 0.5vmin;
+  --cell-size: calc(var(--cell-space) - 2 * var(--cell-margin));
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  margin: 0;
+  font-size: 5vmin;
+}
+
+#frame {
+  width: calc(var(--cell-space) * 7 + var(--cell-margin) * 14);
+  height: calc(var(--cell-space) * 6 + var(--cell-margin) * 12);
+  margin: 6vmin auto;
+  padding: calc(2 * var(--cell-margin));
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  justify-items: center;
+  align-items: center;
+  background-color: var(--blue-700);
+  border-radius: 3vmin;
+}
+
+#current-player {
+  display: flex;
+  justify-content: center;
+  gap: 2vmin;
+}
+#current-player.red::before {
+  content: '🔴';
+}
+#current-player.yellow::before {
+  content: '🟡';
+}
+
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  background-color: var(--color-bg);
+  border-radius: 100%;
+}

@@ -5,9 +5,9 @@
   },
   "extends": [
     "eslint:recommended",
-    // "plugin:functional/strict",
-    // "plugin:functional/external-typescript-recommended",
-    // "plugin:functional/stylistic",
+    "plugin:functional/recommended",
+    "plugin:functional/external-typescript-recommended",
+    "plugin:functional/stylistic",
     "prettier"
   ],
   "parser": "@typescript-eslint/parser",
