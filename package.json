@@ -1,7 +1,7 @@
 {
   "name": "workshop-fp-fundamentals",
   "version": "0.0.1",
-  "description": "A workshop to learn Functional Programming fundamentals in TypeScript.",
+  "description": "A workshop to learn Functional Programming fundamentals in JavaScript.",
   "type": "module",
   "scripts": {
     "build": "vite build",
@@ -13,19 +13,16 @@
   "author": "Abbe Keultjes <flauwekeul@gmail.com> (https://abbekeultjes.nl/)",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^18",
-    "@typescript-eslint/eslint-plugin": "6.15.0",
-    "@typescript-eslint/parser": "6.15.0",
     "eslint": "8.56.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-functional": "6.0.0",
     "prettier": "3.1.1",
-    "typescript": "5.3.3",
     "vite": "5.0.8",
     "vitest": "1.1.0"
   },
   "dependencies": {
     "@slidev/cli": "0.46.1",
-    "@slidev/theme-seriph": "0.21.3"
+    "@slidev/theme-seriph": "0.21.3",
+    "sanctuary": "sanctuary-js/sanctuary"
   }
 }
