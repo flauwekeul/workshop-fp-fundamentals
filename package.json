@@ -14,6 +14,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^18",
+    "@types/sanctuary": "3.1.4",
     "@typescript-eslint/eslint-plugin": "6.15.0",
     "@typescript-eslint/parser": "6.15.0",
     "eslint": "8.56.0",
@@ -26,6 +27,7 @@
   },
   "dependencies": {
     "@slidev/cli": "0.46.1",
-    "@slidev/theme-seriph": "0.21.3"
+    "@slidev/theme-seriph": "0.21.3",
+    "sanctuary": "sanctuary-js/sanctuary"
   }
 }
