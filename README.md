@@ -59,3 +59,8 @@
   ```
 * Stratified Design
 * Onion Architecture
+
+## Todo:
+
+* Make sure `"editor.bracketPairColorization.enabled": true,` is enabled in VSCode
+* Make sure GitHub Copilot is disabled
