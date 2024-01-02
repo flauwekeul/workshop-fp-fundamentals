@@ -26,6 +26,8 @@
   },
   "dependencies": {
     "@slidev/cli": "0.46.1",
-    "@slidev/theme-seriph": "0.21.3"
+    "@slidev/theme-seriph": "0.21.3",
+    "fp-ts": "2.16.1",
+    "fp-ts-std": "0.18.0"
   }
 }
