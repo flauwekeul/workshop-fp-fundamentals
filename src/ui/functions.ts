@@ -15,13 +15,21 @@ export const queryElement = <T extends Element>(selector: string): IOE.IOEither<
     IOO.matchE(() => IOE.left(`Could not find element with id "${selector}"`), IOE.right),
   );
 
-export const appendTo =
-  <T extends Element>(selector: string) =>
-  (el: T): IOE.IOEither<string, void> =>
-    pipe(queryElement<T>(selector), IOE.flatMapIO(DOM.appendChild(el)));
+export const CONTAINER_ELEMENT = queryElement<HTMLDivElement>('#frame');
+
+export const appendToFrame = <T extends Element>(el: T): IOE.IOEither<string, void> =>
+  pipe(CONTAINER_ELEMENT, IOE.flatMapIO(DOM.appendChild(el)));
+
+// export const dropDisc =
+//   (game: Game) =>
+//   (e: Event): IO.IO<void> =>
+//   () => {};
+
+export const updateGame = (listener: (e: Event) => IO.IO<void>) =>
+  pipe(CONTAINER_ELEMENT, IOE.flatMapIO(DOM.addEventListener_('click')(listener)));
 
 export const renderCell = (): IOE.IOEither<string, void> =>
-  pipe(createElement<HTMLDivElement>('div', { class: 'cell' }), IO.flatMap(appendTo('#frame')));
+  pipe(createElement<HTMLDivElement>('div', { class: 'cell' }), IO.flatMap(appendToFrame));
 
 export const renderCurrentPlayer = ({
   currentColor,

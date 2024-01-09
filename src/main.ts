@@ -9,7 +9,7 @@ const main: IO.IO<void> = () => {
     red: { name: 'Hank' },
     yellow: { name: 'Sandy' },
   };
-  const runIO = pipe(players, createGame, render, IOE.orElseFirstIOK(Console.error));
+  const runIO = pipe(players, createGame, updateGame, render, IOE.orElseFirstIOK(Console.error));
 
   runIO();
 };
