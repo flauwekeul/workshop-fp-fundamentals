@@ -1,6 +1,5 @@
 ---
 theme: seriph
-highlighter: shiki
 lineNumbers: true
 layout: cover
 background: /images/earth-from-orbit.jpg
