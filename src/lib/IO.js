@@ -1,12 +1,12 @@
-import { constant } from './functions.js';
+import { identity } from './functions.js';
 
-const of = constant;
+const of = identity;
 
-const map = (f) => (io) => () => f(io());
+const map = (fn) => (io) => () => fn(io());
 
-const ap = (f) => (io) => () => f()(io());
+const ap = (fn) => (io) => () => fn()(io());
 
-const chain = (f) => (io) => f(io());
+const chain = (fn) => (io) => fn(io());
 
 export const IO = {
   of,

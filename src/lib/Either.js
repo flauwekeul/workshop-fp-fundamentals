@@ -1,6 +1,6 @@
 import { Maybe } from './Maybe.js';
 
-const fromMaybe = (f) => (x) => (Maybe.isNothing(x) ? Left(f()) : Right(x));
+const fromMaybe = (fn) => (x) => (Maybe.isNothing(x) ? Left(fn()) : Right(x));
 
 const Left = (x) => ({
   isLeft: true,
@@ -8,16 +8,16 @@ const Left = (x) => ({
   map: () => Left(x),
   ap: () => Left(x),
   chain: () => Left(x),
-  fold: (f) => () => f(x),
+  fold: (fn) => () => fn(x),
 });
 
 const Right = (x) => ({
   isLeft: false,
   isRight: true,
-  map: (f) => Right(f(x)),
+  map: (fn) => Right(fn(x)),
   ap: (either) => either.map(x),
-  chain: (f) => f(x),
-  fold: () => (f) => f(x),
+  chain: (fn) => fn(x),
+  fold: () => (fn) => fn(x),
 });
 
 export const Either = {
@@ -25,8 +25,8 @@ export const Either = {
   left: Left,
   right: Right,
   fromMaybe,
-  map: (f) => (either) => either.map(f),
+  map: (fn) => (either) => either.map(fn),
   ap: (either) => (either2) => either.ap(either2),
-  chain: (f) => (either) => either.chain(f),
-  fold: (f) => (g) => (either) => either.fold(f)(g),
+  chain: (fn) => (either) => either.chain(fn),
+  fold: (fn) => (g) => (either) => either.fold(fn)(g),
 };

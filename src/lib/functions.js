@@ -7,6 +7,6 @@ export const not = (x) => !x;
 export const pipe =
   (...fns) =>
   (x) =>
-    fns.reduce((v, f) => f(v), x);
+    fns.reduce((v, fn) => fn(v), x);
 
-export const flip = (f) => (x) => (y) => f(y)(x);
+export const flip = (fn) => (x) => (y) => fn(y)(x);

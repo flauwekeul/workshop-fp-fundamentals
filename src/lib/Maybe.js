@@ -6,9 +6,9 @@ const isJust = not(isNothing);
 
 const of = identity;
 
-const map = (f) => (x) => (isNothing(x) ? null : f(x));
+const map = (fn) => (x) => (isNothing(x) ? x : fn(x));
 
-const ap = (f) => (x) => (isNothing(f) ? null : map(f)(x));
+const ap = (fn) => (x) => (isNothing(fn) ? x : map(fn)(x));
 
 const chain = map;
 
