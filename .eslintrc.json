@@ -8,6 +8,12 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "extends": ["eslint:recommended", "plugin:functional/recommended", "plugin:functional/stylistic", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:functional/external-vanilla-recommended",
+    "plugin:functional/recommended",
+    "plugin:functional/stylistic",
+    "prettier"
+  ],
   "plugins": ["functional"]
 }
