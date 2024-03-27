@@ -28,7 +28,7 @@
 3. Explain:
    1. `map()` (also `map2()`?)
    2. `of()` (a.k.a. `return()`)
-   3. `flatMap()` (a.k.a. `bind()`)
+   3. `flatMap()` (a.k.a. `chain()`(?) or `bind()`)
    4. `apply()` (`Promise.all()` is maybe a tiny bit similar?): apply a (curried) function wrapped in a monad to arguments wrapped in a monad
       See: https://youtu.be/d2yLsBn_Lz0?si=VBXWuNY3V0sj_5m8&t=2544 and https://ramdajs.com/docs/#ap
    5. `reduce()` (a.k.a. `fold()`)?
@@ -62,5 +62,10 @@
 
 ## Todo:
 
+* Use https://sli.dev/guide/syntax#shiki-magic-move
+* Use https://sli.dev/guide/syntax#monaco-runner
+* Rename to something like "Functional Programming in JavaScript"?
+* Fix line numbers (maybe use a [transformer](https://sli.dev/custom/highlighters#configure-shiki) or else use [CSS](https://github.com/shikijs/shiki/issues/3#issuecomment-830564854)?)
+* Fix linting (seems TS is needed for a lot of rules)
 * Make sure `"editor.bracketPairColorization.enabled": true,` is enabled in VSCode
 * Make sure GitHub Copilot is disabled
