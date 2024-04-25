@@ -1,0 +1,57 @@
+body {
+  background-color: #000;
+  font-family:sans-serif
+}
+
+.body {
+  position: absolute;
+  top: 50vh;
+  left: var(--distance);
+  border-radius: 100%;
+  width: var(--radius);
+  height: var(--radius);
+  transform: translate(-50%, -50%);
+}
+
+.body__name {
+  position: absolute;
+  top: var(--radius);
+  left: var(--radius);
+  color: white;
+}
+
+#soleil {
+  background-color: #EA580C;
+}
+
+#mercure {
+  background-color: #78716C;
+}
+
+#venus {
+  background-color: #E5C4A1;
+}
+
+#terre {
+  background-color: #0EA5E9;
+}
+
+#mars {
+  background-color: #EF4444;
+}
+
+#jupiter {
+  background-color: #FED7AA;
+}
+
+#saturne {
+  background-color: #FCD34D;
+}
+
+#uranus {
+  background-color: #99F6E4;
+}
+
+#neptune {
+  background-color: #60A5FA;
+}
