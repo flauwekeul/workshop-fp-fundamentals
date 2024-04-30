@@ -1,11 +1,12 @@
 {
   "env": {
-    "es2021": true,
+    "es2023": true,
     "node": true,
     "browser": true
   },
   "extends": [
     "eslint:recommended",
+    "plugin:functional/external-vanilla-recommended",
     // "plugin:functional/lite",
     "plugin:functional/recommended",
     // "plugin:functional/strict",
@@ -27,6 +28,7 @@
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
         "plugin:@typescript-eslint/strict",
         "plugin:functional/external-typescript-recommended",
+        "plugin:functional/recommended",
         "prettier"
       ]
     }
