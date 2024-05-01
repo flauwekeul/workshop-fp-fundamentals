@@ -14,7 +14,7 @@ export const SCORES = {
   chance: null,
 };
 
-export const initialState = {
+export const INITIAL_STATE = {
   player1: {
     name: 'Hank',
     scores: SCORES,
@@ -35,3 +35,17 @@ export const initialState = {
   ],
   rng: Math.random,
 };
+
+export const NO_SCORE = 0;
+
+export const BONUS_THRESHOLD = 63;
+
+export const BONUS_SCORE = 35;
+
+export const FULL_HOUSE_SCORE = 25;
+
+export const SMALL_STRAIGHT_SCORE = 30;
+
+export const LARGE_STRAIGHT_SCORE = 40;
+
+export const YAHTZEE_SCORE = 50;

@@ -2,9 +2,12 @@
 /* eslint-disable functional/no-return-void */
 
 import { flow, modifyPath, path, pipe } from 'ramda';
-import { rollDice, updatePossibleScores } from './calculations.js';
-import { initialState } from './data.js';
-import { accumState, on, queryElement, render } from './effects.js';
+import { rollDice } from './calculations/dice.js';
+import { updatePossibleScores } from './calculations/scores.js';
+import { INITIAL_STATE } from './data.js';
+import { on, queryElement } from './effects/dom.js';
+import { render } from './effects/render.js';
+import { accumState } from './effects/state.js';
 
 const onRollDice = on('click', queryElement('#roll-dice'));
 const onScoreClick = on('click', queryElement('#scores'));
@@ -25,4 +28,4 @@ const main = (state) => {
   );
 };
 
-main(initialState);
+main(INITIAL_STATE);
