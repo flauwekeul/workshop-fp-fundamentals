@@ -12,7 +12,9 @@
         Current player:
         <strong id="current-player"></strong>
       </div>
+
       <ol id="dice"></ol>
+
       <table>
         <thead>
           <tr>
@@ -100,8 +102,15 @@
         </tbody>
         <tfooter id="total-score"></tfooter>
       </table>
+
       <button type="button" id="roll-dice">Roll dice</button>
+
+      <div>Throws left: <span id="throws-left"></span></div>
+
+      <div id="winner" hidden="hidden"></div>
+      <div id="final-score" hidden="hidden"></div>
     </div>
+
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

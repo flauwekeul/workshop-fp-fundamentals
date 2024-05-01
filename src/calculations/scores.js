@@ -1,19 +1,31 @@
 import {
   __,
   always,
+  any,
   ascend,
-  assoc,
+  chain,
   equals,
   filter,
+  flow,
+  groupBy,
   gte,
+  identity,
   ifElse,
   includes,
+  isNil,
+  length,
   map,
+  paths,
   pipe,
   pluck,
+  prop,
   props,
   sort,
+  subtract,
   sum,
+  tail,
+  values,
+  zipWith,
 } from 'ramda';
 import {
   BONUS_SCORE,
@@ -24,11 +36,11 @@ import {
   SMALL_STRAIGHT_SCORE,
   YAHTZEE_SCORE,
 } from '../data.js';
-import { kindsCount, sequenceCount } from './dice.js';
 
-export const upperSectionSum = (scores) => sum(props(['ones', 'twos', 'threes', 'fours', 'fives', 'sixes'], scores));
+const kindsCount = (diceValues) => flow(diceValues, [groupBy(identity), map(prop('length')), values]);
 
-export const bonus = ifElse(gte(__, BONUS_THRESHOLD), always(BONUS_SCORE), always(NO_SCORE));
+const sequenceCount = (diceValues) =>
+  flow(diceValues, [zipWith(subtract, tail(diceValues)), filter(equals(1)), length]);
 
 // Each calculator is called with a sorted array of dice values, e.g.: [2, 2, 3, 4, 6]
 const scoreCalculators = {
@@ -47,9 +59,27 @@ const scoreCalculators = {
   yahtzee: ifElse(pipe(kindsCount, includes(5)), always(YAHTZEE_SCORE), always(NO_SCORE)),
 };
 
-export const updatePossibleScores = (state) =>
-  assoc(
-    'possibleScores',
-    map((calculator) => calculator(pluck('value', state.dice)), scoreCalculators),
-    state,
-  );
+export const possibleScores = (dice) => map((calculator) => calculator(pluck('value', dice)), scoreCalculators);
+
+export const upperSectionSum = (scores) => sum(props(['ones', 'twos', 'threes', 'fours', 'fives', 'sixes'], scores));
+
+export const bonus = ifElse(gte(__, BONUS_THRESHOLD), always(BONUS_SCORE), always(NO_SCORE));
+
+export const totalScore = (scores) => sum(values(scores));
+
+export const anyScoresEmpty = (state) =>
+  flow(state, [
+    paths([
+      ['player1', 'scores'],
+      ['player2', 'scores'],
+    ]),
+    chain(values),
+    any(isNil),
+  ]);
+
+export const winner = ifElse(
+  // todo: refactor?
+  (state) => totalScore(state.player1.scores) > totalScore(state.player2.scores),
+  prop('player1'),
+  prop('player2'),
+);
