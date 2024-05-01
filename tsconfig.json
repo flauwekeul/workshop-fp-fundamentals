@@ -13,8 +13,8 @@
     "module": "NodeNext",
     "outDir": "dist",
     "sourceMap": true,
-    "lib": ["ES2022"]
+    "lib": ["ES2023", "DOM"]
   },
-  "include": ["src", "exercises"],
+  "include": ["src", "exercises", "lib"],
   "exclude": ["dist", "node_modules"]
 }

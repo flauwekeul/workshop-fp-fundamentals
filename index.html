@@ -3,10 +3,105 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Workshop FP Fundamentals</title>
+    <title>Yahtzee!</title>
+    <link rel="stylesheet" href="/src/styles.css" />
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <div>
+        Current player:
+        <strong id="current-player"></strong>
+      </div>
+      <ol id="dice"></ol>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th id="player1-name"></th>
+            <th id="player2-name"></th>
+          </tr>
+        </thead>
+        <tbody id="scores">
+          <tr>
+            <td>Ones</td>
+            <td id="player1-ones"></td>
+            <td id="player2-ones"></td>
+          </tr>
+          <tr>
+            <td>Twos</td>
+            <td id="player1-twos"></td>
+            <td id="player2-twos"></td>
+          </tr>
+          <tr>
+            <td>Threes</td>
+            <td id="player1-threes"></td>
+            <td id="player2-threes"></td>
+          </tr>
+          <tr>
+            <td>Fours</td>
+            <td id="player1-fours"></td>
+            <td id="player2-fours"></td>
+          </tr>
+          <tr>
+            <td>Fives</td>
+            <td id="player1-fives"></td>
+            <td id="player2-fives"></td>
+          </tr>
+          <tr>
+            <td>Sixes</td>
+            <td id="player1-sixes"></td>
+            <td id="player2-sixes"></td>
+          </tr>
+          <tr>
+            <td>Sum</td>
+            <td id="player1-sum"></td>
+            <td id="player2-sum"></td>
+          </tr>
+          <tr>
+            <td>Bonus</td>
+            <td id="player1-bonus"></td>
+            <td id="player2-bonus"></td>
+          </tr>
+          <tr>
+            <td>Three of a Kind</td>
+            <td id="player1-threeOfAKind"></td>
+            <td id="player2-threeOfAKind"></td>
+          </tr>
+          <tr>
+            <td>Four of a Kind</td>
+            <td id="player1-fourOfAKind"></td>
+            <td id="player2-fourOfAKind"></td>
+          </tr>
+          <tr>
+            <td>Full House</td>
+            <td id="player1-fullHouse"></td>
+            <td id="player2-fullHouse"></td>
+          </tr>
+          <tr>
+            <td>Small Straight</td>
+            <td id="player1-smallStraight"></td>
+            <td id="player2-smallStraight"></td>
+          </tr>
+          <tr>
+            <td>Large Straight</td>
+            <td id="player1-largeStraight"></td>
+            <td id="player2-largeStraight"></td>
+          </tr>
+          <tr>
+            <td>Chance</td>
+            <td id="player1-chance"></td>
+            <td id="player2-chance"></td>
+          </tr>
+          <tr>
+            <td>Yahtzee</td>
+            <td id="player1-yahtzee"></td>
+            <td id="player2-yahtzee"></td>
+          </tr>
+        </tbody>
+        <tfooter id="total-score"></tfooter>
+      </table>
+      <button type="button" id="roll-dice">Roll dice</button>
+    </div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
