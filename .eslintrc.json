@@ -32,5 +32,6 @@
         "prettier"
       ]
     }
-  ]
+  ],
+  "ignorePatterns": ["*.test.*"]
 }

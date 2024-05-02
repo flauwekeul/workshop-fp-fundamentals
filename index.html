@@ -13,6 +13,9 @@
         <strong id="current-player"></strong>
       </div>
 
+      <button type="button" id="roll-dice">Roll dice</button>
+      <div>Throws left: <span id="throws-left"></span></div>
+
       <ol id="dice"></ol>
 
       <table>
@@ -100,17 +103,18 @@
             <td id="player2-yahtzee"></td>
           </tr>
         </tbody>
-        <tfooter id="total-score"></tfooter>
+        <tfooter>
+          <tr>
+            <td>Total</td>
+            <td id="player1-total"></td>
+            <td id="player2-total"></td>
+          </tr>
+        </tfooter>
       </table>
 
-      <button type="button" id="roll-dice">Roll dice</button>
-
-      <div>Throws left: <span id="throws-left"></span></div>
-
-      <div id="winner" hidden="hidden"></div>
-      <div id="final-score" hidden="hidden"></div>
+      <div id="winner" hidden="hidden">Winner: <span id="winner-name"></span></div>
     </div>
 
-    <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/app.js"></script>
   </body>
 </html>

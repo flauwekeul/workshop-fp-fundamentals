@@ -1,3 +1,19 @@
+export const MAX_THROWS = 3;
+
+export const NO_SCORE = 0;
+
+export const BONUS_THRESHOLD = 63;
+
+export const BONUS_SCORE = 35;
+
+export const FULL_HOUSE_SCORE = 25;
+
+export const SMALL_STRAIGHT_SCORE = 30;
+
+export const LARGE_STRAIGHT_SCORE = 40;
+
+export const YAHTZEE_SCORE = 50;
+
 export const SCORES = {
   ones: null,
   twos: null,
@@ -25,7 +41,7 @@ export const INITIAL_STATE = {
   },
   currentPlayer: 'player1',
   possibleScores: SCORES,
-  throwsLeft: 3,
+  throwsLeft: MAX_THROWS,
   dice: [
     { value: 1, hold: false },
     { value: 2, hold: false },
@@ -35,17 +51,3 @@ export const INITIAL_STATE = {
   ],
   rng: Math.random,
 };
-
-export const NO_SCORE = 0;
-
-export const BONUS_THRESHOLD = 63;
-
-export const BONUS_SCORE = 35;
-
-export const FULL_HOUSE_SCORE = 25;
-
-export const SMALL_STRAIGHT_SCORE = 30;
-
-export const LARGE_STRAIGHT_SCORE = 40;
-
-export const YAHTZEE_SCORE = 50;

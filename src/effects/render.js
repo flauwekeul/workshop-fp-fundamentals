@@ -2,6 +2,8 @@
 /* eslint-disable functional/no-return-void */
 
 import {
+  addIndex,
+  curry,
   filter,
   flow,
   forEach,
@@ -17,19 +19,27 @@ import {
   toPairs,
 } from 'ramda';
 import { bonus, totalScore, upperSectionSum, winner } from '../calculations/scores.js';
-import { currentPlayerScores } from '../calculations/state.js';
+import { canHoldDie, currentPlayerScores } from '../calculations/state.js';
 import { queryElement, removeAttribute, setElementHtml, toggleAttribute } from './dom.js';
+
+const mapWithIndex = addIndex(map);
 
 export const renderCurrentPlayerName = (state) =>
   flow(state, [path([state.currentPlayer, 'name']), setElementHtml('#current-player')]);
 
+const dieTemplate = curry(
+  (canHold, die, index) => `
+  <li>
+    <label>
+      <input type="checkbox" name="${index}" ${die.hold ? 'checked' : ''} ${canHold ? '' : 'disabled'} />
+      ${die.value}
+    </label>
+  </li>
+`,
+);
+
 export const renderDice = (state) =>
-  flow(state, [
-    prop('dice'),
-    map((die) => `<li class="die ${die.hold ? 'die--hold' : ''}">${die.value}</li>`),
-    join(''),
-    setElementHtml('#dice'),
-  ]);
+  flow(state, [prop('dice'), mapWithIndex(dieTemplate(canHoldDie(state))), join(''), setElementHtml('#dice')]);
 
 export const renderTableHeader = (state) => {
   setElementHtml('#player1-name', state.player1.name);
@@ -83,10 +93,13 @@ export const renderThrowsLeft = (state) => {
   toggleAttribute('disabled', state.throwsLeft === 0, queryElement('#roll-dice'));
 };
 
+export const renderTotalScore = (state) => {
+  setElementHtml('#player1-total', totalScore(state.player1.scores));
+  setElementHtml('#player2-total', totalScore(state.player2.scores));
+};
+
 export const renderWinner = (state) => {
   const player = winner(state);
-  setElementHtml('#winner', player.name);
-  setElementHtml('#final-score', totalScore(player.scores));
+  setElementHtml('#winner-name', player.name);
   removeAttribute('hidden', queryElement('#winner'));
-  removeAttribute('hidden', queryElement('#final-score'));
 };
