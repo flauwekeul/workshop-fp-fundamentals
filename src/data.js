@@ -40,7 +40,6 @@ export const INITIAL_STATE = {
     scores: SCORES,
   },
   currentPlayer: 'player1',
-  possibleScores: SCORES,
   throwsLeft: MAX_THROWS,
   dice: [
     { value: 1, hold: false },
