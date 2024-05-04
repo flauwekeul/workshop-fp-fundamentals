@@ -3,7 +3,7 @@
 
 import { assocPath, curry, flow, ifElse, path, pipe, prop, tap } from 'ramda';
 import { anyScoresEmpty } from './calculations/scores.js';
-import { decrementThrowsLeft, switchPlayer, updateDiceValues, updatePossibleScores } from './calculations/state.js';
+import { decrementThrowsLeft, switchPlayer, updateDiceValues } from './calculations/state.js';
 import { parseInt } from './calculations/utils.js';
 import { INITIAL_STATE } from './data.js';
 import { on, queryElement } from './effects/dom.js';
@@ -24,9 +24,9 @@ const rollDice = (state) =>
   flow(state, [
     updateDiceValues,
     decrementThrowsLeft,
-    updatePossibleScores,
     tap(renderDice),
     tap(renderThrowsLeft),
+    // Derived state
     tap(renderPossibleScores),
   ]);
 

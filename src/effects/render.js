@@ -18,7 +18,7 @@ import {
   tap,
   toPairs,
 } from 'ramda';
-import { bonus, totalScore, upperSectionSum, winner } from '../calculations/scores.js';
+import { bonus, possibleScores, totalScore, upperSectionSum, winner } from '../calculations/scores.js';
 import { canHoldDie, currentPlayerScores } from '../calculations/state.js';
 import { queryElement, removeAttribute, setElementHtml, toggleAttribute } from './dom.js';
 
@@ -64,10 +64,8 @@ const renderScores = (state) =>
 
 export const renderAllScores = (state) => flow(state, [tap(renderDerivedScores), tap(renderScores)]);
 
-// todo: refactor, or maybe change how scores and possible scores are stored in state?
 export const renderPossibleScores = (state) => {
-  flow(state, [
-    prop('possibleScores'),
+  flow(possibleScores(state.dice), [
     toPairs,
     map(([scoreId, possibleScore]) => ({ score: state[state.currentPlayer].scores[scoreId], possibleScore, scoreId })),
     filter(({ score }) => isNil(score)),
