@@ -48,5 +48,4 @@ export const INITIAL_STATE = {
     { value: 4, hold: false },
     { value: 5, hold: false },
   ],
-  rng: Math.random,
 };
