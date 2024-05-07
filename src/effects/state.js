@@ -1,13 +1,13 @@
-/* eslint-disable functional/no-expression-statements */
-/* eslint-disable functional/immutable-data */
+/* eslint-disable functional/functional-parameters */
 
-import { flow, last, tap } from 'ramda';
+import { ascend, map, modify, pipe, prop, sort, unless } from 'ramda';
 
-export const trackState = (initialState) => {
-  const states = [initialState];
+const randomDieValue = () => Math.floor(Math.random() * 6) + 1;
 
-  return {
-    updateState: (nextState) => flow(states, [last, nextState, tap((state) => states.push(state))]),
-    states,
-  };
-};
+const randomDice = (dice) =>
+  map(
+    unless(prop('hold'), () => ({ value: randomDieValue(), hold: false })),
+    dice,
+  );
+
+export const updateDiceValues = (state) => modify('dice', pipe(randomDice, sort(ascend(prop('value')))), state);

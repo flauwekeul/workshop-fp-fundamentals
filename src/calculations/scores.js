@@ -73,7 +73,8 @@ const scoreCalculators = {
   smallStraight: ifElse(pipe(sequenceCount, gte(__, 3)), always(SMALL_STRAIGHT_SCORE), always(NO_SCORE)),
   largeStraight: ifElse(pipe(sequenceCount, gte(__, 4)), always(LARGE_STRAIGHT_SCORE), always(NO_SCORE)),
   chance: sum,
-  // fixme: when yahtzee is scored after already scoring a yahtzee, it's worth 100 points
+  // When yahtzee is scored when it's been scored before, 100 points should be awarded.
+  // But to keep things simple, yahtzee always scores 50 points.
   yahtzee: ifElse(pipe(kindsCount, includes(5)), always(YAHTZEE_SCORE), always(NO_SCORE)),
 };
 
