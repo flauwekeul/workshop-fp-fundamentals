@@ -3,11 +3,10 @@
 /* eslint-disable functional/no-return-void */
 
 import { flow, ifElse, path, pipe, prop, tap } from 'ramda';
-import { anyScoresEmpty } from './calculations/scores.js';
-import { decrementThrowsLeft, switchPlayer, updateHeldDie, updatePlayerScore } from './calculations/state.js';
-import { parseInt } from './calculations/utils.js';
+import { anyScoresEmpty, decrementThrowsLeft, switchPlayer, updateHeldDie, updatePlayerScore } from './calculations.js';
 import { INITIAL_STATE } from './data.js';
-import { on, queryElement } from './effects/dom.js';
+import { updateDiceValues } from './effects.js';
+import { on, queryElement } from './lib/dom.js';
 import {
   clearPossibleScores,
   renderAllScores,
@@ -18,8 +17,8 @@ import {
   renderThrowsLeft,
   renderTotalScore,
   renderWinner,
-} from './effects/render.js';
-import { updateDiceValues } from './effects/state.js';
+} from './lib/render.js';
+import { parseInt } from './lib/utils.js';
 
 const onRollDice = on('click', queryElement('#roll-dice'));
 const onDieClick = on('change', queryElement('#dice'));
