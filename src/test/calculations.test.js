@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { sequenceCount } from './scores.js';
+import { sequenceCount } from '../calculations.js';
 
 describe('sequenceCount', () => {
   test('returns the length of the longest sequence of consecutive numbers', () => {

@@ -33,5 +33,8 @@
       ]
     }
   ],
-  "ignorePatterns": ["*.test.*"]
+  "ignorePatterns": ["*.test.*"],
+  "rules": {
+    "no-unused-vars": "off"
+  }
 }

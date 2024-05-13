@@ -18,8 +18,15 @@ import {
   tap,
   toPairs,
 } from 'ramda';
-import { bonus, possibleScores, totalScore, upperSectionSum, winner } from '../calculations/scores.js';
-import { canHoldDie, currentPlayerScores } from '../calculations/state.js';
+import {
+  bonus,
+  canHoldDie,
+  currentPlayerScores,
+  possibleScores,
+  totalScore,
+  upperSectionSum,
+  winner,
+} from '../calculations.js';
 import { queryElement, removeAttribute, setElementHtml, toggleAttribute } from './dom.js';
 
 const mapWithIndex = addIndex(map);

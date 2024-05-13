@@ -2,8 +2,12 @@ import {
   __,
   always,
   any,
+  assoc,
+  assocPath,
   both,
   chain,
+  curry,
+  dec,
   equals,
   filter,
   flow,
@@ -16,6 +20,7 @@ import {
   length,
   map,
   max,
+  modify,
   paths,
   pipe,
   pluck,
@@ -35,11 +40,42 @@ import {
   BONUS_THRESHOLD,
   FULL_HOUSE_SCORE,
   LARGE_STRAIGHT_SCORE,
+  MAX_THROWS,
   NO_SCORE,
   SMALL_STRAIGHT_SCORE,
   YAHTZEE_SCORE,
-} from '../data.js';
+} from './data.js';
 
+/**
+ * State
+ */
+
+export const decrementThrowsLeft = (state) => modify('throwsLeft', dec, state);
+
+export const updateHeldDie = curry((dieIndex, isHeld, state) => assocPath(['dice', dieIndex, 'hold'], isHeld, state));
+
+export const updatePlayerScore = curry((scoreId, score, state) =>
+  assocPath([state.currentPlayer, 'scores', scoreId], parseInt(score), state),
+);
+
+const otherPlayer = (currentPlayer) => (currentPlayer === 'player1' ? 'player2' : 'player1');
+
+const resetThrowsLeft = (state) => assoc('throwsLeft', MAX_THROWS, state);
+
+const resetHeldDice = (state) => modify('dice', map(assoc('hold', false)), state);
+
+export const switchPlayer = (state) =>
+  flow(state, [modify('currentPlayer', otherPlayer), resetThrowsLeft, resetHeldDice]);
+
+export const currentPlayerScores = (state) => state[state.currentPlayer].scores;
+
+export const canHoldDie = (state) => state.throwsLeft < MAX_THROWS;
+
+/**
+ * Scores
+ */
+
+// Returns an array of the counts of each kind of die value, e.g.: [2, 2, 3, 5, 5] returns [2, 1, 2]
 const kindsCount = (diceValues) => flow(diceValues, [groupBy(identity), map(prop('length')), values]);
 
 // Very difficult to come up with this 🤯
