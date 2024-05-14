@@ -15,6 +15,6 @@
     "sourceMap": true,
     "lib": ["ES2023", "DOM"]
   },
-  "include": ["src", "exercises", "lib"],
+  "include": ["src", "exercises", "lib", "yahtzee"],
   "exclude": ["dist", "node_modules"]
 }
