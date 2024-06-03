@@ -32,5 +32,9 @@
         "prettier"
       ]
     }
-  ]
+  ],
+  "ignorePatterns": ["exercises/**/*.js", "*.test.*"],
+  "rules": {
+    "no-unused-vars": "off"
+  }
 }
