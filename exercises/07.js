@@ -26,8 +26,8 @@
  * you're going to use 3 (partially) curried functions and compose them together.
  *
  * ```js
- * const sortByValueAscending = sort(ascend(prop('value')));
- * sortByValueAscending(numbers); // returns the sorted array of numbers
+ * const sortByAscendingValue = sort(ascend(prop('value')));
+ * sortByAscendingValue(numbers); // returns the sorted array of numbers
  * ```
  *
  * The uncurried functions are defined below (prefixed with an underscore).
@@ -36,8 +36,8 @@
  *
  * 💡 HINT: You may need to change the order of arguments.
  *
- * 💡 HINT: Array's `toSorted` accepts an uncurried function (with signature `(a, b) => number`).
- *    Either don't fully curry all functions or make a utility function that uncurries a curried function.
+ * 💡 HINT: Array's `toSorted` accepts a binary function (with signature `(a, b) => number`).
+ *    Either don't fully curry all functions or make a function that uncurries a curried function.
  */
 
 const _sort = (array, comparatorFn) => array.toSorted(comparatorFn);
@@ -47,7 +47,7 @@ const _ascend = (fn, a, b) => fn(a) - fn(b);
 const _prop = (obj, keyName) => obj[keyName];
 
 // Composing these uncurried functions is quite verbose:
-const _sortByValueAscending = (array) => _sort(array, (a, b) => _ascend((obj) => _prop(obj, 'value'), a, b));
+const _sortByAscendingValue = (array) => _sort(array, (a, b) => _ascend((obj) => _prop(obj, 'value'), a, b));
 
 // 👇👇👇 Only change code BELOW 👇👇👇
 
@@ -62,14 +62,14 @@ const prop = null;
 
 // 👆👆👆 Only change code ABOVE 👆👆👆
 
-export const sortByValueAscending = sort(ascend(prop('value')));
+export const sortByAscendingValue = sort(ascend(prop('value')));
 
 // Test your solution with Quokka:
 
 const list = [{ value: 8 }, { value: 10 }, { value: 3 }, { value: 1 }, { value: -5 }];
 
-const result1 = _sortByValueAscending(list);
+const result1 = _sortByAscendingValue(list);
 console.log(result1);
 
-const result2 = sortByValueAscending(list);
+const result2 = sortByAscendingValue(list);
 console.log(result2);

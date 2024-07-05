@@ -34,15 +34,11 @@ layout: center
 -->
 
 ---
-layout: center
----
 
 ## What is functional programming (FP)?
 
 <div v-click="[1, 2]" class="fixed top-[18vh] left-0 w-full text-[18vh] text-center text-fuchsia-600 font-black animate-bounce">MONADS!!</div>
 
----
-layout: center
 ---
 
 ## What do you want to learn about FP?
@@ -51,9 +47,92 @@ layout: center
 
 ---
 
+<h2 class="mb-8">Which is "better"?</h2>
+
+<div class="grid grid-cols-2 gap-5">
+  <div>
+
+```js
+function getNonAdminUserNames(users) {
+  const result = [];
+  for (const user of users) {
+    if (user.role === 'admin') {
+      continue;
+    }
+    result.push(user.name);
+  }
+  return result;
+}
+```
+
+  </div>
+  <div>
+
+```js
+const getPublishedPageTitlesByAuthor = pipe(
+  filter(prop('isPublished')),
+  groupBy(prop('author')),
+  map(map(prop('title'))),
+);
+```
+
+  </div>
+</div>
+
+<blockquote v-click cite="https://www.youtube.com/watch?v=SxdOUGdseq4&t=423s" class="mt-12 !p-5">
+  <p class="text-2xl italic !mb-3">"If you want everything to be familiar, you'll never learn anything new."</p>
+  <footer class="!opacity-50">
+    — Rich Hickey,
+    <cite>
+      <a href="https://www.youtube.com/watch?v=SxdOUGdseq4&t=423s" target="_blank">Easy Made Simple</a>
+    </cite>
+  </footer>
+</blockquote>
+
+<!--
+- Ask people which code block they'd prefer to have in a code base they have to maintain.
+- Then explain the FP code and ask them to imagine being more familiar with FP. Do they still have the same preference?
+-->
+
+---
+
+## Why functional programming?
+
+<p v-click>A typical programmer's path to software supremacy:</p>
+
 <div class="flex gap-5">
   <div class="flex-1">
-  <h3 class="mb-3">FP is difficult 🫣</h3>
+  <v-clicks>
+
+  1. 👶🏼 Learn a language's syntax.
+  2. 👦🏻 Learn abstractions.
+  3. 👨🏾‍🎓 Learn [Design Patterns](https://en.wikipedia.org/wiki/Design_Patterns).
+  4. 👨🏽 Learn to *not* over-engineer.
+  5. 🧓🏼 Senior developer.
+
+  </v-clicks>
+  </div>
+
+  <div class="flex-auto">
+    <img v-click src="/dunning-kruger-effect.png" class="h-60">
+  </div>
+</div>
+
+<blockquote v-click cite="https://changelog.com/podcast/267" class="mt-5 !p-5">
+  <p class="text-xl italic !mb-3">"[...] functional programming is a way to break out of [...] your local maximum, get to a higher hill where you can combine different paradigms."</p>
+  <footer class="!opacity-50">
+    — Eric Normand,
+    <cite>
+      <a href="https://changelog.com/podcast/267" target="_blank">The Changelog 267</a>
+    </cite>
+  </footer>
+</blockquote>
+
+---
+
+<div class="flex gap-5">
+  <div class="flex-1">
+  <h2 class="mb-3">FP is difficult 🫣</h2>
 
   <ul>
     <li v-click>It's <em>unfamiliar</em></li>
@@ -61,7 +140,7 @@ layout: center
     <li v-click>It uses many <em>academic abstractions</em></li>
   </ul>
 
-  <h3 v-click class="mt-8 mb-3">You should learn FP 🧑‍🎓</h3>
+  <h3 v-click class="mt-8 mb-3">You should learn FP</h3>
 
   <ul>
     <li v-click>It's <em><a href="https://softwareengineering.stackexchange.com/questions/82902/is-functional-programming-just-different-or-is-it-actually-really-tougher">just different</a></em></li>
@@ -73,20 +152,10 @@ layout: center
 
   <div class="flex-1">
 
-  <img v-click src="/dunning-kruger-effect.png">
+  <img v-click src="/fp-meme.webp" class="h-86">
 
   </div>
 </div>
-
-<blockquote v-click cite="https://www.youtube.com/watch?v=SxdOUGdseq4&t=423s" class="mt-8 !p-3">
-  <p class="text-xl italic !mb-3">"If you want everything to be familiar, you'll never learn anything new."</p>
-  <footer>
-    — Rich Hickey,
-    <cite>
-      <a href="https://www.youtube.com/watch?v=SxdOUGdseq4&t=423s">Easy Made Simple</a>
-    </cite>
-  </footer>
-</blockquote>
 
 <!--
 You'll learn to approach problems differently.
@@ -98,125 +167,62 @@ You'll learn to approach problems differently.
 
 <v-clicks>
 
-1. 🧠 Concepts
-2. 🤓 Functions
-3. 📦 Functors
-4. 🪺 Monads
-5. 🚶 Applicatives
-6. 🍹 Monoids
+1. ✋ Before we start
+2. 🧐 First-class functions
+3. 🧑‍🎨 Function composition
+4. 🍛 Currying
+5. 💎 Pure functions
+6. 🗿 Immutable state
+7. 🎲 Apply what you've learned
 
 </v-clicks>
 
-<!--
-- Exercises in between
-- Code will be in JS (todo: maybe some things in TS?)
--->
-
----
-layout: section
 ---
 
-# Concepts
+<h2 class="mb-13">✋ Before we start</h2>
 
----
-
-<div class="flex">
-  <div class="flex-1 mr-5">
-  <h2 class="mb-5">🚫 Imperative style</h2>
-
-  <ol v-click="1" class="mb-3 text-sm">
-    <li>Take bread and cut 2 even slices by pushing and pulling a knife through the bread</li>
-    <li>Apply lump of butter on knife and apply uniformly to each slice</li>
-    <li>Pull 3 leaves of lettuce and arrange evenly on bread</li>
-    <li>…</li>
-  </ol>
-
-  <div v-click="3" class="mt-5 mb-3">
-
-  ```js
-  // Sum these numbers:
-  const numbers = [1, 2, 3, 4, 5]
-
-  let result = 0
-  for (let i = 0; i < numbers.length; i++) {
-    result += numbers[i]
-  }
-  result // 15
-  ```
-
-  </div>
-  <ul class="text-sm">
-    <li v-click="5">Implementation details</li>
-    <li v-click="7">Requires <em>reading</em></li>
-    <li v-click="9">Concerned with <em>how</em></li>
-    <li v-click="11">Statements</li>
+<div class="grid grid-cols-2 gap-5">
+  <ul>
+    <li v-click><span v-mark.strike.red="1">TypeScript</span>, just JavaScript 😵</li>
+    <li v-click><span v-mark.strike.red="2">Copilot / AI Assistant</span> 🚫🤖</li>
+    <li v-click><a href="https://quokkajs.com/" target="_blank">Quokka.js</a> 👉</li>
+    <li v-click>Inspired by <a href="https://ramdajs.com/" target="_blank">Ramda.js</a> 🐏</li>
+    <li v-click><code class="!text-sm">"editor.bracketPairColorization.enabled": true</code></li>
+    <li v-click>Team up! 🤝</li>
   </ul>
-  </div>
-  <div class="flex-1">
-  <h2 class="mb-5">✅ Declarative style</h2>
 
-  <ol v-click="2" class="mb-30 text-sm">
-    <li>Make me a lettuce-tomato-cheese sandwich</li>
-  </ol>
-
-  <div v-click="4" class="mb-3">
-
-  ```js
-  // Sum these numbers:
-  const numbers = [1, 2, 3, 4, 5]
-
-  numbers.reduce(add) // 15
-
-
-
-
-
-  ```
-
-  </div>
-
-  <ul class="text-sm">
-    <li v-click="6">Abstraction</li>
-    <li v-click="8">Requires <em>knowledge</em></li>
-    <li v-click="10">Concerned with <em>what</em></li>
-    <li v-click="12">Expressions</li>
-  </ul>
-  </div>
+  <img src="/quokkajs-demo.gif" v-click="3">
 </div>
 
-<!--
-Declarative style isn't monopolized by FP, but it comes more naturally.
--->
-
 ---
 
-<h2 class="!mb-16">Functions</h2>
+<h2 class="mb-8">🧐 First-class functions</h2>
 
-<p class="!opacity-100">Functions are first-class, they can be…</p>
+<p class="!opacity-100">Functions can be…</p>
 
 <div class="flex">
   <div v-click class="flex-1 mr-5">
 
   Assigned to variables
 
-  ```js
-  const one = () => 1
-  const fn = one
+```js
+const one = () => 1;
+const fn = one;
 
-  fn() // 1
-  ```
+fn(); // 1
+```
 
   </div>
   <div v-click class="flex-1 mr-5">
 
   Passed to functions
 
-  ```js
-  const call = (fn) => fn()
-  const two = () => 2
+```js
+const call = (fn) => fn();
+const two = () => 2;
 
-  call(two) // 2
-  ```
+call(two); // 2
+```
 
   </div>
   <div class="flex-1">
@@ -225,105 +231,496 @@ Declarative style isn't monopolized by FP, but it comes more naturally.
 
   Returned from functions
 
-  ```js
-  const identity = (x) => x
-  const three = () => 3
-  const callThree = identity(three)
-  callThree() // 3
-  ```
+```js
+const identity = (x) => x;
+const three = () => 3;
+const callThree = identity(three);
+callThree(); // 3
+```
 
   </v-click>
 
   <div v-click class="mt-5">
 
-  ```js
-  const add = (x) => (y) => x + y
-  const add3To = add(3)
+```js
+const add = (x) => (y) => x + y;
+const add3To = add(3);
 
-  add3To(5) // 8
-  ```
+add3To(5); // 8
+```
 
   </div>
   </div>
 </div>
 
 ---
+layout: center
+---
 
-## Everything's first-class in FP
-
-- Operators (`+`, `*`, etc)
-- Side effects (thunk)
-- In JS, the trick is to wrap everything in a function
+<h2 class="text-center">
+  🧑‍💻 Exercises <strong class="text-6xl">01</strong>, <strong class="text-6xl">02</strong> and <strong class="text-6xl">03</strong>
+  <div class="mt-5">⏰ 20 minutes</div>
+</h2>
 
 ---
 
-## Separate data and behavior
+<h2 class="mb-8">🧑‍🎨 Function composition</h2>
 
-<!-- todo: -->
+<blockquote v-click cite="https://en.wikipedia.org/wiki/Function_composition_(computer_science)" class="!p-5 mb-5">
+  <p class="text-xl italic !mb-3">"An act or mechanism to combine simple functions to build more complicated ones. [...] the result of each function is passed as the argument of the next, and the result of the last one is the result of the whole."</p>
+  <footer class="!opacity-50">
+    — <cite>
+      <a href="https://en.wikipedia.org/wiki/Function_composition_(computer_science)" target="_blank">Wikipedia</a>
+    </cite>
+  </footer>
+</blockquote>
 
-* Data, calculations and effects
-* Algebraic data types
-* [No classes](https://www.reddit.com/r/Clojure/comments/f791fm/comment/fiaebv5/):
-  * Easier reuse
-  * No ad hoc APIs
+<div v-click class="mb-5">
+
+```js
+const increment = (x) => x + 1;
+const double = (x) => x * 2;
+const quarter = (x) => x / 4;
+
+quarter(double(increment(3))); // (((3 + 1) * 2) / 4) = 2
+```
+
+</div>
+
+<p v-click>If only there was a way to make this more readable… 🤔</p>
+
+<div v-click>
+
+```js
+const incrementDoubleQuarter = compose(quarter, double, increment);
+incrementDoubleQuarter(3); // 2
+```
+
+</div>
 
 ---
+layout: center
+---
+
+<h2 class="text-center">
+  🧑‍💻 Exercise <strong class="text-6xl">04</strong>
+  <div class="mt-5">⏰ 10 minutes</div>
+</h2>
+
+---
+
+<h2 class="mb-8">🔁 Composition order</h2>
+
+```js
+// right to left composition, value last
+compose(quarter, double, increment)(3); // 2
+```
+
+Composing right to left is… unfamiliar.
+
+<p v-click>If only we could compose left to right… 🤔</p>
+
+<div v-click class="mb-5">
+
+```js
+// left to right composition, value last
+pipe(increment, double, quarter)(3); // 2
+```
+
+</div>
+
+<div v-click>
+
+```js
+// left to right composition, value first
+flow(3, [increment, double, quarter]); // 2
+```
+
+</div>
+
+---
+layout: center
+---
+
+<h2 class="text-center">
+  🧑‍💻 Exercise <strong class="text-6xl">05</strong>
+  <div class="mt-5">⏰ 10 minutes</div>
+</h2>
+
+---
+
+<h2 class="mb-8">🤷 Composing binary/ternary functions</h2>
+
+What if you want to compose functions that take multiple arguments?
+
+```js
+const add = (a, b) => a + b;
+const multiply = (a, b) => a * b;
+```
+
+<div class="grid grid-cols-2 gap-x-20">
+
+<div v-click>
+
+Lambda's / inline functions?
+
+```js
+flow(1, [
+  (x) => add(2, x),
+  (x) => multiply(3, x)
+]); // 9
+```
+
+</div>
+<div v-click>
+
+Partial application?
+
+```js
+const add2 = (x) => add(2, x);
+const multiply3 = (x) => multiply(3, x);
+
+flow(1, [add2, multiply3]); // 9
+```
+
+</div>
+<div v-click>
+
+Currying!
+
+```js
+const add = (a) => (b) => a + b;
+const multiply = (a) => (b) => a * b;
+
+flow(1, [add(2), multiply(3)]); // 9
+```
+
+</div>
+</div>
+
+---
+
+<h2 class="mb-5">🍛 Currying</h2>
+
+<blockquote cite="https://en.wikipedia.org/wiki/Currying" class="!p-5 mb-5">
+  <p class="text-xl italic !mb-3">"Currying is the technique of translating a function that takes multiple arguments into a sequence [...] of functions, each taking a single argument."</p>
+  <footer class="!opacity-50">
+    — <cite>
+      <a href="https://en.wikipedia.org/wiki/Currying" target="_blank">Wikipedia</a>
+    </cite>
+  </footer>
+</blockquote>
+
+<v-click>
+
+`assoc` *associates* a key with a value of an object:
+
+````md magic-move
+```js{1-3|1-7|all}
+const assoc = (key, value, obj) => ({ ...obj, [key]: value });
+
+assoc('a', 2, { a: 1 }); // { a: 2 }
+
+const assocA =     (value, obj) => assoc('a', value, obj);
+
+assocA(    2, { a: 1 }); // { a: 2 }
+
+const assocAWith2 =       (obj) => assocA(2, obj);
+
+assocAWith2(  { a: 1 }); // { a: 2 }
+```
+```js
+const assoc = (key) => (value, obj) => ({ ...obj, [key]: value });
+
+assoc('a')(2, { a: 1 }); // { a: 2 }
+
+const assocA =     (value, obj) => assoc('a')(value, obj);
+
+assocA(    2, { a: 1 }); // { a: 2 }
+
+const assocAWith2 =       (obj) => assocA(2, obj);
+
+assocAWith2(  { a: 1 }); // { a: 2 }
+```
+```js
+const assoc = (key) => (value, obj) => ({ ...obj, [key]: value });
+
+assoc('a')(2, { a: 1 }); // { a: 2 }
+
+const assocA =               assoc('a');
+
+assocA(    2, { a: 1 }); // { a: 2 }
+
+const assocAWith2 = (obj) => assocA(2, obj);
+
+assocAWith2(  { a: 1 }); // { a: 2 }
+```
+```js
+const assoc = (key) => (value) => (obj) => ({ ...obj, [key]: value });
+
+assoc('a')(2)({ a: 1 }); // { a: 2 }
+
+const assocA =               assoc('a');
+
+assocA(    2, { a: 1 }); // { a: 2 }
+
+const assocAWith2 = (obj) => assocA(2)(obj);
+
+assocAWith2(  { a: 1 }); // { a: 2 }
+```
+```js
+const assoc = (key) => (value) => (obj) => ({ ...obj, [key]: value });
+
+assoc('a')(2)({ a: 1 }); // { a: 2 }
+
+const assocA =      assoc('a');
+
+assocA(    2, { a: 1 }); // { a: 2 }
+
+const assocAWith2 = assocA(2);
+
+assocAWith2(  { a: 1 }); // { a: 2 }
+```
+````
+
+</v-click>
+
+---
+layout: center
+---
+
+<h2 class="text-center">
+  🧑‍💻 Exercises <strong class="text-6xl">06</strong> and <strong class="text-6xl">07</strong>
+  <div class="mt-5">⏰ 30 minutes</div>
+</h2>
+
+---
+
+<h2 class="mb-8">🤫 Point-free style</h2>
+
+<blockquote cite="https://en.wikipedia.org/wiki/Tacit_programming" class="!p-5 mb-8">
+  <p class="text-xl italic !mb-3">"Tacit programming, also called point-free style, is a programming paradigm in which function definitions do not identify the arguments (or "points") on which they operate."</p>
+  <footer class="!opacity-50">
+    — <cite>
+      <a href="https://en.wikipedia.org/wiki/Tacit_programming" target="_blank">Wikipedia</a>
+    </cite>
+  </footer>
+</blockquote>
+
+<v-click>
+
+````md magic-move
+```js
+// Simple example
+[1, 2, 3].forEach(n => console.log(n));
+```
+```js
+// Simple example
+[1, 2, 3].forEach(console.log);
+```
+```js{4-9}
+// Simple example
+[1, 2, 3].forEach(console.log);
+
+// More complex
+const assoc = (key) => (value) => (obj) => ({ ...obj, [key]: value });
+
+const assocA = (value) => (obj) => assoc('a')(value)(obj); // { ...obj, [key]: value }
+
+assocA(2)({ a: 1 }); // { a: 2 }
+```
+```js{4-9}
+// Simple example
+[1, 2, 3].forEach(console.log);
+
+// More complex
+const assoc = (key) => (value) => (obj) => ({ ...obj, [key]: value });
+
+const assocA = (value) => assoc('a')(value);     // (obj) => ({ ...obj, [key]: value })
+
+assocA(2)({ a: 1 }); // { a: 2 }
+```
+```js{4-9}
+// Simple example
+[1, 2, 3].forEach(console.log);
+
+// More complex
+const assoc = (key) => (value) => (obj) => ({ ...obj, [key]: value });
+
+const assocA = assoc('a');            // (value) => (obj) => ({ ...obj, [key]: value })
+
+assocA(2)({ a: 1 }); // { a: 2 }
+```
+```js{8-10}
+// Simple example
+[1, 2, 3].forEach(console.log);
+
+// More complex
+const assoc = (key) => (value) => (obj) => ({ ...obj, [key]: value });
+const assocA = assoc('a');            // (value) => (obj) => ({ ...obj, [key]: value })
+assocA(2)({ a: 1 }); // { a: 2 }
+
+ // WTF
+const getUsers = (users) => pipe(map(flip(prop)(users)));
+```
+```js{8-10}
+// Simple example
+[1, 2, 3].forEach(console.log);
+
+// More complex
+const assoc = (key) => (value) => (obj) => ({ ...obj, [key]: value });
+const assocA = assoc('a');            // (value) => (obj) => ({ ...obj, [key]: value })
+assocA(2)({ a: 1 }); // { a: 2 }
+
+ // WTF
+const getUsers = (users) => (userIds) => map(id => users[id])(userIds);
+```
+````
+
+</v-click>
+
+---
+hide: true
+---
+
+<h2 class="mb-8"></h2>
+
+* When to use `flow`, `pipe` or a lambda?
+  * Use `flow` inside named functions, explicitly naming the arguments.
+  * Use `pipe` for inline compositions (point-free style).
+  * Use a lambda when you need a closure.
+
+---
+
+<h2 class="mb-13">💎 Pure functions</h2>
+
+When is a function pure?
+
+<v-clicks>
+
+  * Given the *same input*, always returns the *same output*.
+  * Independent on *when* it's called or *how often* it's called.
+  * Has no *side-effects*.
+
+</v-clicks>
+<v-clicks>
+
+<p class="!mt-13">What are side-effects?</p>
+
+  * Using implicit dependencies to read from and/or change the world.
+
+</v-clicks>
+
+---
+src: ./pure-functions.md
+---
+<!-- This is replaced with the pure-functions slides -->
+---
+
+<h2 class="mb-13">🔪 Separating calculations and effects</h2>
+
+Minimize and isolate impure code; keep effects at the edges of the system.
+
+<div class="flex gap-5">
+  <div>
+  <v-clicks>
+
+  * Effects are *contagious* 😷
+  * Effects are never part of the *domain*.
+  * Be *pragmatic*. A `console.log` won't hurt.
+
+  </v-clicks>
+
+  <div v-click class="mt-5">
+    <img src="/impureim-sandwich.png" class="bg-neutral-300 p-3 rounded-lg">
+    <span class="text-sm opacity-50">
+      Source: <a href="https://fullsteak.dev/posts/fullstack-rescript-architecture-overview" target="_blank">fullsteak.dev</a>
+    </span>
+  </div>
+  </div>
+
+  <div v-click="5">
+
+```js{1-3,12-13|5-10|all}{at:'+2'}
+async function main() {
+  const articles = await fetchArticles(); // 🍞 impure
+  const today = new Date();               // 🍞 impure
+
+  const yearAgo = subYears(today, 1);     // 🥬 pure
+  const uniqueTags = flow(articles, [
+    filter(createdAfter(yearAgo)),        // 🍅 pure
+    chain(prop('tags')),                  // 🧀 pure
+    unique,                               // 🥓 pure
+  ]);
+
+  renderTags(uniqueTags);                 // 🍞 impure
+}
+```
+
+  </div>
+</div>
+
+<!-- Show ["Impureim sandwich"](https://blog.ploeh.dk/2020/03/02/impureim-sandwich/). -->
+
+---
+
+<h2 class="mb-3">🗿 Immutable state</h2>
 
 <div class="flex">
-  <div class="flex-1 mr-5">
-  <h2 class="mb-5">🚫 Shared mutable state</h2>
+  <div v-click="1" class="flex-1 mr-5">
+  <p>Shared mutable state 👎</p>
 
-  <div v-click="1" class="mb-5">
+  <div class="mb-5">
 
-  ```js
-  const users = []
+```js
+const users = []
 
-  const appendUser = (user) => {
-    users.push(user)
-  }
+const appendUser = (user) => {
+  users.push(user)
+}
 
-  const lastUser = () => users.pop()
+const lastUser = () => users.pop()
 
-  appendUser({ name: 'Hank' })
-  lastUser().name // 'Hank'
-  lastUser().name // undefined
-  ```
+appendUser({ name: 'Hank' })
+lastUser().name // 'Hank'
+lastUser().name // undefined
+```
 
   </div>
 
   <ul>
     <li v-click="3">Implicit dependencies</li>
     <li v-click="5">Depends on when it's called</li>
-    <li v-click="7">Non-deterministic / unpredictable</li>
+    <li v-click="7">Non-deterministic</li>
     <li v-click="9">Harder to test</li>
   </ul>
   </div>
 
-  <div class="flex-1">
-  <h2 class="mb-5">✅ Shared <em class="text-green-200">im</em>mutable state</h2>
+  <div v-click="2" class="flex-1">
+  <p>Local immutable state 👍</p>
 
-  <div v-click="2" class="mb-5">
+  <div class="mb-5">
 
-  ```js
-  const initialUsers = []
+```js
+const initialUsers = []
 
-  const appendUser = (users, user) => {
-    return users.concat(user)
-  }
+const appendUser = (users, user) => {
+  return users.concat(user)
+}
 
-  const lastUser = (users) => users.at(-1)
+const lastUser = (users) => users.at(-1)
 
-  const nextUsers = appendUser(initialUsers, { name: 'Hank' })
-  lastUser(nextUsers).name // 'Hank'
-  lastUser(nextUsers).name // 'Hank'
-  ```
+const nextUsers = appendUser(initialUsers, { name: 'Hank' })
+lastUser(nextUsers).name // 'Hank'
+lastUser(nextUsers).name // 'Hank'
+```
 
   </div>
 
   <ul>
     <li v-click="4">Explicit dependencies</li>
     <li v-click="6">Independent of time</li>
-    <li v-click="8">Deterministic</li>
+    <li v-click="8">Referentially transparant</li>
     <li v-click="10">Easy to test</li>
   </ul>
   </div>
@@ -333,377 +730,27 @@ Declarative style isn't monopolized by FP, but it comes more naturally.
 layout: center
 ---
 
-<div class="text-center flex flex-col gap-8">
-  <h2 class="text-green">Sharing state is essential ✅</h2>
-  <h2 v-click class="text-yellow">Mutate state in private 🤫</h2>
-  <h2 v-click class="text-red">Sharing mutable state is reckless 🚨</h2>
+<h2 class="text-center">
+  🧑‍💻 Exercise <strong class="text-6xl">08</strong>
+  <div class="mt-5">⏰ 15 minutes</div>
+</h2>
+
+---
+
+<h2 class="mb-8">🎲 Apply your FP skills</h2>
+
+<div class="grid grid-cols-3 gap-5">
+  <img v-click v-mark.cross.red src="/poll.png">
+
+  <img v-click v-motion :initial="{ x: -100 }" :enter="{ x: 0 }"  src="/yahtzee.jpg">
+
+  <!-- todo: -->
+  <v-clicks>
+
+  * show/explain the game
+  * explain file structure, instructions
+  * mention linter
+  * mention ramda's auto-currying?
+
+  </v-clicks>
 </div>
-
-<!--
-Mutating state is essential, so is having shared state, but doing both at the same time makes things unnecessarily difficult.
--->
-
----
-
-## Controlled side effects
-
-<!-- todo: -->
-
-* Explain (side) effects, lots of examples: https://stackoverflow.com/a/766736/660260
-* Why they're dangerous
-* Why they're essential (they're what make a program useful)
-* How FP controls them (concentrate and defer)
-
----
-
-## Recursion
-
-<!-- todo: -->
-
-* Enables iteration
-* How it works: base case, self-calling
-* Examples: factorial, tree traversal
-* [Google search](https://www.google.nl/search?q=recursion)
-
----
-layout: section
----
-
-# Functions
-
----
-
-## Pure functions
-
-Referential transparency
-
----
-
-## Hindley-Milner type signatures
-
----
-
-<h2>🥪 Function composition</h2>
-
-<!-- todo: just use an example with numbers or something -->
-
-<div class="mb-5">
-
-  <h4>Let's make a sandwich.</h4>
-
-  <p v-click>
-    Ingredients: <span class="text-4xl">🥖</span>,  <span class="text-4xl">🧈</span>, <span class="text-4xl">🥬</span>, <span class="text-4xl">🍅</span> and <span class="text-4xl">🧀</span>.
-  </p>
-
-</div>
-
-<v-click>
-
-````md magic-move
-```js {1-3,9|1-4,9|1-5,9|1-6,9|all}
-// Imperative
-
-const makeSandwich = (ingredients) => {
-  let sandwichAndIngredients = butterBread(ingredients)           // returns 🥪, 🥬, 🍅, 🧀
-  sandwichAndIngredients = addLettuce(sandwichAndIngredients)     // returns 🥪, 🍅, 🧀
-  sandwichAndIngredients = sliceTomatoes(sandwichAndIngredients)  // returns 🥪, 🧀
-  const sandwich = grateCheese(sandwichAndIngredients)            // returns 🥪
-  return sandwich
-}
-```
-```js
-// Composed
-
-const makeSandwich = (ingredients) => {
-  return grateCheese(sliceTomatoes(addLettuce(butterBread(ingredients))))
-}
-```
-```js
-// Function composition using pipe
-
-const makeSandwich = (ingredients) => {
-  const makeIt = pipe(
-    butterBread,
-    addLettuce,
-    sliceTomatoes,
-    grateCheese,
-  )
-  const sandwich = makeIt(ingredients)
-  return sandwich
-}
-```
-```js
-// Function composition using pipe, point-free style
-
-const makeSandwich = pipe(
-  butterBread,
-  addLettuce,
-  sliceTomatoes,
-  grateCheese,
-)
-```
-````
-
-</v-click>
-
-<!--
-With pipe you can make declarative specifications of behavior
--->
-
----
-
-## Lambda Calculus
-
----
-
-## 🍛 Currying
-
-- Partial application
-- Point-free style
-
----
-
-## Total vs partial functions
-
-- Not to be confused with partial application
-- "A total function is a function that is defined for all possible values of its input. That is, it terminates and returns a value."
-- Functions that throw an error (more than you'd think) are LYING!
-  - divide by 0
-  - unhandled types (`x is not a function`, `Cannot read properties of undefined (reading x)`)
-- Functions that halt very late
-  - promises that take very long
-  - blocking the main thread
-  - recursion without base case
-
----
-layout: section
----
-
-# Functors
-
----
-
-## Containers
-
-- A way to handle control flow, error handling, asynchronicity, state and effects
-- Associates a value with a "concept" by "wrapping" the value
-- Initially we use objects (and even classes!) to wrap the value
-
-```js
-class Container {
-  constructor(x) {
-    this._value = x
-  }
-}
-```
-
----
-
-## `map()`
-
-- This obviously doesn't work:
-  ```js
-  const add1 = (x) => x + 1
-  const thing = new Container(2)
-  add1(thing) // '[object Object]1'
-  ```
-- We need a way to apply functions to containers, enter: `map()`
-
-```js {6-9|all}
-class Container {
-  constructor(x) {
-    this._value = x
-  }
-
-  map(fn) {
-    const newValue = fn(this._value)
-    return new Container(newValue)
-  }
-}
-
-const add1 = (x) => x + 1
-const thing = new Container(2)
-thing.map(add1) // { _value: 3 }
-```
-
----
-
-## Array and Promise
-
-- Array:
-  - A container for ordered indexed values
-  - `Array.prototype.map`
-- Promise:
-  - A container for any future value
-  - `Promise.prototype.then`
-
----
-
-## Optionality
-
-```js
-class Maybe {
-  get isNothing() {
-    return this._value === null || this._value === undefined
-  }
-
-  constructor(x) {
-    this._value = x
-  }
-
-  map(fn) {
-    return this.isNothing ? this : new Maybe(fn(this._value))
-  }
-}
-
-const add1 = (x) => x + 1
-
-new Maybe(2).map(add1)
-new Maybe(null).map(add1)
-new Maybe().map(add1)
-```
-
-- Examples
-- Use cases
-- How to retrieve the contained value (compare to Array and Promise)
-
----
-
-## Pure error handling
-
-```js
-class Left {
-  constructor(message) {
-    this._value = message
-  }
-
-  map(fn) {
-    return this
-  }
-}
-
-class Right {
-  constructor(x) {
-    this._value = x
-  }
-
-  map(fn) {
-    const newValue = fn(this._value)
-    return new Either(newValue)
-  }
-}
-```
-
-- Examples
-- Use cases (not only error handling, it's a union type)
-- How to retrieve the contained value
-
----
-
-## Each functor has its own map
-
-- No need to actually wrap a value in a container
-- Having different (namespaced) implementations of `map()` is enough
-- Functor is a type class, Maybe implements the functor type class (as does List, Either, etc)
-- Type classes: "These mathematical apis tend to capture most things we'd like to do in an interoperable, reusable way, rather than each library reinventing these functions for a single type."
-
-```js
-// Formerly known as Container
-const Identity = {
-  map: (fn) => (x) => fn(x),
-  // Or:
-  // map: identity,
-}
-
-const List = {
-  map: (fn) => (xs) => xs.map(fn),
-}
-
-const Maybe = {
-  isNothing: (x) => x === null || x === undefined,
-  map: (fn) => (x) => (isNothing(x) ? x : fn(x)),
-}
-
-const Left = (x) => ({
-  map: (_) => Left(x),
-})
-
-const Right = (x) => ({
-  map: (fn) => Right(fn(x)),
-})
-
-const Either = {
-  left: Left,
-  right: Right,
-  map: (fn) => (either) => either.map(fn),
-}
-```
-
----
-
-## Pure side effects
-
-```js
-const IO = {
-  map: (fn) => (io) => () => fn(io()),
-}
-```
-
-- The containing "value" is a thunk
-- Examples
-- Use cases
-- How to retrieve the contained value
-
----
-
-## Task?
-
----
-
-## Functor laws
-
-- See page 64 of Mostly Adequate Guide
-- Algebraic properties, exercise with composing CSS transformations?
-
----
-layout: section
----
-
-# Monads
-
-<!--
-1. Briefly show the concepts and compare them to OOP
-   1. Declarative/imperative
-   2. Functions
-   3. Separate data and behavior (no classes; data, calculations and effects)
-   4. Immutability
-   5. Controlled side effects (laziness)
-   6. Recursion
-2. Functions
-   1. Pure functions (referential transparency)
-   2. Hindley-Milner type system
-   3. Function composition (compose/pipe, mention Lambda Calculus)
-   4. Currying (partial application, point-free style)
-   5. Total/partial functions (todo: move to Maybe/Either?)
-3. Functors
-   1. Value containers
-   2. Array and Promise are functors
-   3. map() (laws: page 64 of Mostly Adequate Guide)
-   4. Maybe
-   5. Either
-   6. IO
-   7. Task?
-4. Monads
-   1. Nested containers
-   2. Array and Promise (kind of) are monads
-   3. of() (laws: page 78)
-   4. flat() (join())
-   5. chain() (bind())
-   6. Maybe, Either, IO, Task
-5. Applicatives
-   1. Function containers
-   2. `ap()`
-   3. Use cases (monads run sequential, applicatives run parallel, ap works great for Tasks)
-   4. Maybe, Either, IO, Task
-6. Ord, Eq, Semigroup, Monoid
--->

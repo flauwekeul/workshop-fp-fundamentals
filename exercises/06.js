@@ -29,13 +29,14 @@ console.log(result1);
  *
  * ❓ Why doesn't it work when passing `parseInt` directly?
  *
- * 💡 HINT: you may want to look up the documentation of `parseInt`.
+ * 💡 HINT: you may want to look up the documentation of `parseInt`:
+ *    https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt
  */
 
 const numberStrings = ['1', '2', '3'];
 
-// Replace the null below with a call to map passing `parseInt` and `numberStrings`:
-const result2 = map(parseInt)(numberStrings);
+// Replace the null below with a call to `map` passing `parseInt` and `numberStrings`:
+const result2 = null;
 console.log(result2);
 
 /**
@@ -52,7 +53,7 @@ console.log(result3);
  * 🧑‍💻 Now also double each number (using the `double` function above).
  *    Compose `map`, `unary`, `parseInt` and `double`.
  *
- * 💡 HINT: Make it more readable by using `pipe` and `flow` and/or extracting
+ * 💡 HINT: Make it more readable by using `pipe` and/or `flow` and/or extracting
  *    functionality to new functions. Experiment until you've found a good balance
  *    between indirection and readability.
  */
