@@ -1,10 +1,8 @@
-import { adjust, flow, map, update } from 'ramda';
-
 /**
- * Below is a Todo and TodoList class. Even though their state is private, you're going to refactor them into a functional style.
+ * Below is a Todo and TodoList class. You're going to refactor them into a functional style with immutable state.
  *
  * 🧑‍💻 Create a function for each method. Make sure these functions are easy to compose with the techniques you've learned so far.
- *    Use `todos` below (line 53) as the initial state and compose your functions to get the same sequence of operations as the class methods.
+ *    Use `todos` below (line 51) as the initial state and compose your functions to get the same sequence of operations as the class methods.
  */
 
 class Todo {
