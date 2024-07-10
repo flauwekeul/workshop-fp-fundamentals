@@ -19,27 +19,27 @@
  * pipe(increment, double, quarter)(3); // 2
  * ```
  *
- * 🥇 BONUS: try implementing it with an Array method.
+ * 💡 Hint: start with the function signature. What arguments does it accept?
+ *    Does it return a function and if so, what arguments does that accept?
+ *
+ * 🥈 BONUS: try implementing it with an Array method.
+ * 🥇 SUPER BONUS: try implementing it using recursion.
  */
+
+// 👇👇👇 Only change code BELOW 👇👇👇
 
 export const pipe = null;
 
-// Test your solution with Quokka:
+// 👆👆👆 Only change code ABOVE 👆👆👆
 
 const increment = (x) => x + 1;
 const double = (x) => x * 2;
 const quarter = (x) => x / 4;
 
-// Composing without pipe:
-const result1 = quarter(double(increment(3)));
-console.log(result1); // 2
+// Test your solution with Quokka:
 
-const incrementDoubleQuarter = pipe(increment, double, quarter);
-const result2 = incrementDoubleQuarter(3);
+const result2 = pipe(increment, double, quarter)(3);
 console.log(result2); // 2
-
-const result3 = pipe(increment, double, quarter)(3);
-console.log(result3); // 2
 
 /**
  * 🧑‍💻 Create a function `flow` that takes a value and an array of one or more functions.
@@ -56,12 +56,16 @@ console.log(result3); // 2
  * flow(3, [increment, double, quarter]); // 2
  * ```
  *
- * 💡 HINT: you could implement flow using pipe (or vice versa)
+ * 💡 Hint: you could implement flow using pipe (or vice versa).
  */
+
+// 👇👇👇 Only change code BELOW 👇👇👇
 
 export const flow = null;
 
+// 👆👆👆 Only change code ABOVE 👆👆👆
+
 // Test your solution with Quokka:
 
-const result4 = flow(3, [increment, double, quarter]);
-console.log(result4); // 2
+const result3 = flow(3, [increment, double, quarter]);
+console.log(result3); // 2

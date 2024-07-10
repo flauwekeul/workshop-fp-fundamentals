@@ -17,8 +17,11 @@
  * Array.of(1, 2, 3); // [1, 2, 3]
  * flip(Array.of)(1, 2, 3); // [2, 1, 3]
  *
- * 💡 HINT: start with the function signature. What arguments does it accept?
+ * 💡 Hint: start with the function signature. What arguments does it accept?
  *    Does it return a function and if so, what arguments does that accept?
+ *
+ * 💡 Hint: to get the tests to pass, make the function work when called with
+ *    1 argument, 2 arguments and more than 2 arguments.
  */
 
 export const flip = null;

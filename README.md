@@ -64,9 +64,6 @@ lift2 = (a -> b -> c)   -> (SomeType a -> SomeType b -> SomeType c)
 
 * Use https://sli.dev/guide/syntax#monaco-runner
 * Rename to something like "Functional Programming in JavaScript"?
-* Fix line numbers (maybe use a [transformer](https://sli.dev/custom/highlighters#configure-shiki) or else use [CSS](https://github.com/shikijs/shiki/issues/3#issuecomment-830564854)?)
-* Make sure `"editor.bracketPairColorization.enabled": true,` is enabled in VSCode
-* Make sure GitHub Copilot is disabled
 
 ### Learning opportunities:
 

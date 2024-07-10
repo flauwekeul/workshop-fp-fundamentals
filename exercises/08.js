@@ -46,9 +46,9 @@ todoList.get(0).toggle();
 const result1 = todoList.all();
 console.log(result1);
 
-// 👇👇👇 Only change code BELOW 👇👇👇
-
 const todos = [];
+
+// 👇👇👇 Only change code BELOW 👇👇👇
 
 // Create functions for each method
 const createTodo = null;
@@ -65,5 +65,9 @@ export const result2 = flow(todos, [
   // remove the second todo
   // toggle the first todo
 ]);
+
+// 👆👆👆 Only change code ABOVE 👆👆👆
+
+// Test your solution with Quokka:
 
 console.log(result2);

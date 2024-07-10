@@ -43,24 +43,28 @@ layout: center
 
 ## What do you want to learn about FP?
 
-<div v-click="[1, 2]" class="fixed top-[18vh] left-0 w-full text-[12vh] text-center text-emerald-400 font-black animate-spin">MONADS!!</div>
-
 ---
 
-<h2 class="mb-8">Which is "better"?</h2>
+<h2 class="mb-3">Which is "better"?</h2>
 
-<div class="grid grid-cols-2 gap-5">
+<div class="flex gap-5">
   <div>
 
 ```js
-function getNonAdminUserNames(users) {
-  const result = [];
-  for (const user of users) {
-    if (user.role === 'admin') {
-      continue;
+function getPublishedPageTitlesByAuthor(pages) {
+  const titlesByAuthor = {};
+  for (const page of pages) {
+    if (page.isPublished) {
+      titlesByAuthor[page.author] ??= [];
+      titlesByAuthor[page.author].push(page.title);
     }
-    result.push(user.name);
   }
+
+  const result = [];
+  for (const titles of Object.values(titlesByAuthor)) {
+    result.push(...titles);
+  }
+
   return result;
 }
 ```
@@ -69,17 +73,19 @@ function getNonAdminUserNames(users) {
   <div>
 
 ```js
-const getPublishedPageTitlesByAuthor = pipe(
-  filter(prop('isPublished')),
-  groupBy(prop('author')),
-  map(map(prop('title'))),
-);
+function getPublishedPageTitlesByAuthor(pages) {
+  return flow(pages, [
+    filter(prop('isPublished')),
+    groupBy(prop('author')),
+    map(map(prop('title'))),
+  ]);
+}
 ```
 
   </div>
 </div>
 
-<blockquote v-click cite="https://www.youtube.com/watch?v=SxdOUGdseq4&t=423s" class="mt-12 !p-5">
+<blockquote v-click cite="https://www.youtube.com/watch?v=SxdOUGdseq4&t=423s" class="mt-3 !p-5">
   <p class="text-2xl italic !mb-3">"If you want everything to be familiar, you'll never learn anything new."</p>
   <footer class="!opacity-50">
     — Rich Hickey,
@@ -179,7 +185,13 @@ You'll learn to approach problems differently.
 
 ---
 
-<h2 class="mb-13">✋ Before we start</h2>
+<h2 class="mb-8">✋ Before we start</h2>
+
+<div v-click class="mb-8 text-2xl text-center">
+  <a href="https://github.com/flauwekeul/workshop-fp-fundamentals" target="_blank">
+  github.com/flauwekeul/workshop-fp-fundamentals
+  </a>
+</div>
 
 <div class="grid grid-cols-2 gap-5">
   <ul>
@@ -187,12 +199,18 @@ You'll learn to approach problems differently.
     <li v-click><span v-mark.strike.red="2">Copilot / AI Assistant</span> 🚫🤖</li>
     <li v-click><a href="https://quokkajs.com/" target="_blank">Quokka.js</a> 👉</li>
     <li v-click>Inspired by <a href="https://ramdajs.com/" target="_blank">Ramda.js</a> 🐏</li>
-    <li v-click><code class="!text-sm">"editor.bracketPairColorization.enabled": true</code></li>
     <li v-click>Team up! 🤝</li>
   </ul>
 
-  <img src="/quokkajs-demo.gif" v-click="3">
+  <img src="/quokkajs-demo.gif" v-click="4">
 </div>
+
+<!--
+* Don't forget: `npm install`.
+* Quokka:
+  * Command + Shift + P, "Toggle (Start/Stop) on Current File"
+  * If the code uses DOM stuff, they'll get an error.
+-->
 
 ---
 
@@ -257,17 +275,21 @@ add3To(5); // 8
 layout: center
 ---
 
-<h2 class="text-center">
+<h2 class="text-center mb-20">
   🧑‍💻 Exercises <strong class="text-6xl">01</strong>, <strong class="text-6xl">02</strong> and <strong class="text-6xl">03</strong>
   <div class="mt-5">⏰ 20 minutes</div>
 </h2>
 
+Look in the `/exercises` folder.
+
+To run tests: `npm t`.
+
 ---
 
-<h2 class="mb-8">🧑‍🎨 Function composition</h2>
+<h2 class="mb-5">🧑‍🎨 Function composition</h2>
 
 <blockquote v-click cite="https://en.wikipedia.org/wiki/Function_composition_(computer_science)" class="!p-5 mb-5">
-  <p class="text-xl italic !mb-3">"An act or mechanism to combine simple functions to build more complicated ones. [...] the result of each function is passed as the argument of the next, and the result of the last one is the result of the whole."</p>
+  <p class="text-lg italic !mb-3">"An act or mechanism to combine simple functions to build more complicated ones. [...] the result of each function is passed as the argument of the next, and the result of the last one is the result of the whole."</p>
   <footer class="!opacity-50">
     — <cite>
       <a href="https://en.wikipedia.org/wiki/Function_composition_(computer_science)" target="_blank">Wikipedia</a>
@@ -294,25 +316,25 @@ quarter(double(increment(3))); // (((3 + 1) * 2) / 4) = 2
 ```js
 const incrementDoubleQuarter = compose(quarter, double, increment);
 incrementDoubleQuarter(3); // 2
+
+// Or in a single line:
+compose(quarter, double, increment)(3); // 2
 ```
 
 </div>
 
----
-layout: center
----
-
-<h2 class="text-center">
-  🧑‍💻 Exercise <strong class="text-6xl">04</strong>
-  <div class="mt-5">⏰ 10 minutes</div>
-</h2>
+<!--
+Compose is an example of a combinator:
+a function that takes one or more functions and returns a new function
+that in some way combines the passed function(s).
+-->
 
 ---
 
-<h2 class="mb-8">🔁 Composition order</h2>
+<h2 class="mb-13">🔁 Composition order</h2>
 
 ```js
-// right to left composition, value last
+// Right to left composition, value last
 compose(quarter, double, increment)(3); // 2
 ```
 
@@ -320,19 +342,19 @@ Composing right to left is… unfamiliar.
 
 <p v-click>If only we could compose left to right… 🤔</p>
 
-<div v-click class="mb-5">
+<div v-click>
 
 ```js
-// left to right composition, value last
+// Left to right composition, value last
 pipe(increment, double, quarter)(3); // 2
 ```
 
 </div>
 
-<div v-click>
+<div v-click class="mb-13">
 
 ```js
-// left to right composition, value first
+// Left to right composition, value first
 flow(3, [increment, double, quarter]); // 2
 ```
 
@@ -343,8 +365,8 @@ layout: center
 ---
 
 <h2 class="text-center">
-  🧑‍💻 Exercise <strong class="text-6xl">05</strong>
-  <div class="mt-5">⏰ 10 minutes</div>
+  🧑‍💻 Exercise <strong class="text-6xl">04</strong> <span class="opacity-50">(and optionally <strong class="text-6xl">05</strong>)</span>
+  <div class="mt-5">⏰ 20 minutes</div>
 </h2>
 
 ---
@@ -362,7 +384,7 @@ const multiply = (a, b) => a * b;
 
 <div v-click>
 
-Lambda's / inline functions?
+Lambda's are verbose.
 
 ```js
 flow(1, [
@@ -374,7 +396,7 @@ flow(1, [
 </div>
 <div v-click>
 
-Partial application?
+Partial application is better.
 
 ```js
 const add2 = (x) => add(2, x);
@@ -386,7 +408,7 @@ flow(1, [add2, multiply3]); // 9
 </div>
 <div v-click>
 
-Currying!
+Currying is the best!
 
 ```js
 const add = (a) => (b) => a + b;
@@ -397,6 +419,10 @@ flow(1, [add(2), multiply(3)]); // 9
 
 </div>
 </div>
+
+<!--
+A function always returns a single value. So the next function should always except a single value.
+-->
 
 ---
 
@@ -434,11 +460,11 @@ const assoc = (key) => (value, obj) => ({ ...obj, [key]: value });
 
 assoc('a')(2, { a: 1 }); // { a: 2 }
 
-const assocA =     (value, obj) => assoc('a')(value, obj);
+const assocA =         (value, obj) => assoc('a')(value, obj);
 
 assocA(    2, { a: 1 }); // { a: 2 }
 
-const assocAWith2 =       (obj) => assocA(2, obj);
+const assocAWith2 =           (obj) => assocA(2, obj);
 
 assocAWith2(  { a: 1 }); // { a: 2 }
 ```
@@ -447,11 +473,11 @@ const assoc = (key) => (value, obj) => ({ ...obj, [key]: value });
 
 assoc('a')(2, { a: 1 }); // { a: 2 }
 
-const assocA =               assoc('a');
+const assocA =                         assoc('a');
 
 assocA(    2, { a: 1 }); // { a: 2 }
 
-const assocAWith2 = (obj) => assocA(2, obj);
+const assocAWith2 =           (obj) => assocA(2, obj);
 
 assocAWith2(  { a: 1 }); // { a: 2 }
 ```
@@ -460,11 +486,11 @@ const assoc = (key) => (value) => (obj) => ({ ...obj, [key]: value });
 
 assoc('a')(2)({ a: 1 }); // { a: 2 }
 
-const assocA =               assoc('a');
+const assocA =                             assoc('a');
 
 assocA(    2, { a: 1 }); // { a: 2 }
 
-const assocAWith2 = (obj) => assocA(2)(obj);
+const assocAWith2 =               (obj) => assocA(2)(obj);
 
 assocAWith2(  { a: 1 }); // { a: 2 }
 ```
@@ -473,17 +499,40 @@ const assoc = (key) => (value) => (obj) => ({ ...obj, [key]: value });
 
 assoc('a')(2)({ a: 1 }); // { a: 2 }
 
-const assocA =      assoc('a');
+const assocA =                             assoc('a');
 
 assocA(    2, { a: 1 }); // { a: 2 }
+
+const assocAWith2 =                        assocA(2);
+
+assocAWith2(  { a: 1 }); // { a: 2 }
+```
+```js
+const assoc = (key) => (value) => (obj) => ({ ...obj, [key]: value });
+
+assoc('a')(2)({ a: 1 }); // { a: 2 }
+
+const assocA = assoc('a');
+
+assocA(2, { a: 1 }); // { a: 2 }
 
 const assocAWith2 = assocA(2);
 
-assocAWith2(  { a: 1 }); // { a: 2 }
+assocAWith2({ a: 1 }); // { a: 2 }
 ```
 ````
 
 </v-click>
+
+<!--
+1. `assoc` is not curried
+2. 'assocA' is a specialized version of `assoc`
+3. `assocAWith2` is a specialized version of `assocA`
+4. the first argument of `assoc` is curried
+5. we can simplify `assocA` by removing the redundant lambda
+6. `assoc` is "completely curried"
+7. we can simplify `assocAWith2` as well
+-->
 
 ---
 layout: center
@@ -621,7 +670,7 @@ src: ./pure-functions.md
 
 Minimize and isolate impure code; keep effects at the edges of the system.
 
-<div class="flex gap-5">
+<div class="flex gap-8">
   <div>
   <v-clicks>
 
@@ -660,7 +709,9 @@ async function main() {
   </div>
 </div>
 
-<!-- Show ["Impureim sandwich"](https://blog.ploeh.dk/2020/03/02/impureim-sandwich/). -->
+<!--
+This slide has the scope of *software design* instead of *code*.
+-->
 
 ---
 
@@ -737,20 +788,26 @@ layout: center
 
 ---
 
-<h2 class="mb-8">🎲 Apply your FP skills</h2>
+<h2 class="mb-8">🎲 Apply what you've learned</h2>
 
 <div class="grid grid-cols-3 gap-5">
-  <img v-click v-mark.cross.red src="/poll.png">
+  <img v-click v-mark.cross.red src="/poll.png" :class="{'opacity-50': $clicks > 2}">
 
-  <img v-click v-motion :initial="{ x: -100 }" :enter="{ x: 0 }"  src="/yahtzee.jpg">
+  <img v-click v-motion :initial="{ x: -100 }" :enter="{ x: 0 }"  src="/yahtzee.jpg" :class="{'opacity-50': $clicks > 2}">
 
-  <!-- todo: -->
-  <v-clicks>
+  <ul>
+  <li v-click>How the game works</li>
+  <li v-click>File structure and instructions</li>
+  <li v-click><code>eslint-plugin-functional</code></li>
+  <li v-click><a href="https://ramdajs.com/docs">ramdajs.com/docs</a></li>
+  <li v-click>
+    Ramda's auto-currying:
 
-  * show/explain the game
-  * explain file structure, instructions
-  * mention linter
-  * mention ramda's auto-currying?
+```js
+map(double, [1, 2, 3]);
+map(double)([1, 2, 3]);
+```
 
-  </v-clicks>
+  </li>
+  </ul>
 </div>

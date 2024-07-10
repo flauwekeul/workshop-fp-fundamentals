@@ -9,7 +9,7 @@
  * doubleAll(array); // [2, 4, 6]
  * ```
  *
- * 💡 HINT: it's fine to use Array's `map` in the function body.
+ * 💡 Hint: it's fine to use Array's `map` in the function body.
  */
 
 export const map = null;
@@ -29,7 +29,7 @@ console.log(result1);
  *
  * ❓ Why doesn't it work when passing `parseInt` directly?
  *
- * 💡 HINT: you may want to look up the documentation of `parseInt`:
+ * 💡 Hint: you may want to look up the documentation of `parseInt`:
  *    https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt
  */
 
@@ -53,7 +53,7 @@ console.log(result3);
  * 🧑‍💻 Now also double each number (using the `double` function above).
  *    Compose `map`, `unary`, `parseInt` and `double`.
  *
- * 💡 HINT: Make it more readable by using `pipe` and/or `flow` and/or extracting
+ * 💡 Hint: Make it more readable by using `pipe` and/or `flow` and/or extracting
  *    functionality to new functions. Experiment until you've found a good balance
  *    between indirection and readability.
  */

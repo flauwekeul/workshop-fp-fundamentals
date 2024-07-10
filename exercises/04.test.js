@@ -1,15 +1,23 @@
 import { describe, expect, test, vi } from 'vitest';
-import { compose } from './04';
+import { flowCallbackResult, flowFn, flowResult, pipeCallbackResult, pipeFn, pipeResult } from './04.js';
 
-describe('compose', () => {
-  test('composes the passed functions and applies the passed value to it', () => {
-    const increment = vi.fn((x) => x + 1);
-    const double = vi.fn((x) => x * 2);
+describe('transforming in-place', () => {
+  test('transforms 3 into 2', () => {
+    expect(pipeResult).toBe(2);
+    expect(flowResult).toBe(2);
+  });
+});
 
-    const result = compose(increment, double)(1);
+describe('transforming with a callback', () => {
+  test('transforms 3 into 2', () => {
+    expect(pipeCallbackResult).toBe(2);
+    expect(flowCallbackResult).toBe(2);
+  });
+});
 
-    expect(result).toBe(3);
-    expect(increment).toBeCalledWith(2);
-    expect(double).toBeCalledWith(1);
+describe('transforming in a function', () => {
+  test('transforms 3 into 2', () => {
+    expect(pipeFn(3)).toBe(2);
+    expect(flowFn(3)).toBe(2);
   });
 });

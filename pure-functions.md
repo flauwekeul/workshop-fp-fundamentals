@@ -135,7 +135,9 @@ function fetchUsers(fetch) {
 
 <PureOrNot answer="impure" />
 
-<!-- `fetch` isn't pure, so `fetchUsers` isn't pure. It also doesn't handle errors, so it may throw. -->
+<!--
+`fetch` isn't pure, so `fetchUsers` isn't pure.
+-->
 
 ---
 layout: center

@@ -34,9 +34,9 @@
  *
  * 🧑‍💻 Create a curried version of `sort`, `ascend` and `prop`.
  *
- * 💡 HINT: You may need to change the order of arguments.
+ * 💡 Hint: You may need to change the order of arguments.
  *
- * 💡 HINT: Array's `toSorted` accepts a binary function (with signature `(a, b) => number`).
+ * 💡 Hint: Array's `toSorted` accepts a binary function (with signature `(a, b) => number`).
  *    Either don't fully curry all functions or make a function that uncurries a curried function.
  */
 
