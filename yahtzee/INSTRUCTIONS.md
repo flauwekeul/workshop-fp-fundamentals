@@ -8,105 +8,86 @@ Lines that start with "🧑‍💻" mean you have to write some code. Take your 
 
 Lines that start with "👀" have a link that shows how the previous 🧑‍💻 code challenge could be implemented.
 
-## 1️⃣ Initial render 🎨
+## Step 1️⃣
 
-### Requirements
+Compose the 3 render functions in a functional style.
 
-Compose the 3 render functions in a functional style (todo: maybe skip this or make it a bonus as it doesn't really improve the code?).
+1. ❓ These render functions return nothing, what happens when you compose them with `pipe` or `flow`? (try it out!)
 
-### Implementation
-
-1. ❓ If you need to use either `pipe` or `flow` to call them, which one would you use?
-2. ❓ These render functions return nothing, what happens when you compose them with `pipe` or `flow`? (try it out!)
-
-3. 🧑‍💻 Write a function called `tap` to fix this problem, it's used like this: `tap(renderTableHeader)`.
+2. 🧑‍💻 Write a function called `tap` to fix this problem, it's used like this: `tap(renderTableHeader)`.
 
     💡 Hint: if you can't get `tap` to work, you can also import ramda's [`tap`](https://ramdajs.com/docs/#tap).
 
     👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/MYewdgzgLgBFCGAHGBeGAKAZmAlKgfBgB54qEDeAUDDTNuiQNzW0BOAplAK6tgxHMAvoyA).
 
-4. 🧑‍💻 Compose the 3 render functions using either `pipe` or `flow`; use `tap` so that each render function is passed `initialState`. Don't change the render functions themselves.
+3. 🧑‍💻 Compose the 3 render functions using either `pipe` or `flow`; use `tap` so that each render function is passed `initialState`. Don't change the render functions themselves.
 
-    💡 Hint: since you're "piping" (or "flowing") a value through functions, both `pipe` and `flow` will do the job. However, one results in improved readability over to other.
+    💡 Hint: since you're "piping" (or "flowing") a value through functions, both `pipe` and `flow` will do the job. However, one arguably has better readability that the other.
 
     👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/GYGw9g7gFAlgdjALjAhiAyoliCmAaAAgG0sAHKAJxzgBMcKAVFAIxBwAkcU6KBKQspWo8AwgFcKVOIgAKIFAE96AORQBbHPwKCpPBgAsKkAM4AZHMES8AurwDcQA).
 
-## 2️⃣ Roll dice 🎲
+## Step 2️⃣
 
-### Requirements
+1. 🧑‍💻 Update the `dice` property in `state` so that each die gets a random `value`. Assign the updated state to `nextState`. *Get it working first*, don't make the code too "pretty", you'll make it more FP-like in the coming steps.
 
-todo: split work vertically: first roll dice, then sort them, then hold some.
+    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/MYewdgzgLgBGCmAPKBlKBDK8YF4YG8AoGEmAOguk3gBpjSATAS2HgC4YqsznWyBbdAAcAFCICUuAHwwR+GADd0AGwCu7GAFlMACzIAzZSBAAnEdqh6T6MAxD8JMAFQwAbJIDUMAIw0YOkGUGDn0VCGwAX3FxQgiAbkIgA).
 
-When the "Roll dice" button is pressed the state is updated as follows:
+2. ❓ Creating `nextState` as above causes a side-effect. Can you identify it?
 
-1. Each die in `dice` gets a random `value` (between 1 and 6) *unless* the die is held (`hold: true`). When the die is held, the die's `value` doesn't change.
-2. `dice` is sorted by `value` ascending (low to high).
-3. `throwsLeft` is decremented by 1.
+3. 🧑‍💻 Move the creation of a **single** random die to a new function in effects.js. Call this function in app.js.
 
-### Implementation
+    💡 Hint: you may want to move the generation of a random die **value** to its own function as well.
 
-1. 🧑‍💻 Implement the above requirements by copying `state`, updating the required properties and assigning it to `nextState`. Initially forget FP for a moment, *get it working first*. Check data.js to see what the state looks like.
+    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEEMAdIOgKwM4CgkGMD2A7BAXUmBTADxwGUdwcDQBeUAbyVGdBjd0oIBomWATAJaoCALlAcqMQcJgBbKAAoATuEx90sgCICCASh4BfANwoQoAgDMLBVDgTxkaLLlAq1G7QQBq4ADYBXajoFXVoAPlAAWUoACxgLX3R0JQVonDi3dVkQ0AAqUAA2UIBqUABGEyRiSGS8DGw8TI8dWlAcmgiFelAANz9AsSatHR8AghCuUBj0Xz4xCz8EagNdIA).
 
-    💡 Hint: holding a die doesn't work yet, but you can test it by temporarily setting `hold: true` for a die in data.js.
+4. 🧑‍💻 In app.js, use ramda's [`map`](https://ramdajs.com/docs/#map) and the function from the previous step to create random dice. You use `map` to "transform" each die into a new one with a random value.
 
-    💡 Hint: `Array.prototype.sort` isn't pure, but there's a new Array method that is...
+    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEEMAdIOgKwM4CgkEsC2kD2AnALqAN6jpSgC+oAZjluqAOQ7joAm4DA3CgMZYB2CAvwCmADzwBlPODwjQAXiJJQq0DA1DZIgDQq1rVDxEAuElAAUzfqzoARVLtBa5MQ8YCUe8tyA).
 
-    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/MYewdgzgLgBGCmAPKBlKBDK8YF4YG8AoGEmAOguk3gBpjSATAS2HgC4YqsznX7TSZALboADgApxzeAEpcAPhhSm8MgAsQAGwYwA-DGkwO+GADd0mgK7sYAWUxqyAM00gQAJ3H2oj9+jAMIELicgBUMABscgDUMACMNDAa2hxOFhDYAL4yMvwC5FAgKB5YDJLoiQBGcjiK6GTmVtgAtDCVDRbWMnQCPu4gAO4QADLwTlAcXKp9gyNjsK0JhJkA3IRAA).
+5. 🧑‍💻 Now you're going to make a function that's responsible for updating the `dice` property in `state` when the user clicks the "Roll dice" button. It should accept and return the entire state object. Create this function in effects.js and call it in app.js.
 
-2. ❓ Click the "Roll dice" button a couple of times. Did you implement all the requirements?
-3. ❓ Creating `nextState` as above causes a side-effect. Can you identify it?
-4. ❓ The creation of `nextState` requires about 5 distinct operations. Describe each in 1 or 2 words below:
+    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEEMAdIOgKwM4CgkEsC2kD2AnALqAN6g7gB2AJlugCKoDGApqAL6gBmO1oA5DMI3btG9PAngIeKLGQBKWADYK6TABSqAlKAC8APiJJQR0PRkICZRgA88AZTzg8zbSXJVaDRqvOPGGgNyGxjiMlIw4Kl6WNva+AUFGCIx2Dk6q0SlxgSzxSCCggsKi4ogoGNj4RKDoUKwcXOi8pOgU4FJIpmTmrpTUdIwAauAKAK7OoJo6+gCyjgAWMOwKWLiqs3gLpL3okwBUoABsWgDUoACMgR1mBFvu-ToTWnoTxABuw2MAXD13qIMfXg0ABpQHNFBRvuxhklWLlrBUCJ1urc+p4Ht5Un4pi9QDA8T4nCCKJ5vjVIKoUR5GCCCYwYMSmFocoEgA).
 
-    1.
-    2.
-    3.
-    4.
-    5.
-
-Next you're going to refactor the code you just wrote to make it more FP-style.
-
-5. 🧑‍💻 Extract the first requirement (see "Requirements" above) from the code you just wrote. Do this by moving the relevant code to a new function in effects.js. This function should accept and return a single die. Call this function from app.js.
-
-    💡 Hint: you can always spread the functionality over multiple functions.
-
-    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/MYewdgzgLgBATgQzAExAWwCIEsCmA1BAGwFccYBeGACgEoKA+GAWQSgAsA6AM0JBDiot2HRCnS0YAKhgA2OgGoYARgDcAKDU4AHgAd+sUJFijUaAKpg2OQsmxlKVZLjrlGj3BzYgbMAPwwnMgAuGABvGAA3IlIQk3Q7AhIcWgAaGC8bEK4iCDIAXxogA).
-
-6. 🧑‍💻 **BONUS**: update the previous function and replace any [property accessors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_accessors) and [ternary operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_operator) with a function.
-
-    💡 Hint: use ramda's [`prop`](https://ramdajs.com/docs/#prop) and [`when`](https://ramdajs.com/docs/#when) or [`unless`](https://ramdajs.com/docs/#unless) functions.
-
-    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/JYWwDg9gTgLgBAbzgVwHYBsCmBnbAaOMKCMOAXzgDNiQ4ByKAQxABNG6BuAKC4GMJU2eE1QsIIACLBMANUbpkmOAF44ACgCUKgHxwAsoxgALAHSV0EaGoPGTIsSE1wAVHABsWgNRwAjNy6YAB6QsHD8gsKMouIAqqhGmOgsUkqqaizSWsq6aFi4akQkanRGEEl0GgRO2epIAG7yigBccPbiKXIKmJoEpUktlPLYSmSVcBmYGhxAA).
-
-7. 🧑‍💻 In app.js, combine ramda's [`map`](https://ramdajs.com/docs/#map) and the function from the previous step.
-
-    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/JYWwDg9gTgLgBAbziAhmOBfOAzKERwDkUKIAJioQFCiSyJwkB2Z+AqkwBYCmANmQBFg3TDjwFCAOgD03bNm4BjGAGdJAKxXUqiiExXwm3AB4wAyjBQwRAXkRU4juJJcGr3ADQOnZYIu4AXMhoABTMrCAcPPxCnnBu1pK+-gCUkjAQZtDWZCEhKB5wAEYpcDYAfHAokgBuKLwAriIAtMW19U0pXk5wMJx4AO4qADJyMEEJ3On9EEOj2PCtAIxeGADcQA).
-
-8. 🧑‍💻 In app.js, use ramda's [`sort`](https://ramdajs.com/docs/#sort) to sort the dice. Also use either `pipe` or `flow` to compose the mapping and sorting of dice.
-
-    💡 Hint: remember the exercise to compose `sort`, `ascend` and `prop`?
-
-    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/JYWwDg9gTgLgBAbzgQwM4GMCmA7AJgGjgDMAbCAd0JGTELCglrlWngF9iGQ4ByKZELmQ8AUKEixEcfngggAqtgAWmErgAiwTHA5EuvAHQB6TESKZ0MVAYBWqUSPQRsqeNkwAPGAGUYyGNoAvIgicGFwBpGu-pj4oeG4wFgAXMRk5AAU0QEGiViEANrUYBkyuHKKKmqamACUhCywGWhYeBn0jBk8AG7IJACumDy1IwC69fFhMEoM5KgAMqYwqdmYBtOzC0twALRwAIxxbADcQA).
-
-9. 🧑‍💻 Move the composition of mapping and sorting dice from the previous step to a new function in effects.js. Make the function accept and return the entire state object. Then use ramda's [modify](https://ramdajs.com/docs/#modify) to update the `dice` property of `state`. Call the function in app.js.
+6. The function from the previous step only modifies the `dice` property of the state object. Use ramda's [modify](https://ramdajs.com/docs/#modify) to express that you're updating a property (`dice`) of an object (`state`) using a function (the function from the previous step).
 
     💡 Hint: `modify` works like this:
     ```js
     const propertyName = 'a';
-    const modifierFn = (a) => a + 1; // or multiple composed functions…
+    const fn = (a) => a + 1;
     const object = { a: 1 };
-    modify(propertyName, modifierFn, object) // returns: { a: 2 }
+    modify(propertyName, fn, object) // returns: { a: 2 }
     ```
 
-    💡 Hint: it may be a matter of taste, but this might be a good time to use `pipe` instead of `flow`.
+    💡 Hint: remember that `map` (like nearly all ramda functions) is "auto-curried"; you can pass it only its first argument and it will return a function that has the exact same signature as the 2nd argument of `modify`...
 
-    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEEMAdIOgKwM4CgkEsC2kD2AnALqAN6gCukAJuHgKYAiqAxtQGrgA2J1CoAvqAGY4s6UAHIYwav37UGeBPASiUDLADsEBNdQAeeAMp4q1UAF4iSUFdAxbm4wBpL12zDKUa9Jqw5cAFPY0AJRO1qB4ABZCAO4IADJSeABcoIHUMJEx8YmgALSgAIxOPADcKCCgUjJyCogoGNj4RBAITGrkDqDoUJ3oWOSo-ACenZCokNSjQpCdCLh4nSRqbFzcfILCYjjg6JSiZUiqGgTb7cL0LOycZqB+QWYAfKAAslQRMPxsWLh+r5Ewp3IwjuoAAVKAAGz3ADUhQOR00oEBwgAqmoItQ2OQLjc-ANqPdTE8lisEAg-JBpn5RBEsFjRCFboSnn5iAA3K7UFLI9AXHycO6dWlYlL8dgIEw8Rn4oIHXSNAgIgjuYxeS6+bjmAJGYKPZx9AbDakDJiiUbjah+bqQPw8tEYrEXRlzfB+cCtajtClU0Qc3wMoKB2Y6gllIA).
+    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEFMDNPBjAXAzgOgFaIFAYJYFsAOA9gE7ygDeouAhvgDRWEAm2kAnqAL6iTGG6gA5MWq4m1QVliEAdojIiZTfgBFs4AGrUANgFdwoALygAFAEojAPlABZavAAWySNsIkTdx8kXLc50ABUoABsFgDUoACMANxSsvKgPqrqRqYWhtYmlABuOvoAXInUSsmaeeDmDA6E2kyFkDqIBpxmsRjgAB5EpKDScgrFvmqwBsYm8vbg6da4zKxsJoIsI4IMNPgmSbhqUwwT8FOxQA).
 
-10. ❓ Why should the function from the previous step accept the entire state object?
+7. ❓ You can make the function of the previous step completely point-free. Would that improve things?
 
-11. 🧑‍💻 Similar to the previous step: move the decrementing of `throwsLeft` to a function that accepts and returns state. The function should use ramda's [modify](https://ramdajs.com/docs/#modify) and [dec](https://ramdajs.com/docs/#dec). Should this function be placed in effects.js or calculations.js?
+8. 🧑‍💻 Finally, compose the functions in the callback to `onRollDice`. Use either `flow` or `pipe` to transform and render `state`.
 
-    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEEMAdIOgKwM4CgkEsC2kD2AnALqAN6gCukAJuHgKYAiqAxtQGrgA2J1CoAvqAGY4s6UAHIYwav37UGeBPASi0mXAWLlZOaumoA7PABUAFkIDuCADJSCfQcLESG7BiTZVUWPQsTKkDLwQCPWoADzwAZTwqalAAXiIkUGTQGDSgmIAaJJS0mDJKGnomVg4uAAoMmgBKbJTUtM0GbV0DE3MrG0romuyeAG4UEFBnNld3PE9vRRQMbHwiUCbM0HQsclR+AE9eASERURxwdEpRQaQw+YIA7wImlv0jUywLa34CBO6Y6viAPlX1pstuVRHhnq8bKIVstQFVqNV+kA).
+    💡 Hint: an [example](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEEMAdIOgKwM4CgkHsB2AlVAbHARASwGMBTACnIEpQBeAPlGACpQAzHVAd2tFQCdQkQpAo0A5qlIJQAC1L9SoZsCoBuIA) to get you started.
 
-12. 🧑‍💻 The final step to make rolling the dice in an FP-style. In app.js, rewrite the function that's passed to `onRollDice` to contain a single composition that calls all the functions it currently does. In other words: replace the individual function calls with a single `pipe` or `flow` that "threads" `state` through all those functions.
+    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEEMAdIOgKwM4CgkHsB2AlVAbHARASwGMBTACnIEpQBeAPlADMdUB3chAF3C9IBpQAbQBO4dABNUAWyJlBPSORGlJpEXNJUFUTqS4BlHnyoBdKlQDcQA).
 
-    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PYOwSsA2kCIJYGMCmAKFBKABAXgHwChMjMAzSYAdxQGcAXAQ1qQBpMBtQ4rgVwAcATRknjIAavUjck1Zpy5F+SBACckAWyQhaAFQAWyytQAySErVnziDXilUhFykUnQXLma7c0O9BisdO0LnLyHtRItADKDExBXAC6QegA3EA).
+## Step 3️⃣
+
+1. 🧑‍💻 Now you're going to sort the random dice. This makes it a bit easier to see which values are thrown. Remember exercise 07? Use that composition to sort the random dice in effects.js.
+
+    💡 Hint: change how you use `modify` so that you're composing "the creation of random dice" followed by "the sorting of dice".
+
+    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEFMDNPBjAXAzgOgFaIFAYJYFsAOA9gE7ygDeoAhorOAHYAmANKLlfq7oY9pAJ6t82fOCHFCnUIhJkAvqEgTcoAOTEquRlVVZYheojIamhXABFs4AGpUANgFdwoALygAFAEpXAPlABZKngAC2RIO0ISd0CQ5BNGMy9QACpQADZvAGpQAEYAbj0DI1B4s0tnNySXP3dKADd7JwAuEqpTCytbR3AvVmDCO0YWyHtEZzlPAoxwAA8iUlB9Q2M2hI66Vw8jIPBvarYePn53VV46VSERHvZ8d1KO3dYZUncaOiZ3fAlb1Qbu1U8gM8T3gO0mGCAA).
+
+2. 🧑‍💻 Next you're going to decrement the `throwsLeft` property of `state` after the dice are thrown. Find the `decrementThrowsLeft` function in calculations.js and update it so it does what it should do. Call the function in app.js, also call `renderThrowsLeft` after `renderDice`.
+
+    💡 Hint: ramda has a [function for everything](https://ramdajs.com/docs/), find the one that does the decrementing.
+
+    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEEMAdIOgKwM4CgkHsB2AlVAbHARASwGMBTACnIEpQBeAPlADMdUB3chAF3C9IBpQAbQBO4dABNUAWyJlBE0sRGlppdFwAqACxHsEAGVJMugnpHIrJpEXNJUzUS+sUidetoeNcHoc51IuAGUePioAXSoqAG4UEFBicBxiAFccXkIMBHhkJEJpSFQRLlAAb1BFYkFpVAlCJgBPUABfZj1pUAByMWkJcE6UUgAPQuKErJLKlTUNd30jEzpQTlD7OkYausbyTq5dee9OhSVBbl57aKA).
+
+3. ❓ Now holding dice *almost* works. Can you figure out why it doesn't work quite yet?
+
+4. 🧑‍💻 A die's value should only be randomized unless it's `hold` property is `true`. Update de code in effects.js to make it work. You can use a ternary (`condition ? whenTrue : whenFalse`) or use ramda's [unless](https://ramdajs.com/docs/#unless) for bonus points.
+
+    💡 Hint: when you got it working you may want to refactor a little bit. Extracting self-contained functionality to new functions and/or renaming functions.
+
+    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEFMDNPBjAXAzgOgFaIFAYJYFsAOA9gE7ygDeoAhorOAHYAmANKLlfq7oY9pAJ6t82fOCHFCnUIhLxWAV3oAbcIkSgAvqEgTcoAOTEquRlX0BuLLEL1EZI00K4AItnAA1KkvnhQAXlAACgBKfwA+UABZKngAC2RIJUISQOi45AdGJxDQACpQADZQgGpQAEZLDGtbeypHF2w6AFVlVUQACXAlRn8g3jpQvzCMUDYOQJHR0EUVNUD8CXxA-VjCbv1g1hyhoMoANy8fAC5QTKdXD0PwENZV7pPIL0RfDWDNydH+sUngypBQAByhHgvjiMVAcWw6kgigQ2BsoChpwYxnAjAw4AAHkRSKBqnZpvhTCDXHRPN5VL1AnYYuBBsNRtxeAJll99EIRNczg1mq01J1uqwZKRAjQ6Ex5otlgcKRs3ptpPBab8MEA) (including refactoring).

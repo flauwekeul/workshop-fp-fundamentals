@@ -27,22 +27,29 @@ const app = (initialState) => {
     state = nextState;
   };
 
-  // 1️⃣ Initial render 🎨
+  // Step 1️⃣
   renderTableHeader(initialState);
   renderCurrentPlayerName(initialState);
   renderThrowsLeft(initialState);
 
   onRollDice(() => {
-    // 2️⃣ Roll dice 🎲
+    // Steps 2️⃣ and 3️⃣
     const nextState = {};
     renderDice(nextState);
-    renderThrowsLeft(nextState);
     setState(nextState);
   });
 
-  onDieClick(() => {});
+  onDieClick(() => {
+    const nextState = {};
+    renderDice(nextState);
+    setState(nextState);
+  });
 
-  onScoreClick(() => {});
+  onScoreClick(() => {
+    const nextState = {};
+    renderAllScores(nextState);
+    clearPossibleScores(nextState);
+  });
 };
 
 app(INITIAL_STATE);
