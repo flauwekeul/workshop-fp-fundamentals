@@ -16,7 +16,7 @@ import {
 
 export const decrementThrowsLeft = (state) => state;
 
-export const updateHeldDie = (dieIndex, isHeld, state) => state;
+export const updateHeldDie = (dieIndex) => (state) => state;
 
 export const updatePlayerScore = (scoreId, score, state) => state;
 

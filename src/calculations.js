@@ -21,6 +21,8 @@ import {
   map,
   max,
   modify,
+  modifyPath,
+  not,
   paths,
   pipe,
   pluck,
@@ -52,7 +54,7 @@ import {
 
 export const decrementThrowsLeft = (state) => modify('throwsLeft', dec, state);
 
-export const updateHeldDie = curry((dieIndex, isHeld, state) => assocPath(['dice', dieIndex, 'hold'], isHeld, state));
+export const updateHeldDie = (dieIndex) => modifyPath(['dice', dieIndex, 'hold'], not);
 
 export const updatePlayerScore = curry((scoreId, score, state) =>
   assocPath([state.currentPlayer, 'scores', scoreId], parseInt(score), state),

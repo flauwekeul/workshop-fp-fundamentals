@@ -40,6 +40,7 @@ const app = (initialState) => {
   });
 
   onDieClick(() => {
+    // Step 4️⃣
     const nextState = {};
     renderDice(nextState);
     setState(nextState);

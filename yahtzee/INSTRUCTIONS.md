@@ -78,16 +78,36 @@ Compose the 3 render functions in a functional style.
 
     👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEFMDNPBjAXAzgOgFaIFAYJYFsAOA9gE7ygDeoAhorOAHYAmANKLlfq7oY9pAJ6t82fOCHFCnUIhJkAvqEgTcoAOTEquRlVVZYheojIamhXABFs4AGpUANgFdwoALygAFAEpXAPlABZKngAC2RIO0ISd0CQ5BNGMy9QACpQADZvAGpQAEYAbj0DI1B4s0tnNySXP3dKADd7JwAuEqpTCytbR3AvVmDCO0YWyHtEZzlPAoxwAA8iUlB9Q2M2hI66Vw8jIPBvarYePn53VV46VSERHvZ8d1KO3dYZUncaOiZ3fAlb1Qbu1U8gM8T3gO0mGCAA).
 
-2. 🧑‍💻 Next you're going to decrement the `throwsLeft` property of `state` after the dice are thrown. Find the `decrementThrowsLeft` function in calculations.js and update it so it does what it should do. Call the function in app.js, also call `renderThrowsLeft` after `renderDice`.
+2. 🧑‍💻 A die's value should only be randomized unless it's `hold` property is `true`. Update de code in effects.js to make it work.
+
+    💡 Hint: use ramda's [unless](https://ramdajs.com/docs/#unless) for bonus points.
+
+    💡 Hint: when you got it working you may want to refactor a little bit. Extracting self-contained functionality to new functions and/or renaming functions.
+
+    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEFMDNPBjAXAzgOgFaIFAYJYFsAOA9gE7ygDeoAhorOAHYAmANKLlfq7oY9pAJ6t82fOCHFCnUIhLxWAV3oAbcIkSgAvqEgTcoAOTEquRlX0BuLLEL1EZI00K4AItnAA1KkvnhQAXlAACgBKfwA+UABZKngAC2RIJUISQOi45AdGJxDQACpQADZQgGpQAEZLDGtbeypHF2w6AFVlVUQACXAlRn8g3jpQvzCMUDYOQJHR0EUVNUD8CXxA-VjCbv1g1hyhoMoANy8fAC5QTKdXD0PwENZV7pPIL0RfDWDNydH+sUngypBQAByhHgvjiMVAcWw6kgigQ2BsoChpwYxnAjAw4AAHkRSKBqnZpvhTCDXHRPN5VL1AnYYuBBsNRtxeAJll99EIRNczg1mq01J1uqwZKRAjQ6Ex5otlgcKRs3ptpPBab8MEA) (including refactoring).
+
+3. 🧑‍💻 Next you're going to decrement the `throwsLeft` property of `state` after the dice are thrown. Find the `decrementThrowsLeft` function in calculations.js and update it so it does what it should do. Call the function in app.js, also make sure `renderThrowsLeft` and `renderPossibleScores` are called.
 
     💡 Hint: ramda has a [function for everything](https://ramdajs.com/docs/), find the one that does the decrementing.
 
     👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEEMAdIOgKwM4CgkHsB2AlVAbHARASwGMBTACnIEpQBeAPlADMdUB3chAF3C9IBpQAbQBO4dABNUAWyJlBE0sRGlppdFwAqACxHsEAGVJMugnpHIrJpEXNJUzUS+sUidetoeNcHoc51IuAGUePioAXSoqAG4UEFBicBxiAFccXkIMBHhkJEJpSFQRLlAAb1BFYkFpVAlCJgBPUABfZj1pUAByMWkJcE6UUgAPQuKErJLKlTUNd30jEzpQTlD7OkYausbyTq5dee9OhSVBbl57aKA).
 
-3. ❓ Now holding dice *almost* works. Can you figure out why it doesn't work quite yet?
+## Step 4️⃣
 
-4. 🧑‍💻 A die's value should only be randomized unless it's `hold` property is `true`. Update de code in effects.js to make it work. You can use a ternary (`condition ? whenTrue : whenFalse`) or use ramda's [unless](https://ramdajs.com/docs/#unless) for bonus points.
+1. 🧑‍💻 When the user clicks on a die, the die's `hold` property should toggle. `updateHeldDie` in calculations.js is responsible for toggling the `hold` property of a single die in `state`. Use ramda's [`modifyPath`](https://ramdajs.com/docs/#modifyPath) to update a deeply nested part of `state`. The first argument of `modifyPath` is an array that describes a "path" towards this deeply nested property.
 
-    💡 Hint: when you got it working you may want to refactor a little bit. Extracting self-contained functionality to new functions and/or renaming functions.
+    💡 Hint: ramda also has a function that negates its argument. Use this to toggle the `hold` property.
 
-    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEFMDNPBjAXAzgOgFaIFAYJYFsAOA9gE7ygDeoAhorOAHYAmANKLlfq7oY9pAJ6t82fOCHFCnUIhLxWAV3oAbcIkSgAvqEgTcoAOTEquRlX0BuLLEL1EZI00K4AItnAA1KkvnhQAXlAACgBKfwA+UABZKngAC2RIJUISQOi45AdGJxDQACpQADZQgGpQAEZLDGtbeypHF2w6AFVlVUQACXAlRn8g3jpQvzCMUDYOQJHR0EUVNUD8CXxA-VjCbv1g1hyhoMoANy8fAC5QTKdXD0PwENZV7pPIL0RfDWDNydH+sUngypBQAByhHgvjiMVAcWw6kgigQ2BsoChpwYxnAjAw4AAHkRSKBqnZpvhTCDXHRPN5VL1AnYYuBBsNRtxeAJll99EIRNczg1mq01J1uqwZKRAjQ6Ex5otlgcKRs3ptpPBab8MEA) (including refactoring).
+    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEGMEMBtwV2pALgSwPYDsDOA6AVlgFCEoC2ADmgE5KgDeopaAJigGYCeACsgBYA0oDGloBfUGyppSoAORVIpZpFkBuYgFMAHpRoRMWWnHLKkGgBIbozACIoNoALygAFKw0BJDM20BKJwB8jCzs3HwuANqyrOAasoLuXj5agrK8aNayALqCwki+qkA).
+
+2. 🧑‍💻 In app.js `onDieClick` is used to handle click events on dice. Compose `updateHeldDie`, `renderDice` and `setState` in a similar way as you did in the `onRollDice` callback. For now, pass `4` to `updateHeldDie`. You'll pass the actual die index in the next step.
+
+    💡 Hint: you've successfully completed this step when you click a die and always see the last die being held/released.
+
+    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEEMAdIOgKwM4CgkHsB2ARAlgUwMIA22AxgNYAUFAlKALwB8oAZoagO4UIAu43uAGlABtAK6QAJn1wAJXIQk5cFACzUhvSBQBOudBNzacJXOtCauubgGVe-agF1q1ANxA).
+
+3. 🧑‍💻 The callback of `onDieClick` is called with a click event. The die's index can be retrieved from `event.target.name` (it's the `name` of a checkbox). But the value is a string and `updateHeldDie` expects a number. Update the code in app.js so that the clicked die's index is passed *as a number* to `updateHeldDie`.
+
+    💡 Hint: use ramda's [`path`](https://ramdajs.com/docs/#path). Also, optionally use `parseInt` from `src/lib/utils.js`.
+
+    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEEMAdIOgKwM4CgkHsB2ARAlgUwMIA22AxgNYAUSoNok2kuFk4ALgBYUDaA5K+ACcA5rlY8ANKB7pwAW1w8AugEpJLAQlwBJdK0kUAJnh0HcAD2WgAvAD5qtBwDNCqAO4UE-VrklcArpAGbLgAEriEBjhMRtrophaS-JAUArhxuAI4JLiqoEkeogDKXjkq4vY0qkjKANxIQA).

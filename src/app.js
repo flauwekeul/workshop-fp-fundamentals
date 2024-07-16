@@ -45,8 +45,8 @@ const app = (initialState) => {
   );
 
   onDieClick(
-    pipe(prop('target'), ({ name, checked }) =>
-      flow(state, [updateHeldDie(parseInt(name), checked), tap(renderDice), tap(setState)]),
+    pipe(path(['target', 'name']), parseInt, (dieIndex) =>
+      flow(state, [updateHeldDie(dieIndex), tap(renderDice), tap(setState)]),
     ),
   );
 
