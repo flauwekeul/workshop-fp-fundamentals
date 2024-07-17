@@ -4,6 +4,8 @@
 
 import { curry } from 'ramda';
 
+// ⛔️ No need to make changes in this file
+
 export const setAttribute = curry((attr, value, el) => el.setAttribute(attr, value));
 
 export const removeAttribute = curry((attr, el) => el.removeAttribute(attr));

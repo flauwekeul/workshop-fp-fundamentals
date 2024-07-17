@@ -53,7 +53,7 @@ export const decrementThrowsLeft = (state) => modify('throwsLeft', dec, state);
 export const updateHeldDie = (dieIndex) => modifyPath(['dice', dieIndex, 'hold'], not);
 
 export const updatePlayerScore = curry((scoreId, score, state) =>
-  assocPath([state.currentPlayer, 'scores', scoreId], parseInt(score), state),
+  assocPath([state.currentPlayer, 'scores', scoreId], score, state),
 );
 
 const otherPlayer = (currentPlayer) => (currentPlayer === 'player1' ? 'player2' : 'player1');
@@ -65,13 +65,23 @@ const resetHeldDice = (state) => modify('dice', map(assoc('hold', false)), state
 export const switchPlayer = (state) =>
   flow(state, [modify('currentPlayer', otherPlayer), resetThrowsLeft, resetHeldDice]);
 
+export const anyScoresEmpty = (state) =>
+  flow(state, [
+    paths([
+      ['player1', 'scores'],
+      ['player2', 'scores'],
+    ]),
+    chain(values),
+    any(isNil),
+  ]);
+
+/**
+ * 🚫 The following functions are done. No need to change them.
+ */
+
 export const currentPlayerScores = (state) => state[state.currentPlayer].scores;
 
 export const canHoldDie = (state) => state.throwsLeft < MAX_THROWS;
-
-/**
- * Scores
- */
 
 // Returns an array of the counts of each kind of die value, e.g.: [2, 2, 3, 5, 5] returns [2, 1, 2]
 const kindsCount = (diceValues) => flow(diceValues, [groupBy(identity), map(prop('length')), values]);
@@ -119,16 +129,6 @@ export const upperSectionSum = (scores) => sum(props(['ones', 'twos', 'threes', 
 export const bonus = (sum) => (sum >= BONUS_THRESHOLD ? BONUS_SCORE : NO_SCORE);
 
 export const totalScore = (scores) => sum(values(scores));
-
-export const anyScoresEmpty = (state) =>
-  flow(state, [
-    paths([
-      ['player1', 'scores'],
-      ['player2', 'scores'],
-    ]),
-    chain(values),
-    any(isNil),
-  ]);
 
 export const winner = ifElse(
   (state) => totalScore(state.player1.scores) > totalScore(state.player2.scores),

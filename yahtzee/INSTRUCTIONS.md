@@ -28,6 +28,8 @@ Compose the 3 render functions in a functional style.
 
 ## Step 2️⃣
 
+Create a new state with random dice.
+
 1. 🧑‍💻 Update the `dice` property in `state` so that each die gets a random `value`. Assign the updated state to `nextState`. *Get it working first*, don't make the code too "pretty", you'll make it more FP-like in the coming steps.
 
     👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/MYewdgzgLgBGCmAPKBlKBDK8YF4YG8AoGEmAOguk3gBpjSATAS2HgC4YqsznWyBbdAAcAFCICUuAHwwR+GADd0AGwCu7GAFlMACzIAzZSBAAnEdqh6T6MAxD8JMAFQwAbJIDUMAIw0YOkGUGDn0VCGwAX3FxQgiAbkIgA).
@@ -72,6 +74,8 @@ Compose the 3 render functions in a functional style.
 
 ## Step 3️⃣
 
+Sort dice, only throw dice that aren't held and limit dice throws to 3 per round.
+
 1. 🧑‍💻 Now you're going to sort the random dice. This makes it a bit easier to see which values are thrown. Remember exercise 07? Use that composition to sort the random dice in effects.js.
 
     💡 Hint: change how you use `modify` so that you're composing "the creation of random dice" followed by "the sorting of dice".
@@ -94,13 +98,15 @@ Compose the 3 render functions in a functional style.
 
 ## Step 4️⃣
 
+Hold dice.
+
 1. 🧑‍💻 When the user clicks on a die, the die's `hold` property should toggle. `updateHeldDie` in calculations.js is responsible for toggling the `hold` property of a single die in `state`. Use ramda's [`modifyPath`](https://ramdajs.com/docs/#modifyPath) to update a deeply nested part of `state`. The first argument of `modifyPath` is an array that describes a "path" towards this deeply nested property.
 
     💡 Hint: ramda also has a function that negates its argument. Use this to toggle the `hold` property.
 
     👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEGMEMBtwV2pALgSwPYDsDOA6AVlgFCEoC2ADmgE5KgDeopaAJigGYCeACsgBYA0oDGloBfUGyppSoAORVIpZpFkBuYgFMAHpRoRMWWnHLKkGgBIbozACIoNoALygAFKw0BJDM20BKJwB8jCzs3HwuANqyrOAasoLuXj5agrK8aNayALqCwki+qkA).
 
-2. 🧑‍💻 In app.js `onDieClick` is used to handle click events on dice. Compose `updateHeldDie`, `renderDice` and `setState` in a similar way as you did in the `onRollDice` callback. For now, pass `4` to `updateHeldDie`. You'll pass the actual die index in the next step.
+2. 🧑‍💻 In app.js `onDieClick` is used to handle click events on dice. Compose `updateHeldDie`, `renderDice` and finally `setState` in a similar way as you did in the `onRollDice` callback. For now, pass `4` to `updateHeldDie`. You'll pass the actual die index in the next step.
 
     💡 Hint: you've successfully completed this step when you click a die and always see the last die being held/released.
 
@@ -111,3 +117,48 @@ Compose the 3 render functions in a functional style.
     💡 Hint: use ramda's [`path`](https://ramdajs.com/docs/#path). Also, optionally use `parseInt` from `src/lib/utils.js`.
 
     👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEEMAdIOgKwM4CgkHsB2ARAlgUwMIA22AxgNYAUSoNok2kuFk4ALgBYUDaA5K+ACcA5rlY8ANKB7pwAW1w8AugEpJLAQlwBJdK0kUAJnh0HcAD2WgAvAD5qtBwDNCqAO4UE-VrklcArpAGbLgAEriEBjhMRtrophaS-JAUArhxuAI4JLiqoEkeogDKXjkq4vY0qkjKANxIQA).
+
+## Step 5️⃣
+
+Choose scores, switch players or declare winner.
+
+1. 🧑‍💻 Once dice are thrown all possible scores are calculated and displayed. When a player chooses a score by clicking on one, the score needs to be stored in the state. This is done by `updatePlayerScore` in calculations.js. Make the following changes:
+    * Curry the function (ramda has a function for that…).
+    * Use ramda's [assocPath](https://ramdajs.com/docs/#assocPath) to update the current player's score for the given `scoreId`. `assocPath` is the same as `modifyPath`, but its 2nd argument is not a function that returns the new value, but the new value itself.
+
+    💡 Hint: the current player is can be retrieved from `state`.
+
+    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEGMEMBtwV2pALgSwPYDsDOA6AVlgFCEoC2ADmgE5KgDeokWWa4ACsgBYA0EcVVAJ6gAvqABmVNKVAByKpFIATSLIDcxAKYAPSjQiYstOORVJNbRIM1UAyuGqbQAXj4DBACg9YHVTQEklXh9HYKRkTQBKFwA+QlBGZlYOJE4PAG0jCJx4AU0MJEtIaypeWRC-LFlg3wClAF0a0NAs80juQkiNIA).
+
+2. 🧑‍💻 Similar to the callback of `onDieClick`, compose `updatePlayerScore`, `renderAllScores`, `clearPossibleScores` and finally `setState`. For now, pass any score id (e.g. `ones`) and score to `updatePlayerScore`.
+
+    💡 Hint: you've successfully completed this step when you click a score, see a score for "ones" for Hank and all the score buttons removed.
+
+    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEEMAdIOgKwM4CgkHsB2BlAxqgTgKYDCANgJbYDWAFNQJSgC8AfKAGYmoDu1CALuD4EANKADaAV0gATQQQAKJcAE8CeHPgLUA5BgIJtogMx1RAyNULppagIIkSGwglOhz1bCQLg881AgQyACMvJ31XdwQCPkwBIToAXTo6AG4kIA).
+
+3. 🧑‍💻 To get the actual clicked `scoreId` and `score` we need the click event. This time the values can be retrieved from `event.target.dataset.scoreId` and `event.target.dataset.score` respectively. Update the code in app.js so that the clicked score id and score are passed to `updatePlayerScore`.
+
+    💡 Hint: don't forget to turn the score into a number.
+
+    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEEMAdIOgKwM4CgkHsB2BlAxqgTgKYDCANgJbYDWAFEqPaJGZAdZOAC4AW1A2gOQdweAOYEO-ADSh+AE07gE4-gF0AlNOoBvUAlyEAkrOl78BUAF81oALwA+OgycAzEqgDu1BEI4FpvRycg0ABXSHlfAAUScABPAjwcMy99AiNpdjwlA3QOFLM1DUDghiFIakJ0WQSAQRISJMIEIpKgsupsEgJhSNQEBDIAIy7GgmbJYtb2pQ5MHwIWkvUJpyK1AG4kIA).
+
+4. 🧑‍💻 When a player chooses a score, it's the other player's turn to throw dice. `switchPlayer` in calculations.js already exists, but it uses 3 helper functions that you're going to implement:
+    * `otherPlayer` should return `player2` when `state.currentPlayer === 'player1'` or `player1` otherwise.
+    * `resetThrowsLeft` sets `state.throwsLeft` to `MAX_THROWS` (which is already imported from `state.js`).
+    * `resetHeldDice` sets all dice `hold` property to `false`.
+
+    Call `switchPlayer` in app.js and make sure `renderDice`, `renderThrowsLeft` and `renderCurrentPlayerName` are called as well.
+
+    💡 Hint: it matters where you place `switchPlayer` in the pipeline, because a lot of render functions depend on `state.currentPlayer`. Make sure you switch player *after* rendering score-related things but *before* rendering dice-related things.
+
+    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEGMEMBtwV2pALgSwPYDsDOA6AVlgFCEoC2ADmgE5KgDeokWWa4ANKAGbRoDuHpSOQFoAJik4BPUAF8uVNKVAByKpFKjIygNzFwmLLTRIAFgFMqABUSSLoALygAFPCpUzGJNci2qASgcAPmdXd09vXwd7R2VyGwsARmVQAH4VOJ8LACZkgC50+Kokv11CfWxadywzJAAVEwVeLAAZM05aRydDZDMA+2CmFnAnZVNGlrakZQ4AWQBBAA0AfVqACQAlAHkAdQBlDm6kXtLyw1AqmtWzaFEAERRwMwdnQ96g0FIxCUkR8Ufpj5CJyDVgjExoG4Azgwap+PwHJA9ErEMwAD0oNAgBloWF4KCQ4BMETsnVefWC3D4XURRw4AG1PuIpCNQh4vIUAcZzFZCvDzmZqnUGnwJu0OBckFcbvdHgBdZGEECMcjkfBEQiYXb6dwAYWgDwA1k5CKBTaByChyGYnORkCYnHTRpAqABzGoA5SaRGC5TyjhOBhYbVmACSogOwdk5JNZtjlN41J69JjsdToDg5C9ZmJVC11GtQfzYY4tqo1RDni6wbhbBTabNiPITjCogsc2g0DzVXhdfroEbLmgZmdljQzBQACMh12BT2+7HcfjCTna-OG0CWxYZb1V2v+xuPK2qPVxq12nO9wPN1QdXA3GycwA5dQ73v1geC3Y0199v11nvIkAA).
+
+5. 🧑‍💻 When both players have filled all their scores the game should end and a winner should be declared. `anyScoresEmpty` in calculations.js checks if the game should end and you're going to implement it next. It should gather both players' scores and return whether any score is empty.
+
+    💡 Hint: despite the fact that it's difficult to find the right function in ramda's, I'm not going to tell you this time what functions to use 😅
+
+    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEGMEMBtwV2pALgSwPYDsDOA6AVlgFCEoC2ADmgE5KgDeokGAngDQQAWkKG7AZtDQB3diiwA5FNHblkHLOwBuMOAFMsoAL6g+VNKVAByKpFIATSIYDcxVQA9KNCJiy0mzAMrhq6gKIUkZlAAXlAACldkVQBKEIA+QlAknUEhCKQo9gBtROS82SR5MKysw3JEZlUqAEZDdkMsbyp1QwBdbLKKqoAmOqNGnyw21ujWXLyk8C4eMOVoNSxR8Yn3MLFJaCW8kZsgA).
+
+6. 🧑‍💻 The final step is to use `anyScoresEmpty` in app.js to determine to either end the game or switch player. You already have the code that switches player. When the game needs to end only `renderTotalScore` and `renderWinner` needs to be called. Find the right ramda function to branch the code.
+
+    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEEMAdIOgKwM4CgkHsB2BlAxqgTgKYDCANgJbYDWAFEqPaJGZAdZOAC4AW1A2gOQdweAOYEO-ADSh+AE07gE4-gF0AlNOoBvUAlyEAkrOl78BUAF81oALwA+OgycAzEqgDu1BEI4FpvRycg0ABXSHlfAAUScABPAjwcMy99AiNpdjwlA3QOFLM1DUDghiFIakJ0WQSAQRISJMIEIpKgsupsEgJhSNQEBDIAIy7GgmbJYtayZwBREiVaVtbwdFjRhBmAW0gOWImlkqYWL3cyDmwuaLiE6XbK6rwAEQoCDVA7giqEgBUuPA8EAAZAjODhvD5fPBEEJ4SocK7xPAAOXAm1eLQOQSOrAhD2+qCEDVS4KgFU+DwA6mR0OgEoV9piMQd2koOJgfK8GcF1FzQEU1ABuJBAA).

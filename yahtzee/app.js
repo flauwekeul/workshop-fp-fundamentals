@@ -47,9 +47,11 @@ const app = (initialState) => {
   });
 
   onScoreClick(() => {
+    // Step 5️⃣
     const nextState = {};
     renderAllScores(nextState);
     clearPossibleScores(nextState);
+    setState(nextState);
   });
 };
 

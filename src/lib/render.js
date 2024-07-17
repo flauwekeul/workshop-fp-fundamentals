@@ -29,6 +29,8 @@ import {
 } from '../calculations.js';
 import { queryElement, removeAttribute, setElementHtml, toggleAttribute } from './dom.js';
 
+// ⛔️ No need to make changes in this file
+
 const mapWithIndex = addIndex(map);
 
 export const renderCurrentPlayerName = (state) =>

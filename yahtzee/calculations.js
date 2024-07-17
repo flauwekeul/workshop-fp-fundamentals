@@ -1,4 +1,31 @@
-import { map, pluck } from 'ramda';
+import {
+  __,
+  always,
+  both,
+  equals,
+  filter,
+  flow,
+  groupBy,
+  gte,
+  identity,
+  ifElse,
+  includes,
+  map,
+  max,
+  modify,
+  pipe,
+  pluck,
+  prop,
+  props,
+  reduce,
+  splitWhenever,
+  subtract,
+  sum,
+  tail,
+  uniq,
+  values,
+  zipWith,
+} from 'ramda';
 import {
   BONUS_SCORE,
   BONUS_THRESHOLD,
@@ -22,49 +49,68 @@ const resetThrowsLeft = (state) => state;
 
 const resetHeldDice = (state) => state;
 
-export const switchPlayer = (state) => state;
+export const switchPlayer = (state) =>
+  flow(state, [modify('currentPlayer', otherPlayer), resetThrowsLeft, resetHeldDice]);
 
-export const currentPlayerScores = (state) => state.player1.scores;
-
-export const canHoldDie = (state) => true;
+export const anyScoresEmpty = (state) => true;
 
 /**
- * Scores
+ * 🚫 The following functions are done. No need to change them.
  */
 
+export const currentPlayerScores = (state) => state[state.currentPlayer].scores;
+
+export const canHoldDie = (state) => state.throwsLeft < MAX_THROWS;
+
 // Returns an array of the counts of each kind of die value, e.g.: [2, 2, 3, 5, 5] returns [2, 1, 2]
-const kindsCount = (diceValues) => [];
+const kindsCount = (diceValues) => flow(diceValues, [groupBy(identity), map(prop('length')), values]);
 
 // Very difficult to come up with this 🤯
-export const sequenceCount = (diceValues) => 0;
+export const sequenceCount = (diceValues) => {
+  const uniqueValues = uniq(diceValues);
+  return flow(uniqueValues, [
+    // Make a list of the differences between each die value (this list is 1 shorter than the original list)
+    zipWith(subtract, tail(uniqueValues)),
+    // Split the list into groups that each have differences of 1
+    splitWhenever((diff) => diff !== 1),
+    // Get the length of each group
+    map(length),
+    // Find the maximum length
+    reduce(max, 0),
+  ]);
+};
+
+const sumWithValue = (kind) => pipe(filter(equals(kind)), sum);
 
 // Each calculator is called with a sorted array of dice values, e.g.: [2, 2, 3, 4, 6]
 const scoreCalculators = {
-  ones: (diceValues) => 0,
-  twos: (diceValues) => 0,
-  threes: (diceValues) => 0,
-  fours: (diceValues) => 0,
-  fives: (diceValues) => 0,
-  sixes: (diceValues) => 0,
-  threeOfAKind: (diceValues) => 0,
-  fourOfAKind: (diceValues) => 0,
-  fullHouse: (diceValues) => 0,
-  smallStraight: (diceValues) => 0,
-  largeStraight: (diceValues) => 0,
-  chance: (diceValues) => 0,
+  ones: sumWithValue(1),
+  twos: sumWithValue(2),
+  threes: sumWithValue(3),
+  fours: sumWithValue(4),
+  fives: sumWithValue(5),
+  sixes: sumWithValue(6),
+  threeOfAKind: ifElse(pipe(kindsCount, includes(3)), sum, always(NO_SCORE)),
+  fourOfAKind: ifElse(pipe(kindsCount, includes(4)), sum, always(NO_SCORE)),
+  fullHouse: ifElse(pipe(kindsCount, both(includes(2), includes(3))), always(FULL_HOUSE_SCORE), always(NO_SCORE)),
+  smallStraight: ifElse(pipe(sequenceCount, gte(__, 3)), always(SMALL_STRAIGHT_SCORE), always(NO_SCORE)),
+  largeStraight: ifElse(pipe(sequenceCount, gte(__, 4)), always(LARGE_STRAIGHT_SCORE), always(NO_SCORE)),
+  chance: sum,
   // When yahtzee is scored when it's been scored before, 100 points should be awarded.
   // But to keep things simple, yahtzee always scores 50 points.
-  yahtzee: (diceValues) => 0,
+  yahtzee: ifElse(pipe(kindsCount, includes(5)), always(YAHTZEE_SCORE), always(NO_SCORE)),
 };
 
 export const possibleScores = (dice) => map((calculator) => calculator(pluck('value', dice)), scoreCalculators);
 
-export const upperSectionSum = (scores) => 0;
+export const upperSectionSum = (scores) => sum(props(['ones', 'twos', 'threes', 'fours', 'fives', 'sixes'], scores));
 
-export const bonus = (sum) => 0;
+export const bonus = (sum) => (sum >= BONUS_THRESHOLD ? BONUS_SCORE : NO_SCORE);
 
-export const totalScore = (scores) => 0;
+export const totalScore = (scores) => sum(values(scores));
 
-export const anyScoresEmpty = (state) => true;
-
-export const winner = 'player1';
+export const winner = ifElse(
+  (state) => totalScore(state.player1.scores) > totalScore(state.player2.scores),
+  prop('player1'),
+  prop('player2'),
+);

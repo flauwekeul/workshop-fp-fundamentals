@@ -53,7 +53,7 @@ const app = (initialState) => {
   onScoreClick(
     pipe(path(['target', 'dataset']), ({ scoreId, score }) =>
       flow(state, [
-        updatePlayerScore(scoreId, score),
+        updatePlayerScore(scoreId, parseInt(score)),
         tap(renderAllScores),
         tap(clearPossibleScores),
         ifElse(
