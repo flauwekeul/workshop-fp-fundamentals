@@ -4,7 +4,7 @@
 
 import { flow, ifElse, path, pipe, prop, tap } from 'ramda';
 import { anyScoresEmpty, decrementThrowsLeft, switchPlayer, updateHeldDie, updatePlayerScore } from './calculations.js';
-import { INITIAL_STATE } from './data.js';
+import { INITIAL_STATE } from './state.js';
 import { updateDiceValues } from './effects.js';
 import { on, queryElement } from './lib/dom.js';
 import {

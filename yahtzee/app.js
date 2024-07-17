@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 
-import { INITIAL_STATE } from './data.js';
+import { INITIAL_STATE } from './state.js';
 import { on, queryElement } from './lib/dom.js';
 import {
   clearPossibleScores,

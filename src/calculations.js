@@ -46,11 +46,7 @@ import {
   NO_SCORE,
   SMALL_STRAIGHT_SCORE,
   YAHTZEE_SCORE,
-} from './data.js';
-
-/**
- * State
- */
+} from './state.js';
 
 export const decrementThrowsLeft = (state) => modify('throwsLeft', dec, state);
 
