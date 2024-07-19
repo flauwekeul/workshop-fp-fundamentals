@@ -7,7 +7,7 @@ import { on, queryElement } from './lib/dom.js';
 import {
   clearPossibleScores,
   renderAllScores,
-  renderCurrentPlayerName,
+  highlightCurrentPlayer,
   renderDice,
   renderPossibleScores,
   renderTableHeader,
@@ -16,10 +16,12 @@ import {
   renderWinner,
 } from './lib/render.js';
 import { parseInt } from './lib/utils.js';
+import { equals, path, pipe, when } from 'ramda';
 
 const onRollDice = on('click', queryElement('#roll-dice'));
 const onDieClick = on('change', queryElement('#dice'));
-const onScoreClick = on('click', queryElement('#scores'));
+const onScoreClick = (callback) =>
+  on('click', queryElement('#scores'), when(pipe(path(['target', 'tagName']), equals('BUTTON')), callback));
 
 const app = (initialState) => {
   let state = initialState;
@@ -29,7 +31,7 @@ const app = (initialState) => {
 
   // Step 1️⃣
   renderTableHeader(initialState);
-  renderCurrentPlayerName(initialState);
+  highlightCurrentPlayer(initialState);
   renderThrowsLeft(initialState);
 
   onRollDice(() => {

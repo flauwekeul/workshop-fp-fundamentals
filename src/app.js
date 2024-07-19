@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 
-import { flow, ifElse, path, pipe, prop, tap } from 'ramda';
+import { equals, flow, ifElse, path, pipe, tap, when } from 'ramda';
 import { anyScoresEmpty, decrementThrowsLeft, switchPlayer, updateHeldDie, updatePlayerScore } from './calculations.js';
 import { INITIAL_STATE } from './state.js';
 import { updateDiceValues } from './effects.js';
@@ -10,7 +10,7 @@ import { on, queryElement } from './lib/dom.js';
 import {
   clearPossibleScores,
   renderAllScores,
-  renderCurrentPlayerName,
+  highlightCurrentPlayer,
   renderDice,
   renderPossibleScores,
   renderTableHeader,
@@ -22,7 +22,8 @@ import { parseInt } from './lib/utils.js';
 
 const onRollDice = on('click', queryElement('#roll-dice'));
 const onDieClick = on('change', queryElement('#dice'));
-const onScoreClick = on('click', queryElement('#scores'));
+const onScoreClick = (callback) =>
+  on('click', queryElement('#scores'), when(pipe(path(['target', 'tagName']), equals('BUTTON')), callback));
 
 const app = (initialState) => {
   let state = initialState;
@@ -30,7 +31,7 @@ const app = (initialState) => {
     state = nextState;
   };
 
-  flow(initialState, [tap(renderTableHeader), tap(renderCurrentPlayerName), tap(renderThrowsLeft)]);
+  flow(initialState, [tap(renderTableHeader), tap(highlightCurrentPlayer), tap(renderThrowsLeft)]);
 
   onRollDice(() =>
     flow(state, [
@@ -38,7 +39,6 @@ const app = (initialState) => {
       decrementThrowsLeft,
       tap(renderDice),
       tap(renderThrowsLeft),
-      // Derived state
       tap(renderPossibleScores),
       tap(setState),
     ]),
@@ -58,7 +58,7 @@ const app = (initialState) => {
         tap(clearPossibleScores),
         ifElse(
           anyScoresEmpty,
-          pipe(switchPlayer, tap(renderDice), tap(renderThrowsLeft), tap(renderCurrentPlayerName)),
+          pipe(switchPlayer, tap(renderDice), tap(renderThrowsLeft), tap(highlightCurrentPlayer)),
           pipe(tap(renderTotalScore), tap(renderWinner)),
         ),
         tap(setState),

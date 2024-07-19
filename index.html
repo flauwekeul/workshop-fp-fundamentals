@@ -6,113 +6,227 @@
     <title>Yahtzee!</title>
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
-  <body>
-    <div id="app">
-      <div>
-        Current player:
-        <strong id="current-player"></strong>
+  <body class="text-lg bg-green-700 text-white">
+    <div id="app" class="flex gap-10 w-1/2 mx-auto mt-16">
+      <div id="current-player-pointer" class="absolute top-4 translate-x-1/4 text-6xl transition-[left] duration-500">
+        👇
+      </div>
+      <div class="overflow-x-auto rounded-lg flex-1 border-4 border-green-500">
+        <table id="scores-table" class="group w-full text-green-950">
+          <thead>
+            <tr class="bg-green-300">
+              <th class="p-2"></th>
+              <th id="player1-name" class="p-2"></th>
+              <th id="player2-name" class="p-2"></th>
+            </tr>
+          </thead>
+          <tbody id="scores">
+            <tr class="odd:bg-green-100 even:bg-green-200">
+              <th scope="row" class="font-normal text-left p-2">Ones</th>
+              <td
+                id="player1-ones"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player1]:bg-green-300"
+              ></td>
+              <td
+                id="player2-ones"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player2]:bg-green-300"
+              ></td>
+            </tr>
+            <tr class="odd:bg-green-100 even:bg-green-200">
+              <th scope="row" class="font-normal text-left p-2">Twos</th>
+              <td
+                id="player1-twos"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player1]:bg-green-300"
+              ></td>
+              <td
+                id="player2-twos"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player2]:bg-green-300"
+              ></td>
+            </tr>
+            <tr class="odd:bg-green-100 even:bg-green-200">
+              <th scope="row" class="font-normal text-left p-2">Threes</th>
+              <td
+                id="player1-threes"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player1]:bg-green-300"
+              ></td>
+              <td
+                id="player2-threes"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player2]:bg-green-300"
+              ></td>
+            </tr>
+            <tr class="odd:bg-green-100 even:bg-green-200">
+              <th scope="row" class="font-normal text-left p-2">Fours</th>
+              <td
+                id="player1-fours"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player1]:bg-green-300"
+              ></td>
+              <td
+                id="player2-fours"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player2]:bg-green-300"
+              ></td>
+            </tr>
+            <tr class="odd:bg-green-100 even:bg-green-200">
+              <th scope="row" class="font-normal text-left p-2">Fives</th>
+              <td
+                id="player1-fives"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player1]:bg-green-300"
+              ></td>
+              <td
+                id="player2-fives"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player2]:bg-green-300"
+              ></td>
+            </tr>
+            <tr class="odd:bg-green-100 even:bg-green-200 border-b-2 border-green-400">
+              <th scope="row" class="font-normal text-left p-2">Sixes</th>
+              <td
+                id="player1-sixes"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player1]:bg-green-300"
+              ></td>
+              <td
+                id="player2-sixes"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player2]:bg-green-300"
+              ></td>
+            </tr>
+            <tr class="odd:bg-green-100 even:bg-green-200">
+              <th scope="row" class="font-normal text-left p-2">Sum</th>
+              <td
+                id="player1-sum"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player1]:bg-green-300"
+              ></td>
+              <td
+                id="player2-sum"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player2]:bg-green-300"
+              ></td>
+            </tr>
+            <tr class="odd:bg-green-100 even:bg-green-200 border-b-2 border-green-400">
+              <th scope="row" class="font-normal text-left p-2">Bonus</th>
+              <td
+                id="player1-bonus"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player1]:bg-green-300"
+              ></td>
+              <td
+                id="player2-bonus"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player2]:bg-green-300"
+              ></td>
+            </tr>
+            <tr class="odd:bg-green-100 even:bg-green-200">
+              <th scope="row" class="font-normal text-left p-2">Three of a Kind</th>
+              <td
+                id="player1-threeOfAKind"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player1]:bg-green-300"
+              ></td>
+              <td
+                id="player2-threeOfAKind"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player2]:bg-green-300"
+              ></td>
+            </tr>
+            <tr class="odd:bg-green-100 even:bg-green-200">
+              <th scope="row" class="font-normal text-left p-2">Four of a Kind</th>
+              <td
+                id="player1-fourOfAKind"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player1]:bg-green-300"
+              ></td>
+              <td
+                id="player2-fourOfAKind"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player2]:bg-green-300"
+              ></td>
+            </tr>
+            <tr class="odd:bg-green-100 even:bg-green-200">
+              <th scope="row" class="font-normal text-left p-2">Full House</th>
+              <td
+                id="player1-fullHouse"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player1]:bg-green-300"
+              ></td>
+              <td
+                id="player2-fullHouse"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player2]:bg-green-300"
+              ></td>
+            </tr>
+            <tr class="odd:bg-green-100 even:bg-green-200">
+              <th scope="row" class="font-normal text-left p-2">Small Straight</th>
+              <td
+                id="player1-smallStraight"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player1]:bg-green-300"
+              ></td>
+              <td
+                id="player2-smallStraight"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player2]:bg-green-300"
+              ></td>
+            </tr>
+            <tr class="odd:bg-green-100 even:bg-green-200">
+              <th scope="row" class="font-normal text-left p-2">Large Straight</th>
+              <td
+                id="player1-largeStraight"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player1]:bg-green-300"
+              ></td>
+              <td
+                id="player2-largeStraight"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player2]:bg-green-300"
+              ></td>
+            </tr>
+            <tr class="odd:bg-green-100 even:bg-green-200">
+              <th scope="row" class="font-normal text-left p-2">Chance</th>
+              <td
+                id="player1-chance"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player1]:bg-green-300"
+              ></td>
+              <td
+                id="player2-chance"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player2]:bg-green-300"
+              ></td>
+            </tr>
+            <tr class="odd:bg-green-100 even:bg-green-200 border-b-2 border-green-400">
+              <th scope="row" class="font-normal text-left p-2">Yahtzee</th>
+              <td
+                id="player1-yahtzee"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player1]:bg-green-300"
+              ></td>
+              <td
+                id="player2-yahtzee"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player2]:bg-green-300"
+              ></td>
+            </tr>
+          </tbody>
+          <tfooter>
+            <tr class="bg-green-200">
+              <th scope="row" class="font-normal text-left p-2">Total</th>
+              <td
+                id="player1-total"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player1]:bg-green-300"
+              ></td>
+              <td
+                id="player2-total"
+                class="p-2 text-center text-2xl italic leading-3 font-serif transition-colors duration-500 group-[.player2]:bg-green-300"
+              ></td>
+            </tr>
+          </tfooter>
+        </table>
       </div>
 
-      <button type="button" id="roll-dice">Roll dice</button>
-      <div>Throws left: <span id="throws-left"></span></div>
+      <div class="flex-1">
+        <div class="flex items-baseline gap-x-8">
+          <button
+            type="button"
+            id="roll-dice"
+            class="border-4 border-pink-400 hover:enabled:border-pink-300 bg-pink-600 hover:enabled:bg-pink-500 disabled:opacity-70 disabled:cursor-not-allowed px-4 py-2 text-3xl font-bold rounded-md transition-colors"
+          >
+            Roll dice
+          </button>
+          <div class="text-green-200">
+            <span id="throws-left" class="text-5xl text-white font-serif leading-none"></span> throws left
+          </div>
+        </div>
 
-      <ol id="dice"></ol>
+        <ol id="dice" class="h-3/4 flex flex-col gap-6 items-center justify-center content-center"></ol>
+      </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th></th>
-            <th id="player1-name"></th>
-            <th id="player2-name"></th>
-          </tr>
-        </thead>
-        <tbody id="scores">
-          <tr>
-            <td>Ones</td>
-            <td id="player1-ones"></td>
-            <td id="player2-ones"></td>
-          </tr>
-          <tr>
-            <td>Twos</td>
-            <td id="player1-twos"></td>
-            <td id="player2-twos"></td>
-          </tr>
-          <tr>
-            <td>Threes</td>
-            <td id="player1-threes"></td>
-            <td id="player2-threes"></td>
-          </tr>
-          <tr>
-            <td>Fours</td>
-            <td id="player1-fours"></td>
-            <td id="player2-fours"></td>
-          </tr>
-          <tr>
-            <td>Fives</td>
-            <td id="player1-fives"></td>
-            <td id="player2-fives"></td>
-          </tr>
-          <tr>
-            <td>Sixes</td>
-            <td id="player1-sixes"></td>
-            <td id="player2-sixes"></td>
-          </tr>
-          <tr>
-            <td>Sum</td>
-            <td id="player1-sum"></td>
-            <td id="player2-sum"></td>
-          </tr>
-          <tr>
-            <td>Bonus</td>
-            <td id="player1-bonus"></td>
-            <td id="player2-bonus"></td>
-          </tr>
-          <tr>
-            <td>Three of a Kind</td>
-            <td id="player1-threeOfAKind"></td>
-            <td id="player2-threeOfAKind"></td>
-          </tr>
-          <tr>
-            <td>Four of a Kind</td>
-            <td id="player1-fourOfAKind"></td>
-            <td id="player2-fourOfAKind"></td>
-          </tr>
-          <tr>
-            <td>Full House</td>
-            <td id="player1-fullHouse"></td>
-            <td id="player2-fullHouse"></td>
-          </tr>
-          <tr>
-            <td>Small Straight</td>
-            <td id="player1-smallStraight"></td>
-            <td id="player2-smallStraight"></td>
-          </tr>
-          <tr>
-            <td>Large Straight</td>
-            <td id="player1-largeStraight"></td>
-            <td id="player2-largeStraight"></td>
-          </tr>
-          <tr>
-            <td>Chance</td>
-            <td id="player1-chance"></td>
-            <td id="player2-chance"></td>
-          </tr>
-          <tr>
-            <td>Yahtzee</td>
-            <td id="player1-yahtzee"></td>
-            <td id="player2-yahtzee"></td>
-          </tr>
-        </tbody>
-        <tfooter>
-          <tr>
-            <td>Total</td>
-            <td id="player1-total"></td>
-            <td id="player2-total"></td>
-          </tr>
-        </tfooter>
-      </table>
-
-      <div id="winner" hidden="hidden">Winner: <span id="winner-name"></span></div>
+      <div
+        id="winner"
+        hidden="hidden"
+        class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-2/3 text-[24vh] w-[100vw] text-center leading-none font-bold font-serif text-yellow-400 drop-shadow-xl"
+      >
+        <span id="winner-name"></span> won!
+      </div>
     </div>
 
     <script type="module" src="/src/app.js"></script>

@@ -24,7 +24,7 @@ Compose the 3 render functions in a functional style.
 
     💡 Hint: since you're "piping" (or "flowing") a value through functions, both `pipe` and `flow` will do the job. However, one arguably has better readability that the other.
 
-    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/GYGw9g7gFAlgdjALjAhiAyoliCmAaAAgG0sAHKAJxzgBMcKAVFAIxBwAkcU6KBKQspWo8AwgFcKVOIgAKIFAE96AORQBbHPwKCpPBgAsKkAM4AZHMES8AurwDcQA).
+    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/GYGw9g7gFAlgdjALjAhiAyoliCmAaAAgG0sAHKAJxzgBMcKAVFAIxBwAkcU6KBKQslAAWMAOZCQYoYgDCAVwpU4iAAogUAT3r8CgpTwZCKkAM4AZHMES8AurwDcQA).
 
 ## Step 2️⃣
 
@@ -147,11 +147,11 @@ Choose scores, switch players or declare winner.
     * `resetThrowsLeft` sets `state.throwsLeft` to `MAX_THROWS` (which is already imported from `state.js`).
     * `resetHeldDice` sets all dice `hold` property to `false`.
 
-    Call `switchPlayer` in app.js and make sure `renderDice`, `renderThrowsLeft` and `renderCurrentPlayerName` are called as well.
+    Call `switchPlayer` in app.js and make sure `renderDice`, `renderThrowsLeft` and `highlightCurrentPlayer` are called as well.
 
     💡 Hint: it matters where you place `switchPlayer` in the pipeline, because a lot of render functions depend on `state.currentPlayer`. Make sure you switch player *after* rendering score-related things but *before* rendering dice-related things.
 
-    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEGMEMBtwV2pALgSwPYDsDOA6AVlgFCEoC2ADmgE5KgDeokWWa4ANKAGbRoDuHpSOQFoAJik4BPUAF8uVNKVAByKpFKjIygNzFwmLLTRIAFgFMqABUSSLoALygAFPCpUzGJNci2qASgcAPmdXd09vXwd7R2VyGwsARmVQAH4VOJ8LACZkgC50+Kokv11CfWxadywzJAAVEwVeLAAZM05aRydDZDMA+2CmFnAnZVNGlrakZQ4AWQBBAA0AfVqACQAlAHkAdQBlDm6kXtLyw1AqmtWzaFEAERRwMwdnQ96g0FIxCUkR8Ufpj5CJyDVgjExoG4Azgwap+PwHJA9ErEMwAD0oNAgBloWF4KCQ4BMETsnVefWC3D4XURRw4AG1PuIpCNQh4vIUAcZzFZCvDzmZqnUGnwJu0OBckFcbvdHgBdZGEECMcjkfBEQiYXb6dwAYWgDwA1k5CKBTaByChyGYnORkCYnHTRpAqABzGoA5SaRGC5TyjhOBhYbVmACSogOwdk5JNZtjlN41J69JjsdToDg5C9ZmJVC11GtQfzYY4tqo1RDni6wbhbBTabNiPITjCogsc2g0DzVXhdfroEbLmgZmdljQzBQACMh12BT2+7HcfjCTna-OG0CWxYZb1V2v+xuPK2qPVxq12nO9wPN1QdXA3GycwA5dQ73v1geC3Y0199v11nvIkAA).
+    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEGMEMBtwV2pALgSwPYDsDOA6AVlgFCEoC2ADmgE5KgDeokWWa4ANKAGbRoDuHpSOQFoAJik4BPUAF8uVNKVAByKpFKjIygNzFwmLLTRIAFgFMqABUSSLoALygAFPCpUzGJNci2qASgcAPmdXd09vXwd7R2VyGwsARmVQAH4VOJ8LACZkgC50+Kokv11CfWxadywzJAAVEwVeLAAZM05aRydDZDMA+2CmFnAnZVNGlrakZQ4AWQBBAA0AfVqACQAlAHkAdQBlDm6kXtLyw1AqmtWzaFEAERRwMwdnQ96g0FIxCUkR8Ufpj5CJyDVgjExoG4Azgwap+PwHJA9ErEMwAD0oNAgBloWF4KCQ4BMETsnVefWC3D4XURRw4AG1PuIpCNQh4vIUAcZzFZCvDzmZqnUGnwJu0OBckFcbvdHgBdZGEECMcjkfBEQiYXb6dwAYWgDwA1k5CKBTaByChyGYnORkCYnHTRpAqABzGoA5SaRGC5TyjhOBhYbVmACSogOwdk5JNZtjlN41J69JjsdToDg5C9ZmJVC11GtQfzYY4tqo1RDni6wbhbBTabNiPITjCogsc2g0DzVXhdfroEbLmgZmdljQzBQACMh12BT2+7HcfjCTna-OG0CWxYZb1V2v+xuPK2qPVxq12nO9wOTCgXSZ9bekDq4G42TmL2uB4LdjSd72zX66x7ZEgA).
 
 5. 🧑‍💻 When both players have filled all their scores the game should end and a winner should be declared. `anyScoresEmpty` in calculations.js checks if the game should end and you're going to implement it next. It should gather both players' scores and return whether any score is empty.
 
@@ -161,4 +161,4 @@ Choose scores, switch players or declare winner.
 
 6. 🧑‍💻 The final step is to use `anyScoresEmpty` in app.js to determine to either end the game or switch player. You already have the code that switches player. When the game needs to end only `renderTotalScore` and `renderWinner` needs to be called. Find the right ramda function to branch the code.
 
-    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEEMAdIOgKwM4CgkHsB2BlAxqgTgKYDCANgJbYDWAFEqPaJGZAdZOAC4AW1A2gOQdweAOYEO-ADSh+AE07gE4-gF0AlNOoBvUAlyEAkrOl78BUAF81oALwA+OgycAzEqgDu1BEI4FpvRycg0ABXSHlfAAUScABPAjwcMy99AiNpdjwlA3QOFLM1DUDghiFIakJ0WQSAQRISJMIEIpKgsupsEgJhSNQEBDIAIy7GgmbJYtayZwBREiVaVtbwdFjRhBmAW0gOWImlkqYWL3cyDmwuaLiE6XbK6rwAEQoCDVA7giqEgBUuPA8EAAZAjODhvD5fPBEEJ4SocK7xPAAOXAm1eLQOQSOrAhD2+qCEDVS4KgFU+DwA6mR0OgEoV9piMQd2koOJgfK8GcF1FzQEU1ABuJBAA).
+    👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEEMAdIOgKwM4CgkHsB2BlAxqgTgKYDCANgJbYDWAFEqPaJGZAdZOAC4AW1A2gOQdweAOYEO-ADSh+AE07gE4-gF0AlNOoBvUAlyEAkrOl78BUAF81oALwA+OgycAzEqgDu1BEI4FpvRycg0ABXSHlfAAUScABPAjwcMy99AiNpdjwlA3QOFLM1DUDghiFIakJ0WQSAQRISJMIEIpKgsupsEgJhSNQEBDIAIy7GgmbJYtayZwBREiVaVtbwdFjRhBmAW0gOWImlkqYWL3cyDmwuaLiE6XbK6rwAEQoCDVA7giqEgBUuPA8EAAZAjODhvdpcMgiLjkaEcIghPCVDhXeJ4Qr7A5BI6sD5fPDfVBCBqpcFQCqfB4AdTI6HQCQxkxKLSx7SUHEwPlemOC6h5oCKagA3EggA).
