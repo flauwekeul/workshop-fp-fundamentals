@@ -1,6 +1,7 @@
 import {
   __,
   always,
+  any,
   both,
   equals,
   filter,
@@ -90,8 +91,8 @@ const scoreCalculators = {
   fours: sumWithValue(4),
   fives: sumWithValue(5),
   sixes: sumWithValue(6),
-  threeOfAKind: ifElse(pipe(kindsCount, includes(3)), sum, always(NO_SCORE)),
-  fourOfAKind: ifElse(pipe(kindsCount, includes(4)), sum, always(NO_SCORE)),
+  threeOfAKind: ifElse(pipe(kindsCount, any(gte(__, 3))), sum, always(NO_SCORE)),
+  fourOfAKind: ifElse(pipe(kindsCount, any(gte(__, 4))), sum, always(NO_SCORE)),
   fullHouse: ifElse(pipe(kindsCount, both(includes(2), includes(3))), always(FULL_HOUSE_SCORE), always(NO_SCORE)),
   smallStraight: ifElse(pipe(sequenceCount, gte(__, 3)), always(SMALL_STRAIGHT_SCORE), always(NO_SCORE)),
   largeStraight: ifElse(pipe(sequenceCount, gte(__, 4)), always(LARGE_STRAIGHT_SCORE), always(NO_SCORE)),
