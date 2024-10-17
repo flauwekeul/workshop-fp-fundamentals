@@ -932,3 +932,27 @@ map(double)([1, 2, 3]);
   </li>
   </ul>
 </div>
+
+---
+
+<h2 class="mb-5">📚 Resources</h2>
+
+1. [Professor Frisby's Mostly Adequate Guide to Functional Programming](https://mostly-adequate.gitbook.io/mostly-adequate-guide)
+
+    <span class="text-neutral-400">The best book to get started with FP, especially if you have a JS background.</span>
+
+2. [Grokking Simplicity](https://grokkingsimplicity.com/)
+
+    <span class="text-neutral-400">Shows how to apply FP in a practical way.</span>
+
+3. [A Skeptic's Guide to Functional Programming with JavaScript](https://jrsinclair.com/skeptics-guide/)
+
+    <span class="text-neutral-400">How to convince your colleagues to write code in an FP-style.</span>
+
+4. [JavaScript Allongé](https://leanpub.com/javascriptallongesix/read)
+
+    <span class="text-neutral-400">Introduction to JS using FP.</span>
+
+5. [Domain Modeling Made Functional](https://fsharpforfunandprofit.com/books/)
+
+    <span class="text-neutral-400">Shows how FP can be used in software architecture. Examples in F#.</span>
