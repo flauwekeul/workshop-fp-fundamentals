@@ -1,3 +1,5 @@
+// ⛔️ No need to make changes in this file
+
 export const MAX_THROWS = 3;
 
 export const NO_SCORE = 0;
