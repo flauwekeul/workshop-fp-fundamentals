@@ -204,20 +204,41 @@ Similar to the difference between French and American recipes:
 
 ---
 
-<h2 class="mb-8">Agenda</h2>
+<h2 class="mb-13">Agenda</h2>
 
-<v-clicks>
+<div class="grid grid-cols-2 gap-5">
+  <div>
 
-1. ✋ Before we start
-2. 🧐 First-class functions
-3. 🧑‍🎨 Function composition
-4. 🍛 Currying
-5. 💎 Pure functions
-6. 🗿 Immutable state
-7. 🎲 Apply what you've learned
+  <h3 v-click class="mb-5">Part 1</h3>
 
-</v-clicks>
+  <v-clicks>
 
+  1. ✋ Before we start
+  2. 🧐 First-class functions
+  3. 🧑‍🎨 Function composition
+  4. 🍛 Currying
+  5. 💎 Pure functions
+  6. 🗿 Immutable state
+  7. 🎲 Apply what you've learned
+
+  </v-clicks>
+
+  </div>
+  <div>
+
+  <h3 v-click class="mb-5">Part 2</h3>
+
+  <v-clicks>
+
+  1. 📦 Functors
+  2. 🪺 Monads
+  3. 🚶 Applicatives
+  4. 🍹 Monoids
+
+  </v-clicks>
+
+  </div>
+</div>
 ---
 
 <h2 class="mb-13">✋ Before we start</h2>
@@ -875,3 +896,419 @@ map(double)([1, 2, 3]);
 5. [Domain Modeling Made Functional](https://fsharpforfunandprofit.com/books/)
 
     <span class="text-neutral-400">Shows how FP can be used in software architecture. Examples in F#.</span>
+
+---
+layout: image
+image: /mind-blown.gif
+---
+
+<h2 class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-2/3 text-9xl! text-blue-300 font-bold">Part 2</h2>
+
+---
+
+<h2 class="mb-8">📦 Containers</h2>
+
+<div class="flex gap-x-8">
+  <div>
+
+  What do the last 2 lines have in common?
+
+```js
+const add1 = (x) => x + 1;
+
+[1, 2, 3].map(add1);           // [2, 3, 4]
+Promise.resolve(1).then(add1); // Promise {2}
+```
+
+  <div v-click class="mt-13">
+  A function (<code>add1</code>) is applied to the value(s) of a "container".
+  </div>
+
+  </div>
+  <div>
+
+  <p v-click>Some takeaways:</p>
+
+  <ul>
+  <li v-click>Arrays and promises are <em>"containers"</em> of values.</li>
+  <li v-click class="italic"><code>add1</code> don't know nothin' 'bout no container.</li>
+  <li v-click>
+    <code>map</code> and <code>then</code> determine how <code>add1</code> is called:
+    <div class="-translate-x-4">
+
+```js
+Array.prototype.map = function(callback) {
+  // Pass each item to the callback
+}
+Promise.prototype.then = function(callback) {
+  // Wait until fulfilled, then pass value to callback
+}
+```
+
+  </div>
+  </li>
+  <li v-click class="leading-normal!"><code>map</code> and <code>then</code> offer an <em>abstraction</em> for <em>function application</em>.</li>
+  </ul>
+
+  </div>
+</div>
+
+---
+
+<h2 class="mb-5">👔 A formal API</h2>
+
+<div v-click="1">We're going to use (namespaced) <em>functions</em> instead of methods.</div>
+
+<div class="grid grid-cols-2 gap-5">
+  <div v-click="2">
+
+  <code>Identity</code> is the simplest "container":
+
+```js{1-4|all}{at:3}
+const Identity = {
+  of: (x) => x,
+  map: (fn) => (x) => fn(x),
+};
+
+const compute = pipe(
+  Identity.of,
+  Identity.map(add(2)),
+  Identity.map(multiply(3)),
+);
+compute(1); // 9
+```
+
+  </div>
+  <div v-click="4">
+
+  <code>List</code> is <em>basically</em> <code>Array</code>:
+
+```js{1-4|all}{at:5}
+const List = {
+  of: (x) => [x],
+  map: (fn) => (array) => array.map(fn),
+};
+
+const compute = pipe(
+  List.of,
+  List.map(add(2)),
+  List.map(multiply(3)),
+);
+compute(1); // [9]
+```
+
+  </div>
+</div>
+
+<div v-click="6" class="mt-8 text-center"><code>Identity</code> and <code>List</code> (and <code>Array</code>) are <em>functors</em>.</div>
+
+<!--
+* Let's not use methods, but (namespaced) functions.
+* `of` *lifts* a value into a "container".
+* `map` applies a function to the value(s) of the "container".
+* I don't show `Promise` because it's a bit complicated.
+* They're not really containers.
+-->
+
+---
+
+<h2 class="mb-8">📦 Functors</h2>
+
+<div class="flex gap-8">
+  <div>
+
+  <div class="mb-5">A functor provides a way to apply a function to value(s) in a <em>context</em>.</div>
+
+  <v-clicks>
+
+  * `List` (and `Array`) has the context of "multiple ordered values".
+  * `Promise` has the context of "a future value" <small>(it's not strictly a functor though)</small>.
+  * `Maybe` has the context of "a possible value".
+
+  </v-clicks>
+
+  </div>
+  <div v-click>
+
+```js{1-2|1-8|1-10|1-16|all}{at:5}
+const upperCase = (x) => x.toUpperCase();
+const exclaim = (x) => `${x}!!!`;
+
+const scream = pipe(
+  Identity.of,
+  Identity.map(upperCase),
+  Identity.map(exclaim),
+);
+scream('hi'); // "HI!!!"
+scream(null); // Error: Cannot read properties of null
+
+const maybeScream = pipe(
+  Maybe.of,
+  Maybe.map(upperCase),
+  Maybe.map(exclaim),
+);
+maybeScream('hi'); // "HI!!!"
+maybeScream(null); // null
+```
+
+  </div>
+</div>
+
+---
+layout: center
+---
+
+<h2 class="text-center">
+  🧑‍💻 Exercise <strong class="text-6xl">09</strong>
+  <div class="mt-5">⏰ 15 minutes</div>
+</h2>
+
+---
+
+<!--
+* A function `add1` that takes a value, adds 1 to it and returns the result.
+* Won't work on an array without making a special implementation for handling arrays: `add1([1, 2, 3])`.
+* Won't work on a promise without making a special implementation for handling promises: `add1(Promise.resolve(1))`.
+* So how do you apply `add1` (or any function) to an array or promise? `map` and `then` respectively.
+* `Array`'s `map` applies a function to the *contents* of the array. You get back a new array, but with different contents.
+* `Promise`'s `then` applies a function to a future value. You get back a new promise, but with different contents.
+* Arrays and promises are both (almost) functors: containers that have a way to apply functions to their contents.
+  * Exercise: implement List and Task?
+* Maybe.
+* Either.
+  * Exercise: implement Maybe and Either.
+* Functors don't have to be containers. There only needs to be a `map` that knows how to apply a function to a particular value.
+* In JS we use "namespaces" (POJOs) to keep these `map`s apart.
+  * Exercise: rewrite List, Task, Maybe and Either to a namespaced version.
+* Functor laws.
+* Task and why promises aren't functors (it's because promises also work with POJOs that have a `then` prop, I think)?
+* IO.
+  * Exercise: implement IO.
+-->
+
+---
+
+## Containers
+
+- A way to handle control flow, error handling, asynchronicity, state and effects
+- Associates a value with a "concept" by "wrapping" the value
+- Initially we use objects (and even classes!) to wrap the value
+
+```js
+class Container {
+  constructor(x) {
+    this._value = x
+  }
+}
+```
+
+---
+
+## `map()`
+
+- This obviously doesn't work:
+  ```js
+  const add1 = (x) => x + 1
+  const thing = new Container(2)
+  add1(thing) // '[object Object]1'
+  ```
+- We need a way to apply functions to containers, enter: `map()`
+
+```js {6-9|all}
+class Container {
+  constructor(x) {
+    this._value = x
+  }
+
+  map(fn) {
+    const newValue = fn(this._value)
+    return new Container(newValue)
+  }
+}
+
+const add1 = (x) => x + 1
+const thing = new Container(2)
+thing.map(add1) // { _value: 3 }
+```
+
+---
+
+## Array and Promise
+
+- Array:
+  - A container for ordered indexed values
+  - `Array.prototype.map`
+- Promise:
+  - A container for any future value
+  - `Promise.prototype.then`
+
+---
+
+## Optionality
+
+```js
+class Maybe {
+  get isNothing() {
+    return this._value === null || this._value === undefined
+  }
+
+  constructor(x) {
+    this._value = x
+  }
+
+  map(fn) {
+    return this.isNothing ? this : new Maybe(fn(this._value))
+  }
+}
+
+const add1 = (x) => x + 1
+
+new Maybe(2).map(add1)
+new Maybe(null).map(add1)
+new Maybe().map(add1)
+```
+
+- Examples
+- Use cases
+- How to retrieve the contained value (compare to Array and Promise)
+
+---
+
+## Pure error handling
+
+```js
+class Left {
+  constructor(message) {
+    this._value = message
+  }
+
+  map(fn) {
+    return this
+  }
+}
+
+class Right {
+  constructor(x) {
+    this._value = x
+  }
+
+  map(fn) {
+    const newValue = fn(this._value)
+    return new Either(newValue)
+  }
+}
+```
+
+- Examples
+- Use cases (not only error handling, it's a union type)
+- How to retrieve the contained value
+
+---
+
+## Each functor has its own map
+
+- No need to actually wrap a value in a container
+- Having different (namespaced) implementations of `map()` is enough
+- Functor is a type class, Maybe implements the functor type class (as does List, Either, etc)
+- Type classes: "These mathematical apis tend to capture most things we'd like to do in an interoperable, reusable way, rather than each library reinventing these functions for a single type."
+
+```js
+// Formerly known as Container
+const Identity = {
+  map: (fn) => (x) => fn(x),
+  // Or:
+  // map: identity,
+}
+
+const List = {
+  map: (fn) => (xs) => xs.map(fn),
+}
+
+const Maybe = {
+  isNothing: (x) => x === null || x === undefined,
+  map: (fn) => (x) => (isNothing(x) ? x : fn(x)),
+}
+
+const Left = (x) => ({
+  map: (_) => Left(x),
+})
+
+const Right = (x) => ({
+  map: (fn) => Right(fn(x)),
+})
+
+const Either = {
+  left: Left,
+  right: Right,
+  map: (fn) => (either) => either.map(fn),
+}
+```
+
+---
+
+## Pure side effects
+
+```js
+const IO = {
+  map: (fn) => (io) => () => fn(io()),
+}
+```
+
+- The containing "value" is a thunk
+- Examples
+- Use cases
+- How to retrieve the contained value
+
+---
+
+## Task?
+
+---
+
+## Functor laws
+
+- See page 64 of Mostly Adequate Guide
+- Algebraic properties, exercise with composing CSS transformations?
+
+---
+layout: section
+---
+
+# Monads
+
+<!--
+1. Briefly show the concepts and compare them to OOP
+   1. Declarative/imperative
+   2. Functions
+   3. Separate data and behavior (no classes; data, calculations and effects)
+   4. Immutability
+   5. Controlled side effects (laziness)
+   6. Recursion
+2. Functions
+   1. Pure functions (referential transparency)
+   2. Hindley-Milner type system
+   3. Function composition (compose/pipe, mention Lambda Calculus)
+   4. Currying (partial application, point-free style)
+   5. Total/partial functions (todo: move to Maybe/Either?)
+3. Functors
+   1. Value containers
+   2. Array and Promise are functors
+   3. map() (laws: page 64 of Mostly Adequate Guide)
+   4. Maybe
+   5. Either
+   6. IO
+   7. Task?
+4. Monads
+   1. Nested containers
+   2. Array and Promise (kind of) are monads
+   3. of() (laws: page 78)
+   4. flat() (join())
+   5. chain() (bind())
+   6. Maybe, Either, IO, Task
+5. Applicatives
+   1. Function containers
+   2. `ap()`
+   3. Use cases (monads run sequential, applicatives run parallel, ap works great for Tasks)
+   4. Maybe, Either, IO, Task
+6. Ord, Eq, Semigroup, Monoid
+-->
