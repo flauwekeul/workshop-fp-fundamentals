@@ -45,7 +45,38 @@ layout: center
 
 ---
 
-<h2 class="mb-3">Which is "better"?</h2>
+<h2 class="mb-3!">Why functional programming?</h2>
+
+<div v-click class="mb-3">A typical programmer's path to software supremacy:</div>
+
+<ul class="mb-3">
+
+<li v-click>👶🏼 Learn a language's syntax.</li>
+<li v-click>👦🏻 Learn abstractions.</li>
+<li v-click>👨🏾‍🎓 Learn <a href="https://en.wikipedia.org/wiki/Design_Patterns">Design Patterns</a>.</li>
+<li v-click>👨🏽 Learn to <em>not</em> over-engineer.</li>
+<li v-click>🧓🏼 Senior developer.</li>
+<li v-click>
+  <span v-mark.strike.red="8">💀 Die knowing what the value of <code>this</code>is <em>in any circumstance</em>.</span>
+</li>
+<li v-click>🤓 Learn functional programming.</li>
+<li v-click><img src="/doomgod-emoji.png" class="inline-block h-4 align-baseline"> Godlike developer.</li>
+
+</ul>
+
+<blockquote v-click cite="https://changelog.com/podcast/267" class="!p-5">
+  <p class="text-xl italic !mb-3">"[...] functional programming is a way to break out of [...] your local maximum, get to a higher hill where you can combine different paradigms."</p>
+  <footer class="!opacity-50">
+    — Eric Normand,
+    <cite>
+      <a href="https://changelog.com/podcast/267" target="_blank">The Changelog 267</a>
+    </cite>
+  </footer>
+</blockquote>
+
+---
+
+<h2 class="mb-3">Which do you prefer?</h2>
 
 <div class="flex gap-5">
   <div>
@@ -98,73 +129,77 @@ function getPublishedPageTitlesByAuthor(pages) {
 <!--
 - Ask people which code block they'd prefer to have in a code base they have to maintain.
 - Then explain the FP code and ask them to imagine being more familiar with FP. Do they still have the same preference?
+- Key take-aways:
+  - left is imperative, right is declarative / expressive.
+  - preference depends on familiarity
 -->
 
 ---
 
-## Why functional programming?
+<div class="flex">
+  <div class="flex-1 mr-5">
+  <h2 class="mb-5">🚫 Imperative style</h2>
 
-<p v-click>A typical programmer's path to software supremacy:</p>
+  <ol v-click="1" class="mb-3 text-sm">
+    <li>Take bread and cut 2 even slices by pushing and pulling a knife through the bread</li>
+    <li>Apply lump of butter on knife and apply uniformly to each slice</li>
+    <li>Pull 3 leaves of lettuce and arrange evenly on bread</li>
+    <li>…</li>
+  </ol>
 
-<div class="flex gap-5">
-  <div class="flex-1">
-  <v-clicks>
+  <div v-click="3" class="mt-5 mb-3 h-36">
 
-  1. 👶🏼 Learn a language's syntax.
-  2. 👦🏻 Learn abstractions.
-  3. 👨🏾‍🎓 Learn [Design Patterns](https://en.wikipedia.org/wiki/Design_Patterns).
-  4. 👨🏽 Learn to *not* over-engineer.
-  5. 🧓🏼 Senior developer.
+```js
+// Sum these numbers:
+const numbers = [1, 2, 3, 4, 5]
+let result = 0
+for (let i = 0; i < numbers.length; i++) {
+  result += numbers[i]
+}
+result // 15
+```
 
-  </v-clicks>
   </div>
-
-  <div class="flex-auto">
-    <img v-click src="/dunning-kruger-effect.png" class="h-60">
-  </div>
-</div>
-
-<blockquote v-click cite="https://changelog.com/podcast/267" class="mt-5 !p-5">
-  <p class="text-xl italic !mb-3">"[...] functional programming is a way to break out of [...] your local maximum, get to a higher hill where you can combine different paradigms."</p>
-  <footer class="!opacity-50">
-    — Eric Normand,
-    <cite>
-      <a href="https://changelog.com/podcast/267" target="_blank">The Changelog 267</a>
-    </cite>
-  </footer>
-</blockquote>
-
----
-
-<div class="flex gap-5">
-  <div class="flex-1">
-  <h2 class="mb-3">FP is difficult 🫣</h2>
-
-  <ul>
-    <li v-click>It's <em>unfamiliar</em></li>
-    <li v-click>It's like <em>learning to program</em> all over again</li>
-    <li v-click>It uses many <em>academic abstractions</em></li>
-  </ul>
-
-  <h3 v-click class="mt-8 mb-3">You should learn FP</h3>
-
-  <ul>
-    <li v-click>It's <em><a href="https://softwareengineering.stackexchange.com/questions/82902/is-functional-programming-just-different-or-is-it-actually-really-tougher">just different</a></em></li>
-    <li v-click>It makes you a <em>better programmer</em></li>
-    <li v-click>It may <em>improve</em> your code</li>
-    <li v-click>It's <em>fun</em>!</li>
+  <ul class="text-sm">
+    <li v-click="5">Implementation details</li>
+    <li v-click="7">Requires <em>reading</em></li>
+    <li v-click="9">Concerned with <em>how</em></li>
+    <li v-click="11">Statements</li>
   </ul>
   </div>
-
   <div class="flex-1">
+  <h2 class="mb-5">✅ Declarative style</h2>
 
-  <img v-click src="/fp-meme.webp" class="h-86">
+  <ol v-click="2" class="mb-30 text-sm">
+    <li>Make me a lettuce-tomato-cheese sandwich</li>
+  </ol>
 
+  <div v-click="4" class="mb-3 h-36">
+
+```js
+// Sum these numbers:
+const numbers = [1, 2, 3, 4, 5]
+
+numbers.reduce(add) // 15
+```
+
+  </div>
+
+  <ul class="text-sm">
+    <li v-click="6">Abstraction</li>
+    <li v-click="8">Requires <em>knowledge</em></li>
+    <li v-click="10">Concerned with <em>what</em></li>
+    <li v-click="12">Expressions</li>
+  </ul>
   </div>
 </div>
 
 <!--
-You'll learn to approach problems differently.
+Declarative style isn't monopolized by FP, but it comes more naturally.
+
+Similar to the difference between French and American recipes:
+- French: "Make mashed potatoes"
+- American: "Peel potatoes, boil for 20 mins with salt, mash with some milk and butter."
 -->
 
 ---
@@ -185,9 +220,9 @@ You'll learn to approach problems differently.
 
 ---
 
-<h2 class="mb-8">✋ Before we start</h2>
+<h2 class="mb-13">✋ Before we start</h2>
 
-<div v-click class="mb-8 text-2xl text-center">
+<div v-click class="mb-13 text-2xl text-center">
   <a href="https://github.com/flauwekeul/workshop-fp-fundamentals" target="_blank">
   github.com/flauwekeul/workshop-fp-fundamentals
   </a>
@@ -198,7 +233,7 @@ You'll learn to approach problems differently.
     <li v-click><span v-mark.strike.red="1">TypeScript</span>, just JavaScript 😵</li>
     <li v-click><span v-mark.strike.red="2">Copilot / AI Assistant</span> 🚫🤖</li>
     <li v-click><a href="https://quokkajs.com/" target="_blank">Quokka.js</a> 👉</li>
-    <li v-click>Inspired by <a href="https://ramdajs.com/" target="_blank">Ramda.js</a> 🐏</li>
+    <li v-click><a href="https://ramdajs.com/" target="_blank">Ramda.js</a> as the missing standard lib 🐏</li>
     <li v-click>Team up! 🤝</li>
   </ul>
 
@@ -629,15 +664,18 @@ const getUsers = (users) => (userIds) => map(id => users[id])(userIds);
 </v-click>
 
 ---
-hide: true
----
 
-<h2 class="mb-8"></h2>
+<h2 class="mb-13">✍️ Recap</h2>
 
-* When to use `flow`, `pipe` or a lambda?
-  * Use `flow` inside named functions, explicitly naming the arguments.
-  * Use `pipe` for inline compositions (point-free style).
-  * Use a lambda when you need a closure.
+<v-clicks>
+
+1. Functions can be <em>passed</em> and <em>returned</em> from other functions.
+2. Functions can be <em>composed</em> to create more complex functions.
+3. To compose functions, functions must <em>accept</em> and <em>return</em> 1 value.
+4. <em>Curried functions</em> are much easier to compose.
+5. Point-free style can <em>improve or hurt</em> readability.
+
+</v-clicks>
 
 ---
 
@@ -777,6 +815,8 @@ lastUser(nextUsers).name // 'Hank'
   </div>
 </div>
 
+<!-- Right side uses *persistent data structures*. -->
+
 ---
 layout: center
 ---
@@ -796,7 +836,7 @@ layout: center
   <img v-click v-motion :initial="{ x: -100 }" :enter="{ x: 0 }"  src="/yahtzee.jpg" :class="{'opacity-50': $clicks > 2}">
 
   <ul>
-  <li v-click>How the game works</li>
+  <li v-click><a href="http://localhost:5173/" target="_blank">Show the game</a></li>
   <li v-click>File structure and instructions</li>
   <li v-click><code>eslint-plugin-functional</code></li>
   <li v-click><a href="https://ramdajs.com/docs">ramdajs.com/docs</a></li>

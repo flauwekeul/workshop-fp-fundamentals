@@ -265,8 +265,6 @@ Declarative style isn't monopolized by FP, but it comes more naturally.
 
 ## Separate data and behavior
 
-<!-- todo: -->
-
 * Data, calculations and effects
 * Algebraic data types
 * [No classes](https://www.reddit.com/r/Clojure/comments/f791fm/comment/fiaebv5/):
@@ -353,8 +351,6 @@ Mutating state is essential, so is having shared state, but doing both at the sa
 
 ## Controlled side effects
 
-<!-- todo: -->
-
 * Explain (side) effects, lots of examples: https://stackoverflow.com/a/766736/660260
 * Why they're dangerous
 * Why they're essential (they're what make a program useful)
@@ -364,7 +360,7 @@ Mutating state is essential, so is having shared state, but doing both at the sa
 
 ## Recursion
 
-<!-- todo: -->
+<!-- todo: maybe include this as a bonus or something? -->
 
 * Enables iteration
 * How it works: base case, self-calling
@@ -390,8 +386,6 @@ Referential transparency
 ---
 
 <h2>🥪 Function composition</h2>
-
-<!-- todo: just use an example with numbers or something -->
 
 <div class="mb-5">
 
