@@ -2,7 +2,10 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-return-void */
 
+import { equals, flow, ifElse, path, pipe, tap, when } from 'ramda';
+import { anyScoresEmpty, decrementThrowsLeft, switchPlayer, updateHeldDie, updatePlayerScore } from './calculations.js';
 import { INITIAL_STATE } from './state.js';
+import { updateDiceValues } from './effects.js';
 import { on, queryElement } from './lib/dom.js';
 import {
   clearPossibleScores,
@@ -16,7 +19,6 @@ import {
   renderWinner,
 } from './lib/render.js';
 import { parseInt, randomInt } from './lib/utils.js';
-import { equals, path, pipe, when } from 'ramda';
 
 const onRollDice = on('click', queryElement('#roll-dice'));
 const onDieClick = on('change', queryElement('#dice'));
@@ -29,32 +31,40 @@ const app = (initialState) => {
     state = nextState;
   };
 
-  // Step 1️⃣
-  renderTableHeader(initialState);
-  highlightCurrentPlayer(initialState);
-  renderThrowsLeft(initialState);
+  flow(initialState, [tap(renderTableHeader), tap(highlightCurrentPlayer), tap(renderThrowsLeft)]);
 
-  onRollDice(() => {
-    // Steps 2️⃣ and 3️⃣
-    const nextState = {};
-    renderDice(nextState);
-    setState(nextState);
-  });
+  onRollDice(() =>
+    flow(state, [
+      updateDiceValues,
+      decrementThrowsLeft,
+      tap(renderDice),
+      tap(renderThrowsLeft),
+      tap(renderPossibleScores),
+      tap(setState),
+    ]),
+  );
 
-  onDieClick(() => {
-    // Step 4️⃣
-    const nextState = {};
-    renderDice(nextState);
-    setState(nextState);
-  });
+  onDieClick(
+    pipe(path(['target', 'name']), parseInt, (dieIndex) =>
+      flow(state, [updateHeldDie(dieIndex), tap(renderDice), tap(setState)]),
+    ),
+  );
 
-  onScoreClick(() => {
-    // Step 5️⃣
-    const nextState = {};
-    renderAllScores(nextState);
-    clearPossibleScores(nextState);
-    setState(nextState);
-  });
+  onScoreClick(
+    pipe(path(['target', 'dataset']), ({ scoreId, score }) =>
+      flow(state, [
+        updatePlayerScore(scoreId, parseInt(score)),
+        tap(renderAllScores),
+        tap(clearPossibleScores),
+        ifElse(
+          anyScoresEmpty,
+          pipe(switchPlayer, tap(renderDice), tap(renderThrowsLeft), tap(highlightCurrentPlayer)),
+          pipe(tap(renderTotalScore), tap(renderWinner)),
+        ),
+        tap(setState),
+      ]),
+    ),
+  );
 };
 
 app(INITIAL_STATE);

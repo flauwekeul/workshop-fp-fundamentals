@@ -2,7 +2,12 @@ import {
   __,
   always,
   any,
+  assoc,
+  assocPath,
   both,
+  chain,
+  curry,
+  dec,
   equals,
   filter,
   flow,
@@ -11,10 +16,14 @@ import {
   identity,
   ifElse,
   includes,
+  isNil,
   length,
   map,
   max,
   modify,
+  modifyPath,
+  not,
+  paths,
   pipe,
   pluck,
   prop,
@@ -39,22 +48,32 @@ import {
   YAHTZEE_SCORE,
 } from './state.js';
 
-export const decrementThrowsLeft = (state) => state;
+export const decrementThrowsLeft = (state) => modify('throwsLeft', dec, state);
 
-export const updateHeldDie = (dieIndex) => (state) => state;
+export const updateHeldDie = (dieIndex) => modifyPath(['dice', dieIndex, 'hold'], not);
 
-export const updatePlayerScore = (scoreId, score, state) => state;
+export const updatePlayerScore = curry((scoreId, score, state) =>
+  assocPath([state.currentPlayer, 'scores', scoreId], score, state),
+);
 
-const otherPlayer = (currentPlayer) => 'player1';
+const otherPlayer = (currentPlayer) => (currentPlayer === 'player1' ? 'player2' : 'player1');
 
-const resetThrowsLeft = (state) => state;
+const resetThrowsLeft = (state) => assoc('throwsLeft', MAX_THROWS, state);
 
-const resetHeldDice = (state) => state;
+const resetHeldDice = (state) => modify('dice', map(assoc('hold', false)), state);
 
 export const switchPlayer = (state) =>
   flow(state, [modify('currentPlayer', otherPlayer), resetThrowsLeft, resetHeldDice]);
 
-export const anyScoresEmpty = (state) => true;
+export const anyScoresEmpty = (state) =>
+  flow(state, [
+    paths([
+      ['player1', 'scores'],
+      ['player2', 'scores'],
+    ]),
+    chain(values),
+    any(isNil),
+  ]);
 
 /**
  * 🚫 The following functions are done. No need to change them.
