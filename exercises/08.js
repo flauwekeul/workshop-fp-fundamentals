@@ -66,8 +66,6 @@ export const result2 = flow(todos, [
   // toggle the first todo
 ]);
 
-// 👆👆👆 Only change code ABOVE 👆👆👆
-
 // Test your solution with Quokka:
 
 console.log(result2);

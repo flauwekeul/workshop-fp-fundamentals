@@ -31,12 +31,12 @@ console.log(result1); // 2
 export const pipeResult = null;
 export const flowResult = null;
 
-// 👆👆👆 Only change code ABOVE 👆👆👆
-
 // Test your solution with Quokka:
 
 console.log(pipeResult); // 2
 console.log(flowResult); // 2
+
+// 👆👆👆 Only change code ABOVE 👆👆👆
 
 /**
  * 🧑‍💻 Same idea as the previous exercise, but now the input value 3 is supplied by a
@@ -59,16 +59,16 @@ console.log(flowResult); // 2
 export const pipeCallbackResult = callWith3();
 export const flowCallbackResult = callWith3();
 
+// Test your solution with Quokka:
+
+console.log(pipeCallbackResult); // 2
+console.log(flowCallbackResult); // 2
+
 // 👆👆👆 Only change code ABOVE 👆👆👆
 
 function callWith3(callback = () => null) {
   return callback(3);
 }
-
-// Test your solution with Quokka:
-
-console.log(pipeCallbackResult); // 2
-console.log(flowCallbackResult); // 2
 
 /**
  * 🧑‍💻 Now write a function that will be called with 3 and uses pipe in its body.
@@ -85,12 +85,8 @@ console.log(flowCallbackResult); // 2
  * 💡 Hint: try to use as few lambdas as possible.
  */
 
-// 👇👇👇 Only change code BELOW 👇👇👇
-
 export const pipeFn = (three) => null;
 export const flowFn = (three) => null;
-
-// 👆👆👆 Only change code ABOVE 👆👆👆
 
 // Test your solution with Quokka:
 

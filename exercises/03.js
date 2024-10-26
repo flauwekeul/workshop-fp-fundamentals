@@ -18,13 +18,13 @@
 
 export const getServerStuff = (callback) => fetchJSON((json) => callback(json));
 
-// 👆👆👆 Only change code ABOVE 👆👆👆
-
 // Test your solution with Quokka:
 
 getServerStuff((json) => {
   console.log(json); // { data: true }
 });
+
+// 👆👆👆 Only change code ABOVE 👆👆👆
 
 export function fetchJSON(callback) {
   const json = { data: true };

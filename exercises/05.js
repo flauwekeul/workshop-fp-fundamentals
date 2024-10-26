@@ -59,11 +59,7 @@ console.log(result2); // 2
  * 💡 Hint: you could implement flow using pipe (or vice versa).
  */
 
-// 👇👇👇 Only change code BELOW 👇👇👇
-
 export const flow = null;
-
-// 👆👆👆 Only change code ABOVE 👆👆👆
 
 // Test your solution with Quokka:
 
