@@ -129,9 +129,10 @@ function getPublishedPageTitlesByAuthor(pages) {
 <!--
 - Ask people which code block they'd prefer to have in a code base they have to maintain.
 - Then explain the FP code and ask them to imagine being more familiar with FP. Do they still have the same preference?
-- Key take-aways:
+- Key takeaways:
   - left is imperative, right is declarative / expressive.
   - preference depends on familiarity
+  - right is simpler, *if* you're familiar with it
 -->
 
 ---
@@ -679,7 +680,10 @@ const getUsers = (users) => (userIds) => map(id => users[id])(userIds);
 
 ---
 
-<h2 class="mb-13">💎 Pure functions</h2>
+<h2 class="mb-5">💎 Pure functions</h2>
+
+<div class="grid grid-cols-2 gap-5">
+  <div>
 
 When is a function pure?
 
@@ -694,9 +698,31 @@ When is a function pure?
 
 <p class="!mt-13">What are side-effects?</p>
 
-  * Using implicit dependencies to read from and/or change the world.
+  * Using implicit dependencies to read from and/or change the environment.
 
 </v-clicks>
+
+  </div>
+  <div>
+
+<p v-click>Advantages:</p>
+
+<v-clicks>
+
+  * Easy testing
+  * Easy debugging
+  * Easy refactoring
+  * Easy caching (memoization, precomputing)
+  * Thread-safety (distribute work over multiple cores)
+
+</v-clicks>
+
+  </div>
+</div>
+
+<!--
+Precomputing: caching at build-time
+-->
 
 ---
 src: ./pure-functions.md
