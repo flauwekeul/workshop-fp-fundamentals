@@ -205,20 +205,41 @@ Similar to the difference between French and American recipes:
 
 ---
 
-<h2 class="mb-8">Agenda</h2>
+<h2 class="mb-13">Agenda</h2>
 
-<v-clicks>
+<div class="grid grid-cols-2 gap-5">
+  <div>
 
-1. ✋ Before we start
-2. 🧐 First-class functions
-3. 🧑‍🎨 Function composition
-4. 🍛 Currying
-5. 💎 Pure functions
-6. 🗿 Immutable state
-7. 🎲 Apply what you've learned
+  <h3 v-click class="mb-5">Part 1</h3>
 
-</v-clicks>
+  <v-clicks>
 
+  1. ✋ Before we start
+  2. 🧐 First-class functions
+  3. 🧑‍🎨 Function composition
+  4. 🍛 Currying
+  5. 💎 Pure functions
+  6. 🗿 Immutable state
+  7. 🎲 Apply what you've learned
+
+  </v-clicks>
+
+  </div>
+  <div>
+
+  <h3 v-click class="mb-5">Part 2</h3>
+
+  <v-clicks>
+
+  1. 📦 Functors
+  2. 🪺 Monads
+  3. 🚶 Applicatives
+  4. 🍹 Monoids
+
+  </v-clicks>
+
+  </div>
+</div>
 ---
 
 <h2 class="mb-13">✋ Before we start</h2>
@@ -932,3 +953,357 @@ map(double)([1, 2, 3]);
   </li>
   </ul>
 </div>
+
+---
+layout: image
+image: /mind-blown.gif
+---
+
+<h2 class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-2/3 text-9xl! text-blue-300 font-bold">Part 2</h2>
+
+---
+
+<h2>🤔 What about…</h2>
+
+<v-clicks>
+
+* Exceptions?
+* Optional values?
+* Nondeterminism?
+* Logging?
+* Mutable state?
+
+</v-clicks>
+
+<!--
+We either ignored some of these things or used ad-hoc solutions.
+But there's a more formal way to handle this...
+-->
+
+---
+
+<h2 class="mb-5">📦 Containers</h2>
+
+<div class="flex gap-x-8">
+  <div>
+
+  What do the last 2 lines have in common?
+
+```js
+const add1 = (x) => x + 1;
+
+[1, 2, 3].map(add1);           // [2, 3, 4]
+Promise.resolve(1).then(add1); // Promise {2}
+```
+
+  <div v-click class="mt-13">
+  A function (<code>add1</code>) is applied to the value(s) of a "container".
+  </div>
+
+  </div>
+  <div>
+
+  <p v-click>Takeaways:</p>
+
+  <ul>
+  <li v-click>Arrays and promises are <em>"containers"</em> for values.</li>
+  <li v-click><code>add1</code> doesn't need to know about any container.</li>
+  <li v-click>
+    <code>map</code> and <code>then</code> determine how <code>add1</code> is called:
+    <div class="-translate-x-4">
+
+```js
+Array.prototype.map = function(callback) {
+  // Pass each item to the callback
+}
+Promise.prototype.then = function(callback) {
+  // Wait until fulfilled, then pass value to callback
+}
+```
+
+  </div>
+  </li>
+  <li v-click><code>map</code> and <code>then</code> provide <em>function application</em> for their "containers".</li>
+  </ul>
+
+  </div>
+</div>
+
+---
+
+<h2 class="mb-5">🧩 A more functional API</h2>
+
+<div v-click="1">Instead of classes with methods, we're going to use (namespaced) <em>functions</em>.</div>
+
+<div class="grid grid-cols-2 gap-5">
+  <div v-click="2">
+
+  <code>Identity</code> is the simplest "container":
+
+```js{1-4|all}{at:3}
+const Identity = {
+  of: (x) => x,
+  map: (fn) => (x) => fn(x),
+};
+
+const compute = pipe(
+  Identity.of,
+  Identity.map((x) => x + 2),
+  Identity.map((x) => x * 3),
+);
+compute(1); // 9
+```
+
+  </div>
+  <div v-click="4">
+
+  <code>List</code> is equivalent to <code>Array</code>:
+
+```js{1-4|all}{at:5}
+const List = {
+  of: (x) => [x],
+  map: (fn) => (array) => array.map(fn),
+};
+
+const compute = pipe(
+  List.of,
+  List.map((x) => x + 2),
+  List.map((x) => x * 3),
+);
+compute(1); // [9]
+```
+
+  </div>
+</div>
+
+<div v-click="6" class="mt-8 text-center"><code>Identity</code> and <code>List</code> (and <code>Array</code>) are <em>functors</em>.</div>
+
+<!--
+* Let's not use methods, but (namespaced) functions.
+* `of` *lifts* a value into a "container".
+* `map` applies a function to the value(s) of the "container".
+* I don't show `Promise` because it's a bit complicated.
+* They're not really containers.
+-->
+
+---
+
+<h2 class="mb-8">📦 Functors</h2>
+
+<div class="flex gap-8">
+  <div>
+
+  <div class="mb-5">A functor provides a way to apply a function to value(s) in a <span v-mark.strike.red="1">container</span> <em v-click="1">context.</em></div>
+
+  <ul>
+    <li v-click="2"><code>List</code> (and <code>Array</code>) has the context of "multiple ordered values".</li>
+    <li v-click="3"><code>Promise</code> has the context of "a future value".</li>
+    <li v-click="4">
+      <code>Maybe</code> has the context of "a possible value".
+      <ul>
+      <li v-click="10">it ignores "empty" values</li>
+      <li v-click="11">it could save you an <code>if</code> statement</li>
+      </ul>
+    </li>
+  </ul>
+
+  </div>
+
+  <div v-click="5">
+
+```js{1-2|1-8|1-10|1-16|all}{at:6}
+const upperCase = (x) => x.toUpperCase();
+const exclaim = (x) => `${x}!!!`;
+
+const scream = pipe(
+  Identity.of,
+  Identity.map(upperCase),
+  Identity.map(exclaim),
+);
+scream('hi'); // "HI!!!"
+scream(null); // Error: Cannot read properties of null
+
+const maybeScream = pipe(
+  Maybe.of,
+  Maybe.map(upperCase),
+  Maybe.map(exclaim),
+);
+maybeScream('hi'); // "HI!!!"
+maybeScream(null); // null
+```
+
+  </div>
+</div>
+
+<!--
+`Maybe` is a.k.a. `Option` (`Just`/`Nothing`)
+-->
+
+---
+layout: center
+---
+
+<h2 class="text-center">
+  🧑‍💻 Exercise <strong class="text-6xl">09</strong>
+  <div class="mt-5">⏰ 10 minutes</div>
+</h2>
+
+---
+
+<h2 class="mb-5">🧤 Pure error handling</h2>
+
+`Either` is like `Maybe` but with more information.
+
+<div class="flex gap-5">
+  <div>
+
+  <div v-click class="mb-5">
+  It's <em>either</em> a <code>left</code> or a <code>right</code>:
+
+  ```js
+  Either.left(1)  // { _tag: 'Left', left: 1 }
+  Either.right(2) // { _tag: 'Right', right: 2 }
+  ```
+
+  </div>
+  <div v-click class="mb-5">
+  Usually <code>left</code> is an error and <code>right</code> a value:
+
+  ```js
+  Either.left('Error!') // { _tag: 'Left', left: 'Error!' }
+  Either.right(10)      // { _tag: 'Right', right: 10 }
+  ```
+
+  </div>
+  <div v-click class="flex gap-2">
+    <div>❓</div>
+    <div>Why is an <code>Either</code> an object instead of a plain value like <code>Maybe</code> is?</div>
+  </div>
+
+  </div>
+  <div v-click>
+
+```html
+<form>
+  <label for="username">Username</label>
+  <input id="username" name="username">
+</form>
+```
+
+```js{1-2|1-8|all}{at:5}
+const username = document.querySelector('#username');
+const oops = document.querySelector('#doesnt-exist');
+
+const valueOrFail = pipe(
+  Either.fromNullable('Element does not exist!'),
+  Either.map((el) => el.value),
+  // fixme: use fold
+  Either.value,
+);
+
+valueOrFail(username); // 'rupert9000'
+valueOrFail(oops); // 'Element does not exist!'
+```
+
+  </div>
+</div>
+
+---
+layout: center
+---
+
+<h2 class="text-center">
+  🧑‍💻 Exercise <strong class="text-6xl">10</strong>
+  <div class="mt-5">⏰ 15 minutes</div>
+</h2>
+
+---
+
+<h2 class="mb-13">✍️ Recap</h2>
+
+<ol class="mb-8">
+  <li v-click><code>Array</code>, <code>Promise</code>, <code>Maybe</code> and <code>Either</code> provide contexts for values.</li>
+  <li v-click>All implement <code>map</code> to apply functions to their values.</li>
+  <li v-click>All implement <code>map</code> in their own way.</li>
+  <li v-click>All<sup>*</sup> are <em>functor</em>s.</li>
+</ol>
+
+<p v-click="4" class="text-neutral-400">
+  <sup>*</sup> <code>Promise</code> isn't really a functor, but we'll get to that.
+</p>
+
+---
+
+<h2>🪆 Contained containers</h2>
+
+<!-- Problem: what if you use `map`, but the function also returns a functor?
+
+You get nested "containers".
+
+Solution: monads
+
+Other problems that monads solve? -->
+
+---
+
+Exercise: using monads
+
+---
+
+<h2>🍾 Pure side effects</h2>
+
+With `IO` you can *postpone* effects.
+
+```js
+const random = () => Math.random();
+const isGreatThanHalf = (x) => x > 0.5;
+
+const run = pipe(
+  IO.map(isGreatThanHalf)
+)
+```
+
+---
+
+<h2 class="mb-8">📚 Resources</h2>
+
+1. [Professor Frisby's Mostly Adequate Guide to Functional Programming](https://mostly-adequate.gitbook.io/mostly-adequate-guide)<br>
+    <span class="text-neutral-300">The best book to get started with FP, especially if you have a JS background.</span>
+
+2. [Grokking Simplicity](https://grokkingsimplicity.com/)<br>
+    <span class="text-neutral-300">Shows how to apply FP in a practical way.</span>
+
+3. [A Skeptic's Guide to Functional Programming with JavaScript](https://jrsinclair.com/skeptics-guide/)<br>
+    <span class="text-neutral-300">How to convince your colleagues to write code in an FP-style.</span>
+
+4. [JavaScript Allongé](https://leanpub.com/javascriptallongesix/read)<br>
+    <span class="text-neutral-300">Introduction to JS using FP.</span>
+
+5. [Domain Modeling Made Functional](https://fsharpforfunandprofit.com/books/)<br>
+    <span class="text-neutral-300">Shows how FP can be used in software architecture. Examples in F#.</span>
+
+---
+
+<!--
+1. Functors
+   1. Value containers
+   2. Array and Promise are functors
+   3. map() (laws: page 64 of Mostly Adequate Guide)
+   4. Maybe
+   5. Either
+   6. IO
+   7. Task?
+2. Monads
+   1. Nested containers
+   2. Array and Promise (kind of) are monads
+   3. of() (laws: page 78)
+   4. flat() (join())
+   5. chain() (bind())
+   6. Maybe, Either, IO, Task
+3. Applicatives
+   1. Function containers
+   2. `ap()`
+   3. Use cases (monads run sequential, applicatives run parallel, ap works great for Tasks)
+   4. Maybe, Either, IO, Task
+4. Ord, Eq, Semigroup, Monoid
+-->
