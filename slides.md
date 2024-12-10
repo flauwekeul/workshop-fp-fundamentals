@@ -524,7 +524,7 @@ assoc('a')(2)({ a: 1 }); // { a: 2 }
 
 const assocA =                             assoc('a');
 
-assocA(    2, { a: 1 }); // { a: 2 }
+assocA(    2)({ a: 1 }); // { a: 2 }
 
 const assocAWith2 =               (obj) => assocA(2)(obj);
 
@@ -537,7 +537,7 @@ assoc('a')(2)({ a: 1 }); // { a: 2 }
 
 const assocA =                             assoc('a');
 
-assocA(    2, { a: 1 }); // { a: 2 }
+assocA(    2)({ a: 1 }); // { a: 2 }
 
 const assocAWith2 =                        assocA(2);
 
@@ -550,7 +550,7 @@ assoc('a')(2)({ a: 1 }); // { a: 2 }
 
 const assocA = assoc('a');
 
-assocA(2, { a: 1 }); // { a: 2 }
+assocA(2)({ a: 1 }); // { a: 2 }
 
 const assocAWith2 = assocA(2);
 
@@ -854,6 +854,29 @@ layout: center
 
 ---
 
+<h2 class="mb-8">📚 Resources</h2>
+
+<v-clicks>
+
+1. [Professor Frisby's Mostly Adequate Guide to Functional Programming](https://mostly-adequate.gitbook.io/mostly-adequate-guide)<br>
+    <span class="text-neutral-300">The best book to get started with FP, especially if you have a JS background.</span>
+
+2. [Domain Modeling Made Functional](https://fsharpforfunandprofit.com/books/)<br>
+    <span class="text-neutral-300">Shows how FP can be used in software architecture. Examples in F#.</span>
+
+3. [A Skeptic's Guide to Functional Programming with JavaScript](https://jrsinclair.com/skeptics-guide/)<br>
+    <span class="text-neutral-300">How to convince your colleagues to write code in an FP-style.</span>
+
+4. [Grokking Simplicity](https://grokkingsimplicity.com/)<br>
+    <span class="text-neutral-300">Shows how to apply FP in a practical way <small>(new book by the same author: [Runnable Specifications](https://ericnormand.me/domain-modeling))</small>.</span>
+
+5. [JavaScript Allongé](https://leanpub.com/javascriptallongesix/read)<br>
+    <span class="text-neutral-300">Introduction to JS using FP.</span>
+
+</v-clicks>
+
+---
+
 <h2 class="mb-8">🎲 Apply what you've learned</h2>
 
 <div class="grid grid-cols-3 gap-5">
@@ -877,22 +900,3 @@ map(double)([1, 2, 3]);
   </li>
   </ul>
 </div>
-
----
-
-<h2 class="mb-8">📚 Resources</h2>
-
-1. [Professor Frisby's Mostly Adequate Guide to Functional Programming](https://mostly-adequate.gitbook.io/mostly-adequate-guide)<br>
-    <span class="text-neutral-300">The best book to get started with FP, especially if you have a JS background.</span>
-
-2. [Grokking Simplicity](https://grokkingsimplicity.com/)<br>
-    <span class="text-neutral-300">Shows how to apply FP in a practical way.</span>
-
-3. [A Skeptic's Guide to Functional Programming with JavaScript](https://jrsinclair.com/skeptics-guide/)<br>
-    <span class="text-neutral-300">How to convince your colleagues to write code in an FP-style.</span>
-
-4. [JavaScript Allongé](https://leanpub.com/javascriptallongesix/read)<br>
-    <span class="text-neutral-300">Introduction to JS using FP.</span>
-
-5. [Domain Modeling Made Functional](https://fsharpforfunandprofit.com/books/)<br>
-    <span class="text-neutral-300">Shows how FP can be used in software architecture. Examples in F#.</span>
