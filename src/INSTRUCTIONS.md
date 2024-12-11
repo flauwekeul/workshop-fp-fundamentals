@@ -10,7 +10,7 @@ Lines that start with "👀" have a link that shows how the previous 🧑‍💻
 
 ## Step 1️⃣
 
-Compose the 3 render functions in a functional style.
+Goal: compose the 3 render functions in a functional style.
 
 1. ❓ These render functions return nothing, what happens when you compose them with `pipe` or `flow`? (try it out!)
 
@@ -28,9 +28,11 @@ Compose the 3 render functions in a functional style.
 
 ## Step 2️⃣
 
-Create a new state with random dice.
+Goal: create a new state with random dice.
 
 1. 🧑‍💻 Update the `dice` property in `state` so that each die gets a random `value`. Assign the updated state to `nextState`. *Get it working first*, don't make the code too "pretty", you'll make it more FP-like in the coming steps.
+
+    💡 Hint: use the `randomInt` function from `src/lib/utils.js` to generate a random die value (between 1 and 6).
 
     👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/MYewdgzgLgBGCmAPKBlKBDK8YF4YG8AoGEmAOguk3gBpjSATAS2HgC4YqsznWyBbdAAcAFCICUuAHwwR+GADd0AGwCu7GAFlMACzIAzZSBAAnEdqh6T6MAxD8JMAFQwAbJIDUMAIw0YOkGUGDn0VCGwAX3FxQgiAbkIgA).
 
@@ -46,7 +48,7 @@ Create a new state with random dice.
 
     👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEEMAdIOgKwM4CgkEsC2kD2AnALqAN6jpSgC+oAZjluqAOQ7joAm4DA3CgMZYB2CAvwCmADzwBlPODwjQAXiJJQq0DA1DZIgDQq1rVDxEAuElAAUzfqzoARVLtBa5MQ8YCUe8tyA).
 
-5. 🧑‍💻 Now you're going to make a function that's responsible for updating the `dice` property in `state` when the user clicks the "Roll dice" button. It should accept and return the entire state object. Create this function in effects.js and call it in app.js.
+5. 🧑‍💻 Create a function in effects.js that's responsible for updating the `dice` property in `state`. It should accept and return the entire state object. Import and call this function in app.js
 
     👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEEMAdIOgKwM4CgkEsC2kD2AnALqAN6g7gB2AJlugCKoDGApqAL6gBmO1oA5DMI3btG9PAngIeKLGQBKWADYK6TABSqAlKAC8APiJJQR0PRkICZRgA88AZTzg8zbSXJVaDRqvOPGGgNyGxjiMlIw4Kl6WNva+AUFGCIx2Dk6q0SlxgSzxSCCggsKi4ogoGNj4RKDoUKwcXOi8pOgU4FJIpmTmrpTUdIwAauAKAK7OoJo6+gCyjgAWMOwKWLiqs3gLpL3okwBUoABsWgDUoACMgR1mBFvu-ToTWnoTxABuw2MAXD13qIMfXg0ABpQHNFBRvuxhklWLlrBUCJ1urc+p4Ht5Un4pi9QDA8T4nCCKJ5vjVIKoUR5GCCCYwYMSmFocoEgA).
 
@@ -74,7 +76,7 @@ Create a new state with random dice.
 
 ## Step 3️⃣
 
-Sort dice, only throw dice that aren't held and limit dice throws to 3 per round.
+Goal: sort dice, only throw dice that aren't held and limit dice throws to 3 per round.
 
 1. 🧑‍💻 Now you're going to sort the random dice. This makes it a bit easier to see which values are thrown. Remember exercise 07? Use that composition to sort the random dice in effects.js.
 
@@ -82,7 +84,7 @@ Sort dice, only throw dice that aren't held and limit dice throws to 3 per round
 
     👀 [Solution](https://www.typescriptlang.org/play/?strict=false&noImplicitAny=false&target=9&filetype=js#code/PTAEFMDNPBjAXAzgOgFaIFAYJYFsAOA9gE7ygDeoAhorOAHYAmANKLlfq7oY9pAJ6t82fOCHFCnUIhJkAvqEgTcoAOTEquRlVVZYheojIamhXABFs4AGpUANgFdwoALygAFAEpXAPlABZKngAC2RIO0ISd0CQ5BNGMy9QACpQADZvAGpQAEYAbj0DI1B4s0tnNySXP3dKADd7JwAuEqpTCytbR3AvVmDCO0YWyHtEZzlPAoxwAA8iUlB9Q2M2hI66Vw8jIPBvarYePn53VV46VSERHvZ8d1KO3dYZUncaOiZ3fAlb1Qbu1U8gM8T3gO0mGCAA).
 
-2. 🧑‍💻 A die's value should only be randomized unless it's `hold` property is `true`. Update de code in effects.js to make it work.
+2. 🧑‍💻 A die's value should only be randomized unless it's `hold` property is `true`. Update the code in effects.js to make it work.
 
     💡 Hint: use ramda's [unless](https://ramdajs.com/docs/#unless) for bonus points.
 
@@ -98,7 +100,7 @@ Sort dice, only throw dice that aren't held and limit dice throws to 3 per round
 
 ## Step 4️⃣
 
-Hold dice.
+Goal: hold dice.
 
 1. 🧑‍💻 When the user clicks on a die, the die's `hold` property should toggle. `updateHeldDie` in calculations.js is responsible for toggling the `hold` property of a single die in `state`. Use ramda's [`modifyPath`](https://ramdajs.com/docs/#modifyPath) to update a deeply nested part of `state`. The first argument of `modifyPath` is an array that describes a "path" towards this deeply nested property.
 
@@ -120,7 +122,7 @@ Hold dice.
 
 ## Step 5️⃣
 
-Choose scores, switch players or declare winner.
+Goal: choose scores, switch players or declare winner.
 
 1. 🧑‍💻 Once dice are thrown all possible scores are calculated and displayed. When a player chooses a score by clicking on one, the score needs to be stored in the state. This is done by `updatePlayerScore` in calculations.js. Make the following changes:
     * Curry the function (ramda has a function for that…).

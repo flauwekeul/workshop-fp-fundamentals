@@ -15,7 +15,7 @@ import {
   renderTotalScore,
   renderWinner,
 } from './lib/render.js';
-import { parseInt } from './lib/utils.js';
+import { parseInt, randomInt } from './lib/utils.js';
 import { equals, path, pipe, when } from 'ramda';
 
 const onRollDice = on('click', queryElement('#roll-dice'));

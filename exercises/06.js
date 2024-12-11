@@ -10,6 +10,10 @@
  * ```
  *
  * 💡 Hint: it's fine to use Array's `map` in the function body.
+ *
+ * 💡 Hint: make sure you don't use any unnecessary wrapper functions:
+ *    Instead of this: `fnA((x) => fnB(x))`, do this: `fnA(fnB)`
+ *    If you do, the next step in this exercise doesn't make sense 🙈
  */
 
 export const map = null;
@@ -24,8 +28,8 @@ const result1 = doubleAll(array);
 console.log(result1);
 
 /**
- * Use your `map` function on an array of string numbers and the global js `parseInt` function.
- * The goal is to parse each string into a number.
+ * 🧑‍💻 Use your `map` function on an array of string numbers and the global js `parseInt` function.
+ *    The goal is to parse each string into a number.
  *
  * ❓ Why doesn't it work when passing `parseInt` directly?
  *
