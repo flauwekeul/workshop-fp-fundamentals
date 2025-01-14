@@ -13,3 +13,8 @@ In this workshop you'll learn:
 Run `npm run slides` and open `http://localhost:3030/` to see the slides.
 
 Slides are made using [Slidev](https://sli.dev/).
+
+## Feedback
+
+* Less "toy examples" and more real-life examples.
+* Use code in the exercises that's also used in the final big exercise.

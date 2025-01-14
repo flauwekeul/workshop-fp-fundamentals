@@ -24,9 +24,9 @@
  *    1 argument, 2 arguments and more than 2 arguments.
  */
 
-export const flip = null;
+const flip = null;
 
-// Test your solution with Quokka:
+// Try it with Quokka:
 
 const subtract = (a, b) => a - b;
 const flippedSubtract = flip(subtract);
@@ -39,3 +39,30 @@ console.log(result2); // 1
 Array.of(1, 2, 3); // [1, 2, 3]
 const result3 = flip(Array.of)(1, 2, 3);
 console.log(result3); // [2, 1, 3]
+
+// Tests:
+
+if (import.meta.vitest) {
+  describe('flip', () => {
+    test('flips the first two arguments of a function', () => {
+      const subtract = (a, b) => a - b;
+      const flippedSubtract = flip(subtract);
+
+      expect(subtract(3, 4)).toBe(-1);
+      expect(flippedSubtract(3, 4)).toBe(1);
+    });
+
+    test('only flips the first two arguments', () => {
+      expect(Array.of(1, 2, 3)).toEqual([1, 2, 3]);
+      expect(flip(Array.of)(1, 2, 3)).toEqual([2, 1, 3]);
+    });
+
+    test('also works with less than two arguments', () => {
+      const negate = (a) => -a;
+      const flippedNegate = flip(negate);
+
+      expect(negate(3)).toBe(-3);
+      expect(flippedNegate(3)).toBe(-3);
+    });
+  });
+}

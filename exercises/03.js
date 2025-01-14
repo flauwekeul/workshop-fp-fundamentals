@@ -16,9 +16,9 @@
 
 // 👇👇👇 Only change code BELOW 👇👇👇
 
-export const getServerStuff = (callback) => fetchJSON((json) => callback(json));
+const getServerStuff = (callback) => fetchJSON((json) => callback(json));
 
-// Test your solution with Quokka:
+// Try it with Quokka:
 
 getServerStuff((json) => {
   console.log(json); // { data: true }
@@ -26,7 +26,20 @@ getServerStuff((json) => {
 
 // 👆👆👆 Only change code ABOVE 👆👆👆
 
-export function fetchJSON(callback) {
+function fetchJSON(callback) {
   const json = { data: true };
   callback(json);
+}
+
+// Tests:
+
+if (import.meta.vitest) {
+  describe('getServerStuff', () => {
+    test('calls the callback', () => {
+      const callback = vi.fn();
+      getServerStuff(callback);
+
+      expect(callback).toBeCalledWith({ data: true });
+    });
+  });
 }

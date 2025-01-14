@@ -62,9 +62,9 @@ const prop = null;
 
 // 👆👆👆 Only change code ABOVE 👆👆👆
 
-export const sortByAscendingValue = sort(ascend(prop('value')));
+const sortByAscendingValue = sort(ascend(prop('value')));
 
-// Test your solution with Quokka:
+// Try it with Quokka:
 
 const list = [{ value: 8 }, { value: 10 }, { value: 3 }, { value: 1 }, { value: -5 }];
 
@@ -73,3 +73,15 @@ console.log(result1);
 
 const result2 = sortByAscendingValue(list);
 console.log(result2);
+
+// Tests:
+
+if (import.meta.vitest) {
+  describe('sortByAscendingValue', () => {
+    test('sorts an array of numbers in ascending order', () => {
+      const result = sortByAscendingValue([{ value: 8 }, { value: 10 }, { value: 3 }, { value: 1 }, { value: -5 }]);
+
+      expect(result).toEqual([{ value: -5 }, { value: 1 }, { value: 3 }, { value: 8 }, { value: 10 }]);
+    });
+  });
+}

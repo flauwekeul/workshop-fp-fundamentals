@@ -28,7 +28,7 @@
 
 // 👇👇👇 Only change code BELOW 👇👇👇
 
-export const pipe = null;
+const pipe = null;
 
 // 👆👆👆 Only change code ABOVE 👆👆👆
 
@@ -36,7 +36,7 @@ const increment = (x) => x + 1;
 const double = (x) => x * 2;
 const quarter = (x) => x / 4;
 
-// Test your solution with Quokka:
+// Try it with Quokka:
 
 const result2 = pipe(increment, double, quarter)(3);
 console.log(result2); // 2
@@ -59,9 +59,39 @@ console.log(result2); // 2
  * 💡 Hint: you could implement flow using pipe (or vice versa).
  */
 
-export const flow = null;
+const flow = null;
 
-// Test your solution with Quokka:
+// Try it with Quokka:
 
 const result3 = flow(3, [increment, double, quarter]);
 console.log(result3); // 2
+
+// Tests:
+
+if (import.meta.vitest) {
+  describe('pipe', () => {
+    test('composes the passed functions left to right and applies the passed value to it', () => {
+      const increment = vi.fn((x) => x + 1);
+      const double = vi.fn((x) => x * 2);
+
+      const result = pipe(increment, double)(1);
+
+      expect(result).toBe(4);
+      expect(increment).toBeCalledWith(1);
+      expect(double).toBeCalledWith(2);
+    });
+  });
+
+  describe('flow', () => {
+    test('composes the passed functions left to right and applies the passed value to it', () => {
+      const increment = vi.fn((x) => x + 1);
+      const double = vi.fn((x) => x * 2);
+
+      const result = flow(1, [increment, double]);
+
+      expect(result).toBe(4);
+      expect(increment).toBeCalledWith(1);
+      expect(double).toBeCalledWith(2);
+    });
+  });
+}

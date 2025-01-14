@@ -66,6 +66,19 @@ export const result2 = flow(todos, [
   // toggle the first todo
 ]);
 
-// Test your solution with Quokka:
+// Try it with Quokka:
 
 console.log(result2);
+
+// Tests:
+
+if (import.meta.vitest) {
+  describe('todo list', () => {
+    test('has 2 items with the first done', () => {
+      expect(result2).toEqual([
+        { text: expect.any(String), done: true },
+        { text: expect.any(String), done: false },
+      ]);
+    });
+  });
+}

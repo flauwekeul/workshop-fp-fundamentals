@@ -28,10 +28,10 @@ console.log(result1); // 2
 
 // 👇👇👇 Only change code BELOW 👇👇👇
 
-export const pipeResult = null;
-export const flowResult = null;
+const pipeResult = null;
+const flowResult = null;
 
-// Test your solution with Quokka:
+// Try it with Quokka:
 
 console.log(pipeResult); // 2
 console.log(flowResult); // 2
@@ -56,10 +56,10 @@ console.log(flowResult); // 2
 
 // 👇👇👇 Only change code BELOW 👇👇👇
 
-export const pipeCallbackResult = callWith3();
-export const flowCallbackResult = callWith3();
+const pipeCallbackResult = callWith3();
+const flowCallbackResult = callWith3();
 
-// Test your solution with Quokka:
+// Try it with Quokka:
 
 console.log(pipeCallbackResult); // 2
 console.log(flowCallbackResult); // 2
@@ -85,10 +85,35 @@ function callWith3(callback = () => null) {
  * 💡 Hint: try to use as few lambdas as possible.
  */
 
-export const pipeFn = (three) => null;
-export const flowFn = (three) => null;
+const pipeFn = (three) => null;
+const flowFn = (three) => null;
 
-// Test your solution with Quokka:
+// Try it with Quokka:
 
 console.log(pipeFn(3)); // 2
 console.log(flowFn(3)); // 2
+
+// Tests:
+
+if (import.meta.vitest) {
+  describe('transforming in-place', () => {
+    test('transforms 3 into 2', () => {
+      expect(pipeResult).toBe(2);
+      expect(flowResult).toBe(2);
+    });
+  });
+
+  describe('transforming with a callback', () => {
+    test('transforms 3 into 2', () => {
+      expect(pipeCallbackResult).toBe(2);
+      expect(flowCallbackResult).toBe(2);
+    });
+  });
+
+  describe('transforming in a function', () => {
+    test('transforms 3 into 2', () => {
+      expect(pipeFn(3)).toBe(2);
+      expect(flowFn(3)).toBe(2);
+    });
+  });
+}
