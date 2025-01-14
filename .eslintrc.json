@@ -33,7 +33,7 @@
       ]
     }
   ],
-  "ignorePatterns": ["exercises/**/*.js", "*.test.*", "*.config.js"],
+  "ignorePatterns": ["exercises/**/*.js", "*.config.js"],
   "rules": {
     "no-unused-vars": "off"
   }
