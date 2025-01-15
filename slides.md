@@ -854,7 +854,39 @@ layout: center
 
 ---
 
-<h2 class="mb-8">📚 Resources</h2>
+<h2 class="mb-8">🎞️ Video recommendations</h2>
+
+<div class="grid grid-cols-3 gap-5">
+
+  <div v-click class="text-xs">
+  <Youtube id="vK1DazRK_a0" class="w-full mb-2" />
+  <span class="text-neutral-400">Rafal Dittwald</span><br>
+  Solving Problems the Clojure Way
+  </div>
+
+  <div v-click class="text-xs">
+  <Youtube id="3VQ382QG-y4" class="w-full mb-2" />
+  <span class="text-neutral-400">Gabriel Lebec</span><br>
+  Lambda Calculus - Fundamentals of Lambda Calculus & Functional Programming in JavaScript
+  </div>
+
+  <div v-click class="text-xs">
+  <Youtube id="P1vES9AgfC4" class="w-full mb-2" />
+  <span class="text-neutral-400">Scott Wlaschin</span><br>
+  Moving IO to the edges of your app: Functional Core, Imperative shell
+  </div>
+
+  <div v-click class="text-xs">
+  <Youtube id="SxdOUGdseq4" class="w-full mb-2" />
+  <span class="text-neutral-400">Rich Hickey</span><br>
+  "Simple Made Easy"
+  </div>
+
+</div>
+
+---
+
+<h2 class="mb-8">📚 Book recommendations</h2>
 
 <v-clicks>
 
