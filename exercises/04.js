@@ -2,11 +2,22 @@ import { flow, pipe } from 'ramda';
 
 /**
  * You're going to experiment with pipe and flow in three different scenarios:
- * - transforming a value in-place
+ * - transforming a value in-place (in the global scope)
  * - transforming a value that's passed to a callback
- * - transforming a value using a function
+ * - transforming a value in a function body
  *
  * 👉 The focus of this exercise is to compare the readability of pipe and flow.
+ *
+ * pipe and flow are called like so:
+ *
+ * ```js
+ * pipe(fn1, fn2, fn3)(someValue);
+ *
+ * flow(someValue, [fn1, fn2, fn3]);
+ *
+ * // "manual" equivalent:
+ * fn3(fn2(fn1(someValue)));
+ * ```
  */
 
 /**
