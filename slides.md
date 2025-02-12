@@ -884,6 +884,15 @@ layout: center
 
 </div>
 
+<!--
+Video recommendations:
+
+* [Solving Problems the Clojure Way](https://youtu.be/vK1DazRK_a0)
+* [Lambda Calculus - Fundamentals of Lambda Calculus & Functional Programming in JavaScript](https://youtu.be/3VQ382QG-y4)
+* [Moving IO to the edges of your app: Functional Core, Imperative shell](https://youtu.be/P1vES9AgfC4)
+* ["Simple Made Easy"](https://youtu.be/SxdOUGdseq4)
+-->
+
 ---
 
 <h2 class="mb-8">📚 Book recommendations</h2>
@@ -906,6 +915,16 @@ layout: center
     <span class="text-neutral-300">Introduction to JS using FP.</span>
 
 </v-clicks>
+
+<!--
+Book recommendations:
+
+* [Professor Frisby's Mostly Adequate Guide to Functional Programming](https://mostly-adequate.gitbook.io/mostly-adequate-guide)
+* [Domain Modeling Made Functional](https://fsharpforfunandprofit.com/books/)
+* [A Skeptic's Guide to Functional Programming with JavaScript](https://jrsinclair.com/skeptics-guide/)
+* [Grokking Simplicity](https://grokkingsimplicity.com/)
+* [JavaScript Allongé](https://leanpub.com/javascriptallongesix/read)
+-->
 
 ---
 
