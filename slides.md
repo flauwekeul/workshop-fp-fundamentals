@@ -34,11 +34,13 @@ layout: center
 -->
 
 ---
+layout: center
+---
 
 ## What is functional programming (FP)?
 
-<div v-click="[1, 2]" class="fixed top-[18vh] left-0 w-full text-[18vh] text-center text-fuchsia-600 font-black animate-bounce">MONADS!!</div>
-
+---
+layout: center
 ---
 
 ## What do you want to learn about FP?
